@@ -9,6 +9,18 @@ var usersRouter = require('./routes/users');
 
 var app = express();
 const port = 10086;
+const mongoose = require('mongoose');
+
+mongoose
+  .connect(
+    'mongodb+srv://neighborlyDev:nighborly@cluster0.qwucj.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0',
+    {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    }
+  )
+  .then(() => console.log('Connected to MongoDB'))
+  .catch((err) => console.error('Could not connect to MongoDB', err));
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
