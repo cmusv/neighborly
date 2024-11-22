@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { Modal } from 'antd';
 import { useChatroom } from '../contexts/ChatContext';
-import { useScrollToBottom } from '../hooks/useScrollToButtom';
+import { useScrollToBottom } from '../hooks/useScrollToBottom';
 import ChatHeader from '../components/Chat/ChatHeader';
 import ChatBubble from '../components/Chat/ChatBubble';
 import ChatInput from '../components/Chat/ChatInput';
