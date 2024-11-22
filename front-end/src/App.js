@@ -11,6 +11,11 @@ import ChatResident from "./pages/ChatResident";
 import ChatManager from "./pages/ChatManager";
 import MaintenanceResident from "./pages/MaintenanceResident";
 import MaintenanceManager from "./pages/MaintenanceManager";
+import { ChatProvider } from './contexts/ChatContext';
+
+const ChatRouteWrapper = ({ children }) => (
+    <ChatProvider>{children}</ChatProvider>
+  );
 
 // Define the orange theme
 const theme = createTheme({
@@ -45,8 +50,22 @@ const App = () => {
                     <Route path="/pet-tinder" element={<PetTinder />} />
                     <Route path="/exchange-board" element={<ExchangeBoard />} />
                     <Route path="/pay-rent" element={<PayRent />} />
-                    <Route path="/chat-resident" element={<ChatResident />} />
-                    <Route path="/chat-manager" element={<ChatManager />} />
+                    <Route
+                        path="/chat-resident"
+                        element={
+                        <ChatRouteWrapper>
+                            <ChatResident />
+                        </ChatRouteWrapper>
+                        }
+                    />
+                    <Route
+                        path="/chat-manager"
+                        element={
+                        <ChatRouteWrapper>
+                            <ChatManager />
+                        </ChatRouteWrapper>
+                        }
+                    />
                     <Route path="/maintenance-resident" element={<MaintenanceResident />} />
                     <Route path="/maintenance-manager" element={<MaintenanceManager />} />
                 </Routes>

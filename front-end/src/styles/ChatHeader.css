@@ -1,0 +1,27 @@
+.chat-header {
+    background-color: var(--color-header-bg);
+    padding: var(--spacing-md);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 60px;
+    box-shadow: var(--shadow-sm);
+  }
+  
+  .chat-title {
+    font-weight: bold;
+    font-size: 1.1em;
+  }
+  
+  .back-button,
+  .member-action-button,
+  .leave-button {
+    border: none;
+    background: transparent;
+  }
+  
+  .back-button:hover,
+  .member-action-button:hover,
+  .leave-button:hover {
+    background: rgba(0, 0, 0, 0.05);
+  }

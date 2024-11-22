@@ -1,0 +1,51 @@
+.chat-input-container {
+  background-color: #FFFFFF;
+  border-top: 1px solid #e8e8e8;
+  padding: 12px 16px;
+}
+
+.message-type-selector {
+  margin-bottom: 12px;
+}
+
+.radio-group .ant-radio-wrapper {
+  color: #666;
+}
+
+.radio-group .ant-radio-checked .ant-radio-inner {
+  border-color: #F2A600;
+  background-color: #F2A600;
+}
+
+.input-wrapper {
+  position: relative;
+}
+
+.message-input {
+  border-radius: 20px !important;
+  background-color: #f5f5f5 !important;
+  resize: none !important;
+}
+
+.message-input.ant-input {
+  padding: 8px 16px !important;
+}
+
+.message-input:hover,
+.message-input:focus {
+  border-color: transparent !important;
+  box-shadow: none !important;
+  outline: none !important;
+}
+
+.message-input.ant-input-textarea-show-count::after {
+  display: none;
+}
+
+.ant-radio-wrapper:hover .ant-radio-inner {
+  border-color: #F2A600;
+}
+
+.ant-radio-wrapper-checked:hover .ant-radio-inner {
+  border-color: #F2A600;
+}
