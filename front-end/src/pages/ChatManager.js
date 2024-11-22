@@ -23,6 +23,7 @@ const ChatManager = () => {
   // Check if we're already in manager role
   useEffect(() => {
     const storedUser = JSON.parse(localStorage.getItem('current_user'));
+    console.log('stored user in ChatManager:', storedUser);
     if (!storedUser || storedUser.role !== 'manager') {
       navigate('/');
     }

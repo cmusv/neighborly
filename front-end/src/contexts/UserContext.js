@@ -6,25 +6,37 @@ export const UserProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState(null);
 
   useEffect(() => {
-    initializeUser();
-  }, []);
-
-  const initializeUser = () => {
+    // Initialize user from localStorage if exists
     const storedUser = localStorage.getItem('current_user');
-    if (!storedUser) {
-      // Create a new resident user by default
-      const newUser = {
-        id: `user_${Date.now()}`,
-        name: `Resident ${Date.now()}`,
-        role: 'resident',
-        avatar: `/api/placeholder/32/32`,
-        isChatroomMember: false
-      };
-      localStorage.setItem('current_user', JSON.stringify(newUser));
-      setCurrentUser(newUser);
-    } else {
+    if (storedUser) {
       setCurrentUser(JSON.parse(storedUser));
     }
+  }, []);
+
+  const switchToResident = () => {
+    const storedUser = localStorage.getItem('current_user');
+    console.log('stored user in UserContext:', storedUser);
+    
+    // If there's a stored resident user, use that
+    if (storedUser) {
+      const user = JSON.parse(storedUser);
+      if (user.role === 'resident') {
+        setCurrentUser(user);
+        return;
+      }
+    }
+
+    // Only create new resident if no stored resident exists
+    const newUser = {
+      id: `user_${Date.now()}`,
+      name: `Resident ${Date.now()}`,
+      role: 'resident',
+      avatar: `/api/placeholder/32/32`,
+      isChatroomMember: false
+    };
+    
+    localStorage.setItem('current_user', JSON.stringify(newUser));
+    setCurrentUser(newUser);
   };
 
   const switchToManager = () => {
@@ -35,41 +47,16 @@ export const UserProvider = ({ children }) => {
       avatar: `/api/placeholder/32/32`,
       isChatroomMember: true
     };
+    
     localStorage.setItem('current_user', JSON.stringify(managerUser));
     setCurrentUser(managerUser);
-  };
-
-  const switchToResident = () => {
-    const currentStoredUser = JSON.parse(localStorage.getItem('current_user'));
-    if (currentStoredUser && currentStoredUser.role === 'resident') {
-      // If already a resident, keep the same user
-      setCurrentUser(currentStoredUser);
-    } else {
-      // Create new resident user
-      const newUser = {
-        id: `user_${Date.now()}`,
-        name: `Resident ${Date.now()}`,
-        role: 'resident',
-        avatar: `/api/placeholder/32/32`,
-        isChatroomMember: false
-      };
-      localStorage.setItem('current_user', JSON.stringify(newUser));
-      setCurrentUser(newUser);
-    }
-  };
-
-  const updateUser = (updates) => {
-    const updatedUser = { ...currentUser, ...updates };
-    localStorage.setItem('current_user', JSON.stringify(updatedUser));
-    setCurrentUser(updatedUser);
   };
 
   return (
     <UserContext.Provider value={{
       currentUser,
       switchToManager,
-      switchToResident,
-      updateUser
+      switchToResident
     }}>
       {children}
     </UserContext.Provider>

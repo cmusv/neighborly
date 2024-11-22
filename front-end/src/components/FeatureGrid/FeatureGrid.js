@@ -1,4 +1,3 @@
-// src/components/FeatureGrid/FeatureGrid.js
 import React from "react";
 import { Button, Grid } from "@mui/material";
 import { useNavigate } from "react-router-dom";
@@ -7,14 +6,28 @@ import { useUser } from '../../contexts/UserContext';
 
 const FeatureGrid = () => {
   const navigate = useNavigate();
-  const { currentUser, switchToManager, switchToResident } = useUser();
+  const { switchToManager, switchToResident } = useUser();
 
   // ============================== Chatroom ==============================
   const handleChatNavigation = (path) => {
     if (path === '/chat-resident') {
-      switchToResident();
+      const storedUser = JSON.parse(localStorage.getItem('current_user'));
       
-      if (!currentUser.isChatroomMember) {
+      if (!storedUser || storedUser.role === 'manager') {
+        // Switch to resident if needed
+        switchToResident();
+        // Show join modal for new resident
+        Modal.confirm({
+          title: 'Join Chatroom',
+          content: 'Would you like to join our community chatroom?',
+          okText: 'Yes',
+          cancelText: 'Cancel',
+          onOk: () => {
+            navigate('/chat-resident', { state: { shouldJoin: true } });
+          }
+        });
+      } else if (!storedUser.isChatroomMember) {
+        // Existing resident but not a member
         Modal.confirm({
           title: 'Join Chatroom',
           content: 'Would you like to join our community chatroom?',
@@ -25,6 +38,7 @@ const FeatureGrid = () => {
           }
         });
       } else {
+        // Existing resident and already a member
         navigate('/chat-resident');
       }
     } else if (path === '/chat-manager') {

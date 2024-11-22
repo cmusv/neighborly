@@ -11,41 +11,70 @@ export const ChatProvider = ({ children }) => {
   const [isInitialized, setIsInitialized] = useState(false);
 
   useEffect(() => {
+    const storedUser = localStorage.getItem('current_user');
+    if (storedUser) {
+      setCurrentUser(JSON.parse(storedUser));
+    }
+  }, []);
+
+  // Initialize chat data once
+  useEffect(() => {
+    console.log('Initializing data...');
     if (!isInitialized) {
       initializeData();
       setIsInitialized(true);
     }
   }, [isInitialized]);
 
+  // Listen for storage changes (for multi-tab support)
+  useEffect(() => {
+    const handleStorageChange = () => {
+      const storedUser = localStorage.getItem('current_user');
+      if (storedUser) {
+        setCurrentUser(JSON.parse(storedUser));
+      }
+    };
+
+    window.addEventListener('storage', handleStorageChange);
+    return () => window.removeEventListener('storage', handleStorageChange);
+  }, []);
+
   const initializeData = () => {
-    // Load current user first
     const storedUser = localStorage.getItem('current_user');
     if (storedUser) {
       setCurrentUser(JSON.parse(storedUser));
     }
 
-    // Check if data exists in localStorage
+    // Generate fake members
+    const initialFakeMembers = Array.from({ length: 242 }, (_, i) => ({
+      id: `user${i}`,
+      name: `User ${i}`,
+      avatar: `/api/placeholder/32/32`,
+      joinedAt: new Date().toISOString()
+    }));
+
+    // Add manager as first member
+    initialFakeMembers.unshift({
+      id: 'manager1',
+      name: 'Building Manager',
+      avatar: `/api/placeholder/32/32`,
+      joinedAt: new Date().toISOString()
+    });
+
+    // Check if fake members already exist in localStorage
+    const storedFakeMembers = localStorage.getItem('default_chatroom_members');
+    if (!storedFakeMembers) {
+      // Save fake members to localStorage if not already saved
+      localStorage.setItem('default_chatroom_members', JSON.stringify(initialFakeMembers));
+    }
+
+    // Check if chatroom members and other data exist
     const storedMembers = localStorage.getItem('chatroom_members');
     const storedMessages = localStorage.getItem('chatroom_messages');
     const storedChatroomData = localStorage.getItem('chatroom_data');
 
     if (!storedMembers) {
-      // Generate fake initial data
-      const initialMembers = Array.from({ length: 242 }, (_, i) => ({
-        id: `user${i}`,
-        name: `User ${i}`,
-        avatar: `/api/placeholder/32/32`,
-        joinedAt: new Date().toISOString()
-      }));
-
-      // Add manager as first member
-      initialMembers.unshift({
-        id: 'manager1',
-        name: 'Building Manager',
-        avatar: `/api/placeholder/32/32`,
-        joinedAt: new Date().toISOString()
-      });
-
+      // First-time initialization of chatroom state
       const initialMessages = [
         {
           id: 'msg1',
@@ -60,26 +89,21 @@ export const ChatProvider = ({ children }) => {
 
       const initialChatroomData = {
         name: 'Our Community',
-        totalMembers: initialMembers.length
+        totalMembers: initialFakeMembers.length
       };
 
-      // Store initial data
-      localStorage.setItem('chatroom_members', JSON.stringify(initialMembers));
+      localStorage.setItem('chatroom_members', JSON.stringify(initialFakeMembers));
       localStorage.setItem('chatroom_messages', JSON.stringify(initialMessages));
       localStorage.setItem('chatroom_data', JSON.stringify(initialChatroomData));
 
-      // Set state once
-      setMembers(initialMembers);
+      setMembers(initialFakeMembers);
       setMessages(initialMessages);
       setChatroomData(initialChatroomData);
     } else {
       // Load existing data
       setMembers(JSON.parse(storedMembers));
-      setMessages(storedMessages ? JSON.parse(storedMessages) : []);
-      setChatroomData(storedChatroomData ? JSON.parse(storedChatroomData) : {
-        name: 'Our Community',
-        totalMembers: 0
-      });
+      setMessages(JSON.parse(storedMessages) || []);
+      setChatroomData(JSON.parse(storedChatroomData) || { name: 'Our Community', totalMembers: 0 });
     }
   };
 
@@ -101,6 +125,10 @@ export const ChatProvider = ({ children }) => {
     setCurrentUser(updatedUser);
 
     setMembers(prev => {
+      // Retrieve fake members from localStorage
+      const fakeMembers = JSON.parse(localStorage.getItem('default_chatroom_members')) || [];
+
+      // Add the current resident to the members list
       const newMember = {
         id: updatedUser.id,
         name: updatedUser.name,
@@ -108,7 +136,9 @@ export const ChatProvider = ({ children }) => {
         joinedAt: new Date().toISOString()
       };
 
-      const updated = [...prev, newMember];
+      // Merge fake members and ensure no duplicates
+      const memberIds = new Set(prev.map(m => m.id));
+      const updated = [...prev, ...fakeMembers.filter(m => !memberIds.has(m.id)), newMember];
       localStorage.setItem('chatroom_members', JSON.stringify(updated));
       updateChatroomData(updated);
       return updated;
@@ -124,6 +154,7 @@ export const ChatProvider = ({ children }) => {
     setCurrentUser(updatedUser);
 
     setMembers(prev => {
+      // Exclude the current resident from the members list
       const updated = prev.filter(member => member.id !== updatedUser.id);
       localStorage.setItem('chatroom_members', JSON.stringify(updated));
       updateChatroomData(updated);
@@ -154,18 +185,28 @@ export const ChatProvider = ({ children }) => {
 
   const removeMembers = (memberIds) => {
     setMembers(prev => {
-      const updated = prev.filter(member => !memberIds.includes(member.id));
-      localStorage.setItem('chatroom_members', JSON.stringify(updated));
-      updateChatroomData(updated);
-      
+      // Filter out the removed members
+      const updatedMembers = prev.filter(member => !memberIds.includes(member.id));
+  
+      // Update chatroom_members in localStorage
+      localStorage.setItem('chatroom_members', JSON.stringify(updatedMembers));
+  
+      // Also update default_chatroom_members in localStorage
+      const defaultMembers = JSON.parse(localStorage.getItem('default_chatroom_members')) || [];
+      const updatedDefaultMembers = defaultMembers.filter(member => !memberIds.includes(member.id));
+      localStorage.setItem('default_chatroom_members', JSON.stringify(updatedDefaultMembers));
+  
+      // Update chatroom data
+      updateChatroomData(updatedMembers);
+  
       Modal.success({
         content: 'Selected members are removed.',
         duration: 0.5,
       });
-
-      return updated;
+  
+      return updatedMembers;
     });
-  };
+  };  
 
   const setUserRole = (role) => {
     const newUser = {
@@ -175,7 +216,7 @@ export const ChatProvider = ({ children }) => {
       avatar: `/api/placeholder/32/32`,
       isChatroomMember: role === 'manager'
     };
-    
+
     localStorage.setItem('current_user', JSON.stringify(newUser));
     setCurrentUser(newUser);
   };
@@ -204,3 +245,5 @@ export const useChatroom = () => {
   }
   return context;
 };
+
+export default ChatContext;
