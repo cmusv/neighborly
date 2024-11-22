@@ -12,6 +12,10 @@
     font-weight: bold;
     font-size: 1.1em;
   }
+
+  .primary-color {
+    color: #1890ff;
+  }
   
   .back-button,
   .member-action-button,
