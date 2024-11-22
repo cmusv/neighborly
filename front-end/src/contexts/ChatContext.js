@@ -8,14 +8,27 @@ export const ChatProvider = ({ children }) => {
   const [messages, setMessages] = useState([]);
   const [chatroomData, setChatroomData] = useState({ name: '', totalMembers: 0 });
   const [currentUser, setCurrentUser] = useState(null);
+  const [isInitialized, setIsInitialized] = useState(false);
 
   useEffect(() => {
-    initializeData();
-  }, []);
+    if (!isInitialized) {
+      initializeData();
+      setIsInitialized(true);
+    }
+  }, [isInitialized]);
 
   const initializeData = () => {
+    // Load current user first
+    const storedUser = localStorage.getItem('current_user');
+    if (storedUser) {
+      setCurrentUser(JSON.parse(storedUser));
+    }
+
     // Check if data exists in localStorage
     const storedMembers = localStorage.getItem('chatroom_members');
+    const storedMessages = localStorage.getItem('chatroom_messages');
+    const storedChatroomData = localStorage.getItem('chatroom_data');
+
     if (!storedMembers) {
       // Generate fake initial data
       const initialMembers = Array.from({ length: 242 }, (_, i) => ({
@@ -45,37 +58,88 @@ export const ChatProvider = ({ children }) => {
         }
       ];
 
+      const initialChatroomData = {
+        name: 'Our Community',
+        totalMembers: initialMembers.length
+      };
+
       // Store initial data
       localStorage.setItem('chatroom_members', JSON.stringify(initialMembers));
       localStorage.setItem('chatroom_messages', JSON.stringify(initialMessages));
-      localStorage.setItem('chatroom_data', JSON.stringify({
-        name: 'Our Community',
-        totalMembers: initialMembers.length
-      }));
+      localStorage.setItem('chatroom_data', JSON.stringify(initialChatroomData));
 
+      // Set state once
       setMembers(initialMembers);
       setMessages(initialMessages);
-      setChatroomData({
-        name: 'Our Community',
-        totalMembers: initialMembers.length
-      });
+      setChatroomData(initialChatroomData);
     } else {
       // Load existing data
       setMembers(JSON.parse(storedMembers));
-      setMessages(JSON.parse(localStorage.getItem('chatroom_messages') || '[]'));
-      setChatroomData(JSON.parse(localStorage.getItem('chatroom_data') || '{}'));
-      setCurrentUser(JSON.parse(localStorage.getItem('current_user')));
+      setMessages(storedMessages ? JSON.parse(storedMessages) : []);
+      setChatroomData(storedChatroomData ? JSON.parse(storedChatroomData) : {
+        name: 'Our Community',
+        totalMembers: 0
+      });
     }
   };
 
+  const updateChatroomData = (newMembers) => {
+    const updatedChatroomData = {
+      ...chatroomData,
+      totalMembers: newMembers.length
+    };
+    localStorage.setItem('chatroom_data', JSON.stringify(updatedChatroomData));
+    setChatroomData(updatedChatroomData);
+  };
+
+  const joinChatroom = () => {
+    const storedUser = JSON.parse(localStorage.getItem('current_user'));
+    if (!storedUser) return;
+
+    const updatedUser = { ...storedUser, isChatroomMember: true };
+    localStorage.setItem('current_user', JSON.stringify(updatedUser));
+    setCurrentUser(updatedUser);
+
+    setMembers(prev => {
+      const newMember = {
+        id: updatedUser.id,
+        name: updatedUser.name,
+        avatar: updatedUser.avatar,
+        joinedAt: new Date().toISOString()
+      };
+
+      const updated = [...prev, newMember];
+      localStorage.setItem('chatroom_members', JSON.stringify(updated));
+      updateChatroomData(updated);
+      return updated;
+    });
+  };
+
+  const leaveChatroom = () => {
+    const storedUser = JSON.parse(localStorage.getItem('current_user'));
+    if (!storedUser) return;
+
+    const updatedUser = { ...storedUser, isChatroomMember: false };
+    localStorage.setItem('current_user', JSON.stringify(updatedUser));
+    setCurrentUser(updatedUser);
+
+    setMembers(prev => {
+      const updated = prev.filter(member => member.id !== updatedUser.id);
+      localStorage.setItem('chatroom_members', JSON.stringify(updated));
+      updateChatroomData(updated);
+      return updated;
+    });
+  };
+
   const addMessage = (content, type = 'regular') => {
-    if (!currentUser) return;
+    const storedUser = JSON.parse(localStorage.getItem('current_user'));
+    if (!storedUser) return;
 
     const newMessage = {
       id: `msg_${Date.now()}`,
-      senderId: currentUser.id,
-      senderName: currentUser.name,
-      senderAvatar: currentUser.avatar,
+      senderId: storedUser.id,
+      senderName: storedUser.name,
+      senderAvatar: storedUser.avatar,
       content,
       timestamp: new Date().toISOString(),
       type
@@ -92,11 +156,7 @@ export const ChatProvider = ({ children }) => {
     setMembers(prev => {
       const updated = prev.filter(member => !memberIds.includes(member.id));
       localStorage.setItem('chatroom_members', JSON.stringify(updated));
-      
-      const newTotalMembers = updated.length;
-      const updatedChatroomData = { ...chatroomData, totalMembers: newTotalMembers };
-      localStorage.setItem('chatroom_data', JSON.stringify(updatedChatroomData));
-      setChatroomData(updatedChatroomData);
+      updateChatroomData(updated);
       
       Modal.success({
         content: 'Selected members are removed.',
@@ -105,51 +165,6 @@ export const ChatProvider = ({ children }) => {
 
       return updated;
     });
-  };
-
-  const joinChatroom = () => {
-    if (!currentUser?.isChatroomMember) {
-      const updatedUser = { ...currentUser, isChatroomMember: true };
-      setCurrentUser(updatedUser);
-      localStorage.setItem('current_user', JSON.stringify(updatedUser));
-
-      setMembers(prev => {
-        const updated = [...prev, {
-          id: currentUser.id,
-          name: currentUser.name,
-          avatar: currentUser.avatar,
-          joinedAt: new Date().toISOString()
-        }];
-        localStorage.setItem('chatroom_members', JSON.stringify(updated));
-        
-        const newTotalMembers = updated.length;
-        const updatedChatroomData = { ...chatroomData, totalMembers: newTotalMembers };
-        localStorage.setItem('chatroom_data', JSON.stringify(updatedChatroomData));
-        setChatroomData(updatedChatroomData);
-        
-        return updated;
-      });
-    }
-  };
-
-  const leaveChatroom = () => {
-    if (currentUser?.isChatroomMember) {
-      const updatedUser = { ...currentUser, isChatroomMember: false };
-      setCurrentUser(updatedUser);
-      localStorage.setItem('current_user', JSON.stringify(updatedUser));
-
-      setMembers(prev => {
-        const updated = prev.filter(member => member.id !== currentUser.id);
-        localStorage.setItem('chatroom_members', JSON.stringify(updated));
-        
-        const newTotalMembers = updated.length;
-        const updatedChatroomData = { ...chatroomData, totalMembers: newTotalMembers };
-        localStorage.setItem('chatroom_data', JSON.stringify(updatedChatroomData));
-        setChatroomData(updatedChatroomData);
-        
-        return updated;
-      });
-    }
   };
 
   const setUserRole = (role) => {
@@ -161,8 +176,8 @@ export const ChatProvider = ({ children }) => {
       isChatroomMember: role === 'manager'
     };
     
-    setCurrentUser(newUser);
     localStorage.setItem('current_user', JSON.stringify(newUser));
+    setCurrentUser(newUser);
   };
 
   return (

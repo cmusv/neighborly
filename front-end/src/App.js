@@ -12,6 +12,7 @@ import ChatManager from "./pages/ChatManager";
 import MaintenanceResident from "./pages/MaintenanceResident";
 import MaintenanceManager from "./pages/MaintenanceManager";
 import { ChatProvider } from './contexts/ChatContext';
+import { UserProvider } from './contexts/UserContext';
 
 const ChatRouteWrapper = ({ children }) => (
     <ChatProvider>{children}</ChatProvider>
@@ -43,33 +44,35 @@ const App = () => {
     return (
         <ThemeProvider theme={theme}>
             <CssBaseline />
-            <Router>
-                <Routes>
-                    <Route path="/" element={<Home />} />
-                    <Route path="/community-help" element={<CommunityHelp />} />
-                    <Route path="/pet-tinder" element={<PetTinder />} />
-                    <Route path="/exchange-board" element={<ExchangeBoard />} />
-                    <Route path="/pay-rent" element={<PayRent />} />
-                    <Route
-                        path="/chat-resident"
-                        element={
-                        <ChatRouteWrapper>
-                            <ChatResident />
-                        </ChatRouteWrapper>
-                        }
-                    />
-                    <Route
-                        path="/chat-manager"
-                        element={
-                        <ChatRouteWrapper>
-                            <ChatManager />
-                        </ChatRouteWrapper>
-                        }
-                    />
-                    <Route path="/maintenance-resident" element={<MaintenanceResident />} />
-                    <Route path="/maintenance-manager" element={<MaintenanceManager />} />
-                </Routes>
-            </Router>
+            <UserProvider>
+                <Router>
+                    <Routes>
+                        <Route path="/" element={<Home />} />
+                        <Route path="/community-help" element={<CommunityHelp />} />
+                        <Route path="/pet-tinder" element={<PetTinder />} />
+                        <Route path="/exchange-board" element={<ExchangeBoard />} />
+                        <Route path="/pay-rent" element={<PayRent />} />
+                        <Route
+                            path="/chat-resident"
+                            element={
+                            <ChatRouteWrapper>
+                                <ChatResident />
+                            </ChatRouteWrapper>
+                            }
+                        />
+                        <Route
+                            path="/chat-manager"
+                            element={
+                            <ChatRouteWrapper>
+                                <ChatManager />
+                            </ChatRouteWrapper>
+                            }
+                        />
+                        <Route path="/maintenance-resident" element={<MaintenanceResident />} />
+                        <Route path="/maintenance-manager" element={<MaintenanceManager />} />
+                    </Routes>
+                </Router>
+            </UserProvider>
         </ThemeProvider>
     );
 };

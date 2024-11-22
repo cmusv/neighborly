@@ -18,17 +18,25 @@ const ChatResident = () => {
     leaveChatroom,
     setUserRole,
     joinChatroom,
+    currentUser
   } = useChatroom();
 
   const messagesEndRef = useScrollToBottom(messages);
 
   useEffect(() => {
-    setUserRole('resident');
+    const user = JSON.parse(localStorage.getItem('current_user'));
+    if (!user) {
+      navigate('/');
+      return;
+    }
+    if (!currentUser || currentUser.role !== 'resident') {
+      setUserRole('resident');
+    }
     
-    if (location.state?.shouldJoin) {
+    if (location.state?.shouldJoin && !user.isChatroomMember) {
       joinChatroom();
     }
-  }, [setUserRole, joinChatroom, location.state?.shouldJoin]);
+  }, [joinChatroom, setUserRole, location.state?.shouldJoin, navigate, currentUser])
 
   const handleBack = () => {
     navigate('/');
@@ -46,6 +54,11 @@ const ChatResident = () => {
       }
     });
   };
+
+  if (!currentUser) {
+    console.error('User not found');
+    return null;
+  }
 
   return (
     <div className="chat-container">

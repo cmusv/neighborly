@@ -10,15 +10,23 @@ import '../styles/Chat.css';
 
 const ChatManager = () => {
   const navigate = useNavigate();
-  const { messages, chatroomData, addMessage, setUserRole } = useChatroom();
+  const { messages, chatroomData, addMessage, currentUser } = useChatroom();
   const [showMemberList, setShowMemberList] = useState(false);
-
-  // Pass messages array as dependency to trigger scroll on new messages
   const messagesEndRef = useScrollToBottom(messages);
 
   useEffect(() => {
-    setUserRole('manager');
-  }, [setUserRole]);
+    if (!showMemberList) {
+      messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+    }
+  }, [showMemberList, messagesEndRef]);
+
+  // Check if we're already in manager role
+  useEffect(() => {
+    const storedUser = JSON.parse(localStorage.getItem('current_user'));
+    if (!storedUser || storedUser.role !== 'manager') {
+      navigate('/');
+    }
+  }, [navigate]);
 
   const handleBack = () => {
     navigate('/');
@@ -27,6 +35,19 @@ const ChatManager = () => {
   const handleMemberRemove = () => {
     setShowMemberList(true);
   };
+
+  const handleMemberListClose = () => {
+    setShowMemberList(false);
+    // small delay to ensure DOM is updated before scrolling
+    setTimeout(() => {
+      messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+    }, 100);
+  };
+
+  // If no user or not a manager, don't render anything
+  if (!currentUser || currentUser.role !== 'manager') {
+    return null;
+  }
 
   return (
     <div className="chat-container">
@@ -53,7 +74,7 @@ const ChatManager = () => {
         </>
       ) : (
         <MemberList
-          onBack={() => setShowMemberList(false)}
+          onBack={handleMemberListClose}
         />
       )}
     </div>
