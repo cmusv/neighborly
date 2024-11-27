@@ -202,6 +202,13 @@ export const ChatProvider = ({ children }) => {
       Modal.success({
         content: 'Selected members are removed.',
         duration: 0.5,
+        style: {
+          position: 'fixed',
+          top: '50%',
+          left: '50%',
+          transform: 'translate(-50%, -50%)',
+        },
+        getContainer: () => document.documentElement,
       });
   
       return updatedMembers;

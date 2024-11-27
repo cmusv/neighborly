@@ -6,7 +6,7 @@ import { Box } from "@mui/material";
 
 const Home = () => {
     return (
-        <div className="bg-accent min-h-screen flex flex-col w-full">
+        <div className="bg-accent h-screen flex flex-col w-full">
             {/* Header */}
             <Header />
             {/* Content Wrapper */}

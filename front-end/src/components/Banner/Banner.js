@@ -23,9 +23,9 @@ const Banner = () => {
                 src="/assets/banner-image.png"
                 alt="Community Illustration"
                 style={{
-                    height: "20vh", // Height is 10% of the viewport height
+                    height: "auto", // Height is 10% of the viewport height
                     maxHeight: "200px", // Maximum height constraint
-                    width: "auto",
+                    width: "100vw", // Maintain aspect ratio
                 }}
             />
         </Box>
