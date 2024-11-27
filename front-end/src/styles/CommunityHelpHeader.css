@@ -1,0 +1,47 @@
+/* Header Container */
+.community-help-header {
+    background-color: #fbe4b2;
+    position: relative;
+    padding: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 60px;
+    box-shadow: var(--shadow-sm);
+}
+
+/* Home + Arrow Container */
+.header-left {
+    position: absolute;
+    left: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    color: #1890ff;
+}
+
+.header-left:hover {
+    color: #007aff; /* Darker blue on hover */
+}
+
+.back-icon {
+    font-size: 20px;
+}
+
+.home-text {
+    font-size: 16px;
+    text-decoration: none;
+}
+
+/* Centered Title */
+.header-title {
+    font-size: 20px;
+    color: #333;
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+}
