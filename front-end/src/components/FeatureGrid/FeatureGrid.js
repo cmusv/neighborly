@@ -3,12 +3,13 @@ import { Button, Grid } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { Modal } from "antd";
 import { useUser } from '../../contexts/UserContext';
+import '../../styles/Modal.css';
+import {confirmModalConfig} from '../Chat/ModalConfig';
 
 const FeatureGrid = () => {
   const navigate = useNavigate();
   const { switchToManager, switchToResident } = useUser();
 
-  // ============================== Chatroom ==============================
   const handleChatNavigation = (path) => {
     if (path === '/chat-resident') {
       const storedUser = JSON.parse(localStorage.getItem('current_user'));
@@ -18,17 +19,9 @@ const FeatureGrid = () => {
         switchToResident();
         // Show join modal for new resident
         Modal.confirm({
+          ...confirmModalConfig,
           title: 'Join Chatroom',
           content: 'Would you like to join our community chatroom?',
-          okText: 'Yes',
-          cancelText: 'Cancel',
-          style: {
-            position: 'fixed',
-            top: '50%',
-            left: '50%',
-            transform: 'translate(-50%, -50%)',
-          },
-          getContainer: () => document.documentElement,
           onOk: () => {
             navigate('/chat-resident', { state: { shouldJoin: true } });
           }
@@ -36,17 +29,9 @@ const FeatureGrid = () => {
       } else if (!storedUser.isChatroomMember) {
         // Existing resident but not a member
         Modal.confirm({
+          ...confirmModalConfig,
           title: 'Join Chatroom',
           content: 'Would you like to join our community chatroom?',
-          okText: 'Yes',
-          cancelText: 'Cancel',
-          style: {
-            position: 'fixed',
-            top: '50%',
-            left: '50%',
-            transform: 'translate(-50%, -50%)',
-          },
-          getContainer: () => document.documentElement,
           onOk: () => {
             navigate('/chat-resident', { state: { shouldJoin: true } });
           }
