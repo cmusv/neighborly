@@ -22,6 +22,13 @@ const FeatureGrid = () => {
           content: 'Would you like to join our community chatroom?',
           okText: 'Yes',
           cancelText: 'Cancel',
+          style: {
+            position: 'fixed',
+            top: '50%',
+            left: '50%',
+            transform: 'translate(-50%, -50%)',
+          },
+          getContainer: () => document.documentElement,
           onOk: () => {
             navigate('/chat-resident', { state: { shouldJoin: true } });
           }
@@ -33,6 +40,13 @@ const FeatureGrid = () => {
           content: 'Would you like to join our community chatroom?',
           okText: 'Yes',
           cancelText: 'Cancel',
+          style: {
+            position: 'fixed',
+            top: '50%',
+            left: '50%',
+            transform: 'translate(-50%, -50%)',
+          },
+          getContainer: () => document.documentElement,
           onOk: () => {
             navigate('/chat-resident', { state: { shouldJoin: true } });
           }
