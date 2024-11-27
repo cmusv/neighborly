@@ -51,6 +51,13 @@ const ChatResident = () => {
       content: 'Are you sure you want to leave the chatroom?',
       okText: 'Yes',
       cancelText: 'Cancel',
+      style: {
+        position: 'fixed',
+        top: '50%',
+        left: '50%',
+        transform: 'translate(-50%, -50%)',
+      },
+      getContainer: () => document.documentElement,
       onOk: () => {
         leaveChatroom();
         navigate('/');

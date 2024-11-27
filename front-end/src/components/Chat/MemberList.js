@@ -32,6 +32,13 @@ const MemberList = ({ onBack }) => {
       content: 'Are you sure you want to remove the selected members?',
       okText: 'Yes',
       cancelText: 'Cancel',
+      style: {
+        position: 'fixed',
+        top: '50%',
+        left: '50%',
+        transform: 'translate(-50%, -50%)',
+      },
+      getContainer: () => document.documentElement,
       onOk: () => {
         removeMembers(selectedMembers);
         onBack();

@@ -1,31 +1,71 @@
+/* Header Container */
 .chat-header {
-    background-color: var(--color-header-bg);
-    padding: var(--spacing-md);
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    height: 60px;
-    box-shadow: var(--shadow-sm);
-  }
-  
-  .chat-title {
-    font-weight: bold;
-    font-size: 1.1em;
-  }
+  background-color: var(--color-header-bg);
+  position: relative;
+  padding: var(--spacing-md);
+  display: flex;
+  align-items: center;
+  justify-content: center; /* Centers the title */
+  height: 60px;
+  box-shadow: var(--shadow-sm);
+}
 
-  .primary-color {
-    color: #1890ff;
-  }
-  
-  .back-button,
-  .member-action-button,
-  .leave-button {
-    border: none;
-    background: transparent;
-  }
-  
-  .back-button:hover,
-  .member-action-button:hover,
-  .leave-button:hover {
-    background: rgba(0, 0, 0, 0.05);
-  }
+/* Home + Back Button Container */
+.chat-header-left {
+  position: absolute;
+  left: 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  color: #1890ff;
+}
+
+.chat-header-left:hover {
+  color: #007aff; /* Darker blue on hover */
+}
+
+/* Back Button Icon */
+.chat-back-icon {
+  font-size: 20px;
+}
+
+/* Home Text */
+.chat-home-text {
+  font-size: 16px;
+  text-decoration: none;
+}
+
+/* Centered Title */
+.chat-title {
+  font-size: 20px;
+  color: #333;
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+/* Right-side Buttons */
+.chat-header-right {
+  position: absolute;
+  right: 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #1890ff;
+}
+
+.chat-header-right button {
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  color: #1890ff;
+}
+
+.chat-header-right button:hover {
+  background: rgba(0, 0, 0, 0.05);
+  color: #007aff;
+}
