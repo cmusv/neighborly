@@ -1,0 +1,84 @@
+/* Agenda Container */
+.agenda-container {
+    margin-left: 16px;
+    margin-right: 16px;
+    margin-top: 8px;
+    border-radius: 8px;
+    box-shadow: var(--shadow-sm);
+    max-height: 50vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Agenda Title */
+.agenda-title {
+    font-size: 20px;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 16px;
+    color: #714d00;
+}
+
+/* No Events Message */
+.no-events {
+    text-align: center;
+    color: #9ca3af;
+    font-size: 16px;
+}
+
+/* Scrollable Agenda List */
+.agenda-scrollable {
+    overflow-y: auto;
+    padding-right: 8px; /* For smoother scrolling experience */
+}
+
+.agenda-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+/* Agenda Item Base Styles */
+.agenda-item {
+    padding: 16px;
+    border-radius: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    margin-bottom: 12px;
+}
+
+/* Background for Being Helped */
+.agenda-item.being-helped {
+    background-color: #fbe4b2;
+}
+
+/* Background for Helping Others */
+.agenda-item.helping-others {
+    background-color: #ffffff;
+}
+
+/* Agenda Details Section */
+.agenda-details p {
+    margin: 2px 0;
+    font-size: 14px;
+    color: #333;
+    line-height: 1.2;
+}
+
+/* Cancel Button */
+.cancel-button {
+    background-color: #f2a600;
+    color: #ffffff;
+    border: none;
+    border-radius: 4px;
+    padding: 8px 12px;
+    font-size: 18px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.cancel-button:hover {
+    background-color: #d18800;
+}

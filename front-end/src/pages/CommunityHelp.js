@@ -5,6 +5,7 @@ import Modal from "../components/CommunityHelp/Modal";
 import { initializeLocalStorage } from "../components/CommunityHelp/localStorageInit";
 import CommunityHelpHeader from "../components/Header/CommunityHelpHeader";
 import { useNavigate } from 'react-router-dom';
+import "../styles/CommunityHelpPage.css";
 
 const CommunityHelp = () => {
     // Default to today's date in PST
@@ -31,28 +32,42 @@ const CommunityHelp = () => {
         navigate('/');
     };
 
+    const handleCancel = (sortedIndex, sortedAgenda) => {
+        const itemToCancel = sortedAgenda[sortedIndex];
+
+        const updatedAgenda = agendaData.filter(
+            (item) => item.startTime !== itemToCancel.startTime || item.helper !== itemToCancel.helper
+        );
+
+        const storedAgenda = JSON.parse(localStorage.getItem("community-help-agenda")) || [];
+        const newStoredAgenda = storedAgenda.filter(
+            (item) => item.startTime !== itemToCancel.startTime || item.helper !== itemToCancel.helper
+        );
+        localStorage.setItem("community-help-agenda", JSON.stringify(newStoredAgenda));
+
+        setAgendaData(updatedAgenda);
+    };
 
     return (
         <>
             <CommunityHelpHeader onBack={handleBack} />
-            <div className="bg-accent min-h-screen p-4">
-                <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+                <div className="community-help-page">
                     {/* Calendar */}
                     <Calendar selectedDate={selectedDate} setSelectedDate={setSelectedDate} />
 
                     {/* Agenda */}
-                    <Agenda agendaData={agendaData} selectedDate={selectedDate} />
+                    <Agenda agendaData={agendaData} selectedDate={selectedDate} onCancel={handleCancel} />
 
                     {/* Buttons */}
-                    <div className="flex flex-col space-y-4">
+                    <div className="help-buttons-container">
                         <button
-                            className="bg-white text-accent border border-accent rounded px-4 py-2"
+                            className="offer-help-button"
                             onClick={() => setOfferHelpModalOpen(true)}
                         >
                             Offer Help
                         </button>
                         <button
-                            className="bg-accent text-white rounded px-4 py-2"
+                            className="get-help-button"
                             onClick={() => setGetHelpModalOpen(true)}
                         >
                             Get Help
@@ -71,7 +86,6 @@ const CommunityHelp = () => {
                         <p>Placeholder for Get Help functionality</p>
                     </Modal>
                 )}
-            </div>
         </>
     );
 };
