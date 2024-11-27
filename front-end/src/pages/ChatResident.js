@@ -6,7 +6,9 @@ import { useScrollToBottom } from '../hooks/useScrollToBottom';
 import ChatHeader from '../components/Chat/ChatHeader';
 import ChatBubble from '../components/Chat/ChatBubble';
 import ChatInput from '../components/Chat/ChatInput';
+import { confirmModalConfig } from '../components/Chat/ModalConfig';
 import '../styles/Chat.css';
+import '../styles/Modal.css';
 
 const ChatResident = () => {
   const location = useLocation();
@@ -47,17 +49,9 @@ const ChatResident = () => {
 
   const handleLeave = () => {
     Modal.confirm({
+      ...confirmModalConfig,
       title: 'Leave Chatroom',
       content: 'Are you sure you want to leave the chatroom?',
-      okText: 'Yes',
-      cancelText: 'Cancel',
-      style: {
-        position: 'fixed',
-        top: '50%',
-        left: '50%',
-        transform: 'translate(-50%, -50%)',
-      },
-      getContainer: () => document.documentElement,
       onOk: () => {
         leaveChatroom();
         navigate('/');

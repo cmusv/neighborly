@@ -1,5 +1,7 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { Modal } from 'antd';
+import '../styles/Modal.css';
+import { successModalConfig } from '../components/Chat/ModalConfig';
 
 const ChatContext = createContext();
 
@@ -200,15 +202,8 @@ export const ChatProvider = ({ children }) => {
       updateChatroomData(updatedMembers);
   
       Modal.success({
+        ...successModalConfig,
         content: 'Selected members are removed.',
-        duration: 0.5,
-        style: {
-          position: 'fixed',
-          top: '50%',
-          left: '50%',
-          transform: 'translate(-50%, -50%)',
-        },
-        getContainer: () => document.documentElement,
       });
   
       return updatedMembers;
