@@ -1,9 +1,26 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import "../../styles/Agenda.css";
 
-const Agenda = ({ agendaData, selectedDate }) => {
+const Agenda = ({ agendaData, selectedDate, onCancel }) => {
+    const [sortedAgenda, setSortedAgenda] = useState([]);
+
+    useEffect(() => {
+        // Sort agenda by start time
+        const sorted = [...agendaData].sort((a, b) => a.startTime.localeCompare(b.startTime));
+        setSortedAgenda(sorted);
+    }, [agendaData]);
+
+    // Helper to format time from 24-hour to 12-hour format
+    const formatTime = (time) => {
+        const [hour, minute] = time.split(":").map(Number);
+        const period = hour >= 12 ? "PM" : "AM";
+        const formattedHour = hour % 12 || 12;
+        return `${formattedHour}:${minute.toString().padStart(2, "0")} ${period}`;
+    };
+
     return (
-        <div className="bg-white p-4 rounded shadow">
-            <h2 className="text-center font-bold mb-4">
+        <div className="agenda-container">
+            <h2 className="agenda-title">
                 Agenda for{" "}
                 {new Date(selectedDate).toLocaleDateString("en-US", {
                     timeZone: "America/Los_Angeles",
@@ -12,24 +29,44 @@ const Agenda = ({ agendaData, selectedDate }) => {
                     year: "numeric",
                 })}
             </h2>
-            {agendaData.length === 0 ? (
-                <p className="text-center text-gray-500">No events scheduled for this day.</p>
+            {sortedAgenda.length === 0 ? (
+                <p className="no-events">No events scheduled for this day.</p>
             ) : (
-                <ul className="space-y-2">
-                    {agendaData.map((item, index) => (
-                        <li
-                            key={index}
-                            className={`p-4 rounded ${
-                                item.task === "Being Helped" ? "bg-yellow-200" : "bg-white"
-                            }`}
-                        >
-                            <p>Owner: {item.owner}</p>
-                            <p>Helper: {item.helper}</p>
-                            <p>Time: {item.time}</p>
-                            <p>Category: {item.category}</p>
-                        </li>
-                    ))}
-                </ul>
+                <div className="agenda-scrollable">
+                    <ul className="agenda-list">
+                        {sortedAgenda.map((item, sortedIndex) => (
+                            <li
+                                key={sortedIndex}
+                                className={`agenda-item ${item.task === "Being Helped"
+                                        ? "being-helped"
+                                        : "helping-others"
+                                    }`}
+                            >
+                                <div className="agenda-details">
+                                    <p>
+                                        <strong>Owner:</strong> {item.owner}
+                                    </p>
+                                    <p>
+                                        <strong>Helper:</strong> {item.helper}
+                                    </p>
+                                    <p>
+                                        <strong>Time:</strong> {formatTime(item.startTime)} -{" "}
+                                        {formatTime(item.endTime)}
+                                    </p>
+                                    <p>
+                                        <strong>Category:</strong> {item.category}
+                                    </p>
+                                </div>
+                                <button
+                                    className="cancel-button"
+                                    onClick={() => onCancel(sortedIndex, sortedAgenda)}
+                                >
+                                    Cancel
+                                </button>
+                            </li>
+                        ))}
+                    </ul>
+                </div>
             )}
         </div>
     );

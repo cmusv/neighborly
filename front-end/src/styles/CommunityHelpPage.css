@@ -1,0 +1,51 @@
+/* Buttons Container */
+.help-buttons-container {
+    display: flex;
+    justify-content: center;
+    gap: 35px; 
+    position: fixed; /* Ensure the container sticks to the bottom */
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 8px 16px;
+    z-index: 100;
+}
+
+/* Offer Help Button */
+.offer-help-button {
+    background-color: #ffffff;
+    color: #f2a600;
+    border: 1px solid #f2a600;
+    border-radius: 8px;
+    padding: 12px 24px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s ease, color 0.2s ease;
+    flex: 1;
+    max-width: 150px;
+}
+
+.offer-help-button:hover {
+    background-color: #f2a600;
+    color: #ffffff;
+}
+
+/* Get Help Button */
+.get-help-button {
+    background-color: #f2a600;
+    color: #ffffff;
+    border: none;
+    border-radius: 8px;
+    padding: 12px 24px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s ease, color 0.2s ease;
+    flex: 1;
+    max-width: 150px;
+}
+
+.get-help-button:hover {
+    background-color: #d18800;
+}
