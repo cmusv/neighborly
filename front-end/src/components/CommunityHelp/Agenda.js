@@ -54,7 +54,7 @@ const Agenda = ({ agendaData, selectedDate, onCancel }) => {
                                         {formatTime(item.endTime)}
                                     </p>
                                     <p>
-                                        <strong>Category:</strong> {item.category}
+                                        <strong>Category:</strong> {item.category.join(", ")}
                                     </p>
                                 </div>
                                 <button

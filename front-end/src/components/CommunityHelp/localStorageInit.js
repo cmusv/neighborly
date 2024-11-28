@@ -7,7 +7,6 @@ export const initializeLocalStorage = () => {
                     date: "11/29/2024",
                     startTime: "08:00",
                     endTime: "10:00",
-                    duration: "2 hrs",
                     categories: ["Gardening", "Cleaning"],
                     helper: "Amy",
                 },
@@ -26,7 +25,7 @@ export const initializeLocalStorage = () => {
                     helper: "Ruth",
                     startTime: "16:00",
                     endTime: "17:00",
-                    category: "Home Facility",
+                    category: ["Home Facility"],
                 },
                 {
                     date: "11/29/2024",
@@ -35,7 +34,7 @@ export const initializeLocalStorage = () => {
                     helper: "Me",
                     startTime: "19:00",
                     endTime: "19:30",
-                    category: "Gardening",
+                    category: ["Gardening"],
                 },
                 {
                     date: "11/29/2024",
@@ -44,7 +43,7 @@ export const initializeLocalStorage = () => {
                     helper: "Alex",
                     startTime: "10:00",
                     endTime: "11:30",
-                    category: "Tech",
+                    category: ["Tech"],
                 },
                 {
                     date: "11/29/2024",
@@ -53,7 +52,7 @@ export const initializeLocalStorage = () => {
                     helper: "Me",
                     startTime: "08:00",
                     endTime: "09:00",
-                    category: "Pet Care",
+                    category: ["Pet Care"],
                 },
             ])
         );
