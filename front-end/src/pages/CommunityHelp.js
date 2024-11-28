@@ -34,19 +34,41 @@ const CommunityHelp = () => {
 
     const handleCancel = (sortedIndex, sortedAgenda) => {
         const itemToCancel = sortedAgenda[sortedIndex];
-
+    
+        // Update agendaData and localStorage for "community-help-agenda"
         const updatedAgenda = agendaData.filter(
-            (item) => item.startTime !== itemToCancel.startTime || item.helper !== itemToCancel.helper
+            (item) =>
+                item.startTime !== itemToCancel.startTime ||
+                item.helper !== itemToCancel.helper
         );
-
+    
         const storedAgenda = JSON.parse(localStorage.getItem("community-help-agenda")) || [];
         const newStoredAgenda = storedAgenda.filter(
-            (item) => item.startTime !== itemToCancel.startTime || item.helper !== itemToCancel.helper
+            (item) =>
+                item.startTime !== itemToCancel.startTime ||
+                item.helper !== itemToCancel.helper
         );
         localStorage.setItem("community-help-agenda", JSON.stringify(newStoredAgenda));
-
+    
+        // Add canceled event back to "community-help-availabilities"
+        const storedAvailabilities =
+            JSON.parse(localStorage.getItem("community-help-availabilities")) || [];
+        const newAvailability = {
+            date: itemToCancel.date,
+            startTime: itemToCancel.startTime,
+            endTime: itemToCancel.endTime,
+            categories: itemToCancel.category,
+            helper: itemToCancel.task === "Being Helped" ? "Me" : itemToCancel.helper,
+        };
+    
+        const updatedAvailabilities = [...storedAvailabilities, newAvailability];
+        localStorage.setItem(
+            "community-help-availabilities",
+            JSON.stringify(updatedAvailabilities)
+        );
+    
         setAgendaData(updatedAgenda);
-    };
+    };    
 
     return (
         <>
