@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { 
+import {
   List,
   ListItem,
   ListItemAvatar,
@@ -11,13 +11,15 @@ import { Button, Modal } from 'antd';
 import { ArrowLeftOutlined, CheckCircleOutlined } from '@ant-design/icons';
 import { useChatroom } from '../../contexts/ChatContext';
 import '../../styles/MemberList.css';
+import '../../styles/Modal.css';
+import { successModalConfig } from './ModalConfig';
 
 const MemberList = ({ onBack }) => {
   const { members, removeMembers } = useChatroom();
   const [selectedMembers, setSelectedMembers] = useState([]);
 
   const handleMemberClick = (memberId) => {
-    setSelectedMembers(prev => 
+    setSelectedMembers(prev =>
       prev.includes(memberId)
         ? prev.filter(id => id !== memberId)
         : [...prev, memberId]
@@ -26,19 +28,10 @@ const MemberList = ({ onBack }) => {
 
   const handleConfirmRemove = () => {
     if (selectedMembers.length === 0) return;
-
+    
     Modal.confirm({
-      title: 'Remove Members',
-      content: 'Are you sure you want to remove the selected members?',
-      okText: 'Yes',
-      cancelText: 'Cancel',
-      style: {
-        position: 'fixed',
-        top: '50%',
-        left: '50%',
-        transform: 'translate(-50%, -50%)',
-      },
-      getContainer: () => document.documentElement,
+      ...successModalConfig,
+      content: 'Selected members are removed.',
       onOk: () => {
         removeMembers(selectedMembers);
         onBack();
@@ -49,9 +42,9 @@ const MemberList = ({ onBack }) => {
   return (
     <div className="member-list-container">
       <div className="member-list-header">
-        <Button 
-          type="text" 
-          icon={<ArrowLeftOutlined />} 
+        <Button
+          type="text"
+          icon={<ArrowLeftOutlined />}
           onClick={onBack}
         />
         <Typography variant="h6">Remove Members</Typography>
@@ -62,7 +55,6 @@ const MemberList = ({ onBack }) => {
           disabled={selectedMembers.length === 0}
         />
       </div>
-
       <List className="member-list">
         {members
           .sort((a, b) => a.name.localeCompare(b.name))
