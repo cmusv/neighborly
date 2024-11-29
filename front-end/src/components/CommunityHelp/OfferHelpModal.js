@@ -12,13 +12,21 @@ const OfferHelpModal = ({ selectedDate, onClose }) => {
     const [editingIndex, setEditingIndex] = useState(null);
 
     const helpCategories = [
-        "General Help",
-        "Moving Help",
+        "Child Sitting",
         "Cleaning",
         "Cooking",
+        "Elderly Care",
+        "Event Assistance",
+        "Fitness & Wellness",
+        "Gardening",
+        "General Help",
+        "Handyman Work",
+        "Language Support",
+        "Moving Help",
         "Pet Sitting",
-        "Child Sitting",
+        "Study Help",
         "Tech",
+        "Transportation",
     ];
 
     // Load availabilities from localStorage for the selected date
@@ -54,7 +62,11 @@ const OfferHelpModal = ({ selectedDate, onClose }) => {
     const handleConfirm = () => {
         const { startTime, endTime, categories } = formValues;
 
-        // Validate time input
+        if (!startTime || !endTime || categories.length === 0) {
+            alert("Please fill in all fields (start time, end time, and categories).");
+            return;
+        }
+
         if (startTime >= endTime) {
             alert("Start time must be earlier than end time.");
             return;
@@ -62,6 +74,14 @@ const OfferHelpModal = ({ selectedDate, onClose }) => {
 
         if (hasOverlap(startTime, endTime, editingIndex)) {
             alert("The time slot overlaps with an existing availability.");
+            return;
+        }
+
+        const [startHour, startMinute] = startTime.split(":").map(Number);
+        const [endHour, endMinute] = endTime.split(":").map(Number);
+        const durationMinutes = (endHour * 60 + endMinute) - (startHour * 60 + startMinute);
+        if (durationMinutes < 15) {
+            alert("The availability duration must be at least 15 minutes - so you can have enough time to help your neighbor :)");
             return;
         }
 
@@ -185,26 +205,27 @@ const OfferHelpModal = ({ selectedDate, onClose }) => {
                             }
                         />
 
+                        {/* Help Type Section */}
                         <label>Help Type:</label>
-                        <select
-                            multiple
-                            value={formValues.categories}
-                            onChange={(e) =>
-                                setFormValues({
-                                    ...formValues,
-                                    categories: Array.from(
-                                        e.target.selectedOptions,
-                                        (option) => option.value
-                                    ),
-                                })
-                            }
-                        >
+                        <div className="checkbox-group">
                             {helpCategories.map((category) => (
-                                <option key={category} value={category}>
+                                <label key={category} className="checkbox-item">
+                                    <input
+                                        type="checkbox"
+                                        value={category}
+                                        checked={formValues.categories.includes(category)}
+                                        onChange={(e) => {
+                                            const newCategories = e.target.checked
+                                                ? [...formValues.categories, category]
+                                                : formValues.categories.filter((cat) => cat !== category);
+                                            setFormValues({ ...formValues, categories: newCategories });
+                                        }}
+                                    />
+                                    <span className="checkbox-custom"></span>
                                     {category}
-                                </option>
+                                </label>
                             ))}
-                        </select>
+                        </div>
 
                         <button className="confirm-button" onClick={handleConfirm}>
                             Confirm
