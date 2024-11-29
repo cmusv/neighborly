@@ -8,7 +8,7 @@ export const initializeLocalStorage = () => {
                     startTime: "08:00",
                     endTime: "10:00",
                     categories: ["Gardening", "Cleaning"],
-                    helper: "Amy",
+                    helper: "Me",
                 },
             ])
         );

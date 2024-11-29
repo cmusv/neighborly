@@ -1,0 +1,135 @@
+/* Modal Container */
+.offer-help-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal-content {
+    background: white;
+    border-radius: 8px;
+    padding: 16px;
+    width: 400px;
+    max-height: 90%;
+    overflow-y: auto;
+    position: relative;
+}
+
+/* Title */
+.modal-title {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 12px;
+    text-align: center;
+    color: #714d00;
+}
+
+/* Close Button */
+.close-button {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    background: none;
+    color: #333;
+    border: none;
+    font-size: 30px;
+    cursor: pointer;
+    transition: color 0.2s ease;
+}
+
+.close-button:hover {
+    color: #f2a600;
+}
+
+/* Availability Card */
+.availability-card {
+    background-color: #fbe4b2;
+    padding: 8px;
+    border-radius: 8px;
+    margin-bottom: 8px;
+    color: black;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.availability-actions {
+    display: flex;
+    gap: 8px;
+}
+
+/* Modify Button */
+.modify-button {
+    background-color: white;
+    color: #f2a600;
+    border: none;
+    border-radius: 4px;
+    padding: 8px 12px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    flex: 1;
+    text-align: center;
+}
+
+.avail-cancel-button {
+    background-color: #f2a600;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 8px 12px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    flex: 1;
+    text-align: center;
+}
+
+.modify-button:hover,
+.avail-cancel-button:hover {
+    background-color: #d18800;
+}
+
+/* Add Button */
+.add-button {
+    background-color: #f2a600;
+    color: #ffffff;
+    border: none;
+    border-radius: 20px;
+    padding: 6px 16px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    margin: 8px auto;
+    display: block;
+    width: fit-content;
+}
+
+.add-button:hover {
+    background-color: #d18800;
+}
+
+/* Form Section */
+.add-form label {
+    display: block;
+    margin-top: 8px;
+    font-size: 14px;
+}
+
+.add-form input,
+.add-form select {
+    width: 100%;
+    padding: 8px;
+    margin-top: 4px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+}
