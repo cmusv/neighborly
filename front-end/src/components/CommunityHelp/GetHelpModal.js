@@ -157,14 +157,6 @@ const GetHelpModal = ({ selectedDate, onClose, refreshPageData }) => {
                         <h3>Get Help from {selectedHelper.helper}</h3>
                         <p>{formatTime(selectedHelper.startTime)} - {formatTime(selectedHelper.endTime)}</p>
                         <p>Categories: {selectedHelper.categories.join(", ")}</p>
-                        <div className="booking-actions">
-                            <button className="back-button" onClick={() => setIsBooking(false)}>
-                                Back
-                            </button>
-                            <button className="confirm-button" onClick={handleConfirmBooking}>
-                                Confirm
-                            </button>
-                        </div>
                         <label>Start Time:</label>
                         <input
                             type="time"
@@ -181,6 +173,14 @@ const GetHelpModal = ({ selectedDate, onClose, refreshPageData }) => {
                                 setFormValues({ ...formValues, endTime: e.target.value })
                             }
                         />
+                        <div className="booking-actions">
+                            <button className="back-button" onClick={() => setIsBooking(false)}>
+                                Back
+                            </button>
+                            <button className="confirm-button" onClick={handleConfirmBooking}>
+                                Confirm
+                            </button>
+                        </div>
                     </div>
                 )}
             </div>
