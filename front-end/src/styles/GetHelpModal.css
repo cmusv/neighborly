@@ -1,0 +1,183 @@
+/* Modal Container */
+.get-help-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal-content {
+    background: white;
+    border-radius: 8px;
+    padding: 16px;
+    width: 400px;
+    max-height: 90%;
+    overflow-y: auto;
+    position: relative;
+}
+
+/* Title */
+.modal-title {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 16px;
+    text-align: center;
+    color: #714d00;
+}
+
+/* Close Button */
+.close-button {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    background: none;
+    color: #333;
+    border: none;
+    font-size: 30px;
+    cursor: pointer;
+    transition: color 0.2s ease;
+}
+
+.close-button:hover {
+    color: #f2a600;
+}
+
+/* Helper Cards */
+.helper-card {
+    background-color: #fbe4b2;
+    padding: 12px;
+    border-radius: 8px;
+    margin-bottom: 12px;
+    color: black;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.helper-details {
+    flex-grow: 1;
+    font-size: 14px;
+    margin-right: 12px;
+}
+
+.helper-details p {
+    margin: 4px 0;
+    font-size: 14px;
+}
+
+/* Book Button */
+.book-button {
+    background-color: #f2a600;
+    color: #ffffff;
+    border: none;
+    border-radius: 8px;
+    padding: 12px 24px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    align-self: center;
+}
+
+.book-button:hover {
+    background-color: #d18800;
+}
+
+.booking-form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+/* Helper Details on Booking Page */
+.booking-form h3,
+.booking-form p {
+    font-size: 16px;
+    text-align: center;
+    margin: 0;
+    color: #714d00;
+    font-weight: bold;
+}
+
+.booking-form p {
+    font-size: 14px;
+}
+
+/* Time Picker Inputs */
+.booking-form input[type="time"],
+.booking-form select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 14px;
+    background-color: #f9f9f9;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.booking-form input[type="time"]:focus,
+.booking-form select:focus {
+    border-color: #f2a600;
+    box-shadow: 0 0 5px rgba(242, 166, 0, 0.5);
+    outline: none;
+    background-color: #fff;
+}
+
+.booking-form label {
+    display: block;
+    font-size: 14px;
+    font-weight: bold;
+    color: #714d00;
+}
+
+.booking-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 16px;
+    width: 100%;
+    gap: 8px;
+}
+
+.confirm-button {
+    background-color: #f2a600;
+    color: #ffffff;
+    border: none;
+    border-radius: 20px;
+    padding: 8px 16px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    text-align: center;
+    flex: 1;
+}
+
+.confirm-button:hover {
+    background-color: #d18800;
+}
+
+.back-button {
+    background-color: #ffffff;
+    color: #f2a600;
+    border: 1px solid #f2a600;
+    border-radius: 20px;
+    padding: 8px 16px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    text-align: center;
+    flex: 1;
+}
+
+.back-button:hover {
+    background-color: #d18800;
+}

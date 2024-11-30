@@ -5,11 +5,31 @@ export const initializeLocalStorage = () => {
             JSON.stringify([
                 {
                     date: "11/29/2024",
-                    startTime: "08:00",
-                    endTime: "10:00",
-                    duration: "2 hrs",
+                    startTime: "17:00",
+                    endTime: "19:00",
                     categories: ["Gardening", "Cleaning"],
-                    helper: "Amy",
+                    helper: "Me",
+                },
+                {
+                    date: "11/29/2024",
+                    startTime: "17:00",
+                    endTime: "18:00",
+                    categories: ["Gardening", "Pet Care"],
+                    helper: "Ruth",
+                },
+                {
+                    date: "11/29/2024",
+                    startTime: "14:00",
+                    endTime: "16:00",
+                    categories: ["Home Facility"],
+                    helper: "Katie",
+                },
+                {
+                    date: "11/29/2024",
+                    startTime: "10:00",
+                    endTime: "12:00",
+                    categories: ["Tech", "Pet Care"],
+                    helper: "Matt",
                 },
             ])
         );
@@ -26,7 +46,7 @@ export const initializeLocalStorage = () => {
                     helper: "Ruth",
                     startTime: "16:00",
                     endTime: "17:00",
-                    category: "Home Facility",
+                    category: ["Home Facility"],
                 },
                 {
                     date: "11/29/2024",
@@ -35,7 +55,7 @@ export const initializeLocalStorage = () => {
                     helper: "Me",
                     startTime: "19:00",
                     endTime: "19:30",
-                    category: "Gardening",
+                    category: ["Gardening"],
                 },
                 {
                     date: "11/29/2024",
@@ -44,7 +64,7 @@ export const initializeLocalStorage = () => {
                     helper: "Alex",
                     startTime: "10:00",
                     endTime: "11:30",
-                    category: "Tech",
+                    category: ["Tech"],
                 },
                 {
                     date: "11/29/2024",
@@ -53,7 +73,7 @@ export const initializeLocalStorage = () => {
                     helper: "Me",
                     startTime: "08:00",
                     endTime: "09:00",
-                    category: "Pet Care",
+                    category: ["Pet Care"],
                 },
             ])
         );

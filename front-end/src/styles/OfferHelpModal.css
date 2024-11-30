@@ -1,0 +1,212 @@
+/* Modal Container */
+.offer-help-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal-content {
+    background: white;
+    border-radius: 8px;
+    padding: 16px;
+    width: 400px;
+    max-height: 90%;
+    overflow-y: auto;
+    position: relative;
+}
+
+/* Title */
+.modal-title {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 12px;
+    text-align: center;
+    color: #714d00;
+}
+
+/* Close Button */
+.close-button {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    background: none;
+    color: #333;
+    border: none;
+    font-size: 30px;
+    cursor: pointer;
+    transition: color 0.2s ease;
+}
+
+.close-button:hover {
+    color: #f2a600;
+}
+
+/* Availability Card */
+.availability-card {
+    background-color: #fbe4b2;
+    padding: 8px;
+    border-radius: 8px;
+    margin-bottom: 8px;
+    color: black;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.availability-actions {
+    display: flex;
+    gap: 8px;
+}
+
+/* Modify Button */
+.modify-button {
+    background-color: white;
+    color: #f2a600;
+    border: none;
+    border-radius: 4px;
+    padding: 8px 12px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    flex: 1;
+    text-align: center;
+}
+
+.avail-cancel-button {
+    background-color: #f2a600;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 8px 12px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    flex: 1;
+    text-align: center;
+}
+
+.modify-button:hover,
+.avail-cancel-button:hover {
+    background-color: #d18800;
+}
+
+/* Add Button */
+.confirm-button,
+.add-button {
+    background-color: #f2a600;
+    color: #ffffff;
+    border: none;
+    border-radius: 20px;
+    padding: 6px 16px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    margin: 8px auto;
+    display: block;
+    width: fit-content;
+}
+
+.confirm-button:hover,
+.add-button:hover {
+    background-color: #d18800;
+}
+
+/* Time Picker Styles */
+.add-form input[type="time"],
+.add-form select {
+    width: 100%;
+    padding: 10px;
+    margin-top: 4px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 14px;
+    background-color: #f9f9f9;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.add-form input[type="time"]:focus,
+.add-form select:focus {
+    border-color: #f2a600;
+    box-shadow: 0 0 5px rgba(242, 166, 0, 0.5);
+    outline: none;
+    background-color: #fff;
+}
+
+.add-form label {
+    display: block;
+    margin-top: 12px;
+    font-size: 14px;
+    font-weight: bold;
+    color: #714d00;
+}
+
+/* Category Multi Selection */
+.checkbox-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-top: 8px;
+    max-height: 120px;
+    overflow-y: auto;
+    padding-right: 8px;
+}
+
+.checkbox-item {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    font-size: 14px;
+    color: #333;
+    line-height: 1.2;
+}
+
+.checkbox-item input[type="checkbox"] {
+    display: none;
+}
+
+.checkbox-item .checkbox-custom {
+    display: inline-block;
+    width: 18px;
+    height: 18px;
+    margin-right: 8px;
+    border: 2px solid #ccc;
+    border-radius: 50%;
+    background-color: #fff;
+    position: relative;
+    transition: background-color 0.2s ease, border-color 0.2s ease;
+    flex-shrink: 0;
+}
+
+.checkbox-item input[type="checkbox"]:checked+.checkbox-custom {
+    background-color: #fbe4b2;
+    border-color: #f2a600;
+}
+
+.checkbox-item input[type="checkbox"]:checked+.checkbox-custom::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 6px;
+    height: 10px;
+    border: solid #714d00;
+    border-width: 0 2px 2px 0;
+    transform: translate(-50%, -50%) rotate(45deg);
+}
+
+/* Text Alignment Fix */
+.checkbox-item span {
+    line-height: normal;
+    /* Slight adjustment to align with checkbox */
+    margin-top: -1px;
+    /* Align with the checkbox's middle */
+    vertical-align: middle;
+}

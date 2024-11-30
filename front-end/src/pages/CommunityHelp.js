@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
 import Calendar from "../components/CommunityHelp/Calendar";
 import Agenda from "../components/CommunityHelp/Agenda";
-import Modal from "../components/CommunityHelp/Modal";
 import { initializeLocalStorage } from "../components/CommunityHelp/localStorageInit";
 import CommunityHelpHeader from "../components/Header/CommunityHelpHeader";
+import OfferHelpModal from "../components/CommunityHelp/OfferHelpModal";
+import GetHelpModal from "../components/CommunityHelp/GetHelpModal";
 import { useNavigate } from 'react-router-dom';
 import "../styles/CommunityHelpPage.css";
 
@@ -35,57 +36,106 @@ const CommunityHelp = () => {
     const handleCancel = (sortedIndex, sortedAgenda) => {
         const itemToCancel = sortedAgenda[sortedIndex];
 
+        // Update agendaData and localStorage for "community-help-agenda"
         const updatedAgenda = agendaData.filter(
-            (item) => item.startTime !== itemToCancel.startTime || item.helper !== itemToCancel.helper
+            (item) =>
+                item.startTime !== itemToCancel.startTime ||
+                item.helper !== itemToCancel.helper
         );
 
         const storedAgenda = JSON.parse(localStorage.getItem("community-help-agenda")) || [];
         const newStoredAgenda = storedAgenda.filter(
-            (item) => item.startTime !== itemToCancel.startTime || item.helper !== itemToCancel.helper
+            (item) =>
+                item.startTime !== itemToCancel.startTime ||
+                item.helper !== itemToCancel.helper
         );
         localStorage.setItem("community-help-agenda", JSON.stringify(newStoredAgenda));
 
+        // Add canceled event back to "community-help-availabilities"
+        const storedAvailabilities =
+            JSON.parse(localStorage.getItem("community-help-availabilities")) || [];
+        const newAvailability = {
+            date: itemToCancel.date,
+            startTime: itemToCancel.startTime,
+            endTime: itemToCancel.endTime,
+            categories: itemToCancel.category,
+            helper: itemToCancel.helper,
+        };
+
+        const updatedAvailabilities = [...storedAvailabilities, newAvailability];
+        localStorage.setItem(
+            "community-help-availabilities",
+            JSON.stringify(updatedAvailabilities)
+        );
+
         setAgendaData(updatedAgenda);
+    };
+
+    const refreshPageData = () => {
+        // Refresh agenda and other components after adding/modifying availabilities
+        const storedAgenda = JSON.parse(localStorage.getItem("community-help-agenda")) || [];
+        const filteredAgenda = storedAgenda.filter((item) => item.date === selectedDate);
+        setAgendaData(filteredAgenda);
+
+        const storedAvailabilities = JSON.parse(localStorage.getItem("community-help-availabilities")) || [];
+        const hasEvents = storedAgenda.length > 0 || storedAvailabilities.some((item) => item.date === selectedDate);
+
+        setSelectedDate((prev) => {
+            if (hasEvents) {
+                return prev;
+            }
+            return prev;
+        });
     };
 
     return (
         <>
             <CommunityHelpHeader onBack={handleBack} />
-                <div className="community-help-page">
-                    {/* Calendar */}
-                    <Calendar selectedDate={selectedDate} setSelectedDate={setSelectedDate} />
+            <div className="community-help-page">
+                {/* Calendar */}
+                <Calendar selectedDate={selectedDate} setSelectedDate={setSelectedDate} />
 
-                    {/* Agenda */}
-                    <Agenda agendaData={agendaData} selectedDate={selectedDate} onCancel={handleCancel} />
+                {/* Agenda */}
+                <Agenda agendaData={agendaData} selectedDate={selectedDate} onCancel={handleCancel} />
 
-                    {/* Buttons */}
-                    <div className="help-buttons-container">
-                        <button
-                            className="offer-help-button"
-                            onClick={() => setOfferHelpModalOpen(true)}
-                        >
-                            Offer Help
-                        </button>
-                        <button
-                            className="get-help-button"
-                            onClick={() => setGetHelpModalOpen(true)}
-                        >
-                            Get Help
-                        </button>
-                    </div>
+                {/* Buttons */}
+                <div className="help-buttons-container">
+                    <button
+                        className="offer-help-button"
+                        onClick={() => setOfferHelpModalOpen(true)}
+                    >
+                        Offer Help
+                    </button>
+                    <button
+                        className="get-help-button"
+                        onClick={() => setGetHelpModalOpen(true)}
+                    >
+                        Get Help
+                    </button>
                 </div>
+            </div>
 
-                {/* Modals */}
-                {isOfferHelpModalOpen && (
-                    <Modal onClose={() => setOfferHelpModalOpen(false)} title="Offer Help">
-                        <p>Placeholder for Offer Help functionality</p>
-                    </Modal>
-                )}
-                {isGetHelpModalOpen && (
-                    <Modal onClose={() => setGetHelpModalOpen(false)} title="Get Help">
-                        <p>Placeholder for Get Help functionality</p>
-                    </Modal>
-                )}
+            {/* Modals */}
+            {isOfferHelpModalOpen && (
+                <OfferHelpModal
+                    selectedDate={selectedDate}
+                    onClose={() => {
+                        setOfferHelpModalOpen(false);
+                        refreshPageData();
+                    }}
+                />
+            )}
+            {/* Placeholder for Get Help Modal */}
+            {isGetHelpModalOpen && (
+                <GetHelpModal
+                    selectedDate={selectedDate}
+                    onClose={() => {
+                        setGetHelpModalOpen(false);
+                        refreshPageData();
+                    }}
+                    refreshPageData={refreshPageData}
+                />
+            )}
         </>
     );
 };
