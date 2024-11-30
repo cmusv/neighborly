@@ -11,6 +11,7 @@ import ChatResident from "./pages/ChatResident";
 import ChatManager from "./pages/ChatManager";
 import MaintenanceResident from "./pages/MaintenanceResident";
 import MaintenanceManager from "./pages/MaintenanceManager";
+import PetTinderMatcher from "./pages/PetTinderMatcher";
 import { ChatProvider } from './contexts/ChatContext';
 import { UserProvider } from './contexts/UserContext';
 
@@ -50,6 +51,7 @@ const App = () => {
                         <Route path="/" element={<Home />} />
                         <Route path="/community-help" element={<CommunityHelp />} />
                         <Route path="/pet-tinder" element={<PetTinder />} />
+                        <Route path="/pet-tinder-dates" element={<PetTinderMatcher />} />
                         <Route path="/exchange-board" element={<ExchangeBoard />} />
                         <Route path="/pay-rent" element={<PayRent />} />
                         <Route
