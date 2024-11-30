@@ -59,6 +59,14 @@ const OfferHelpModal = ({ selectedDate, onClose }) => {
         });
     };
 
+    const hasAgendaConflict = (startTime, endTime) => {
+        const storedAgenda = JSON.parse(localStorage.getItem("community-help-agenda")) || [];
+        const filteredAgenda = storedAgenda.filter((item) => item.date === selectedDate);
+        return filteredAgenda.some(
+            (task) => startTime < task.endTime && endTime > task.startTime
+        );
+    };
+
     const handleConfirm = () => {
         const { startTime, endTime, categories } = formValues;
 
@@ -74,6 +82,11 @@ const OfferHelpModal = ({ selectedDate, onClose }) => {
 
         if (hasOverlap(startTime, endTime, editingIndex)) {
             alert("The time slot overlaps with an existing availability.");
+            return;
+        }
+
+        if (hasAgendaConflict(startTime, endTime)) {
+            alert("The selected time conflicts with your existing agenda.");
             return;
         }
 
