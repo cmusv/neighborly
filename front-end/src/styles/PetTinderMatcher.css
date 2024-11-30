@@ -1,0 +1,13 @@
+.pet-tinder-dates-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    font-family: Arial, sans-serif;
+    padding: 20px;
+}
+
+.back-button {
+    padding: 10px 20px;
+    cursor: pointer;
+}
