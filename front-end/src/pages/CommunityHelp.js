@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import Calendar from "../components/CommunityHelp/Calendar";
 import Agenda from "../components/CommunityHelp/Agenda";
-import Modal from "../components/CommunityHelp/Modal";
 import { initializeLocalStorage } from "../components/CommunityHelp/localStorageInit";
 import CommunityHelpHeader from "../components/Header/CommunityHelpHeader";
 import OfferHelpModal from "../components/CommunityHelp/OfferHelpModal";
+import GetHelpModal from "../components/CommunityHelp/GetHelpModal";
 import { useNavigate } from 'react-router-dom';
 import "../styles/CommunityHelpPage.css";
 
@@ -59,7 +59,7 @@ const CommunityHelp = () => {
             startTime: itemToCancel.startTime,
             endTime: itemToCancel.endTime,
             categories: itemToCancel.category,
-            helper: itemToCancel.task === "Being Helped" ? "Me" : itemToCancel.helper,
+            helper: itemToCancel.helper,
         };
 
         const updatedAvailabilities = [...storedAvailabilities, newAvailability];
@@ -76,6 +76,16 @@ const CommunityHelp = () => {
         const storedAgenda = JSON.parse(localStorage.getItem("community-help-agenda")) || [];
         const filteredAgenda = storedAgenda.filter((item) => item.date === selectedDate);
         setAgendaData(filteredAgenda);
+
+        const storedAvailabilities = JSON.parse(localStorage.getItem("community-help-availabilities")) || [];
+        const hasEvents = storedAgenda.length > 0 || storedAvailabilities.some((item) => item.date === selectedDate);
+
+        setSelectedDate((prev) => {
+            if (hasEvents) {
+                return prev;
+            }
+            return prev;
+        });
     };
 
     return (
@@ -117,9 +127,14 @@ const CommunityHelp = () => {
             )}
             {/* Placeholder for Get Help Modal */}
             {isGetHelpModalOpen && (
-                <Modal onClose={() => setGetHelpModalOpen(false)} title="Get Help">
-                    <p>Placeholder for Get Help functionality</p>
-                </Modal>
+                <GetHelpModal
+                    selectedDate={selectedDate}
+                    onClose={() => {
+                        setGetHelpModalOpen(false);
+                        refreshPageData();
+                    }}
+                    refreshPageData={refreshPageData}
+                />
             )}
         </>
     );
