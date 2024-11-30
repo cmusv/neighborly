@@ -5,10 +5,31 @@ export const initializeLocalStorage = () => {
             JSON.stringify([
                 {
                     date: "11/29/2024",
-                    startTime: "08:00",
-                    endTime: "10:00",
+                    startTime: "17:00",
+                    endTime: "19:00",
                     categories: ["Gardening", "Cleaning"],
                     helper: "Me",
+                },
+                {
+                    date: "11/29/2024",
+                    startTime: "17:00",
+                    endTime: "18:00",
+                    categories: ["Gardening", "Pet Care"],
+                    helper: "Ruth",
+                },
+                {
+                    date: "11/29/2024",
+                    startTime: "14:00",
+                    endTime: "16:00",
+                    categories: ["Home Facility"],
+                    helper: "Katie",
+                },
+                {
+                    date: "11/29/2024",
+                    startTime: "10:00",
+                    endTime: "12:00",
+                    categories: ["Tech", "Pet Care"],
+                    helper: "Matt",
                 },
             ])
         );
