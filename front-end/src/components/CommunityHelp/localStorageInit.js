@@ -4,28 +4,28 @@ export const initializeLocalStorage = () => {
             "community-help-availabilities",
             JSON.stringify([
                 {
-                    date: "11/29/2024",
+                    date: "12/5/2024",
                     startTime: "17:00",
                     endTime: "19:00",
                     categories: ["Gardening", "Cleaning"],
                     helper: "Me",
                 },
                 {
-                    date: "11/29/2024",
+                    date: "12/5/2024",
                     startTime: "17:00",
                     endTime: "18:00",
                     categories: ["Gardening", "Pet Care"],
                     helper: "Ruth",
                 },
                 {
-                    date: "11/29/2024",
+                    date: "12/5/2024",
                     startTime: "14:00",
                     endTime: "16:00",
                     categories: ["Home Facility"],
                     helper: "Katie",
                 },
                 {
-                    date: "11/29/2024",
+                    date: "12/5/2024",
                     startTime: "10:00",
                     endTime: "12:00",
                     categories: ["Tech", "Pet Care"],
@@ -40,7 +40,7 @@ export const initializeLocalStorage = () => {
             "community-help-agenda",
             JSON.stringify([
                 {
-                    date: "11/29/2024",
+                    date: "12/5/2024",
                     task: "Being Helped",
                     owner: "Me",
                     helper: "Ruth",
@@ -49,7 +49,7 @@ export const initializeLocalStorage = () => {
                     category: ["Home Facility"],
                 },
                 {
-                    date: "11/29/2024",
+                    date: "12/5/2024",
                     task: "Helping Others",
                     owner: "Cathy",
                     helper: "Me",
@@ -58,7 +58,7 @@ export const initializeLocalStorage = () => {
                     category: ["Gardening"],
                 },
                 {
-                    date: "11/29/2024",
+                    date: "12/5/2024",
                     task: "Being Helped",
                     owner: "Me",
                     helper: "Alex",
@@ -67,7 +67,7 @@ export const initializeLocalStorage = () => {
                     category: ["Tech"],
                 },
                 {
-                    date: "11/29/2024",
+                    date: "12/5/2024",
                     task: "Helping Others",
                     owner: "Elaine",
                     helper: "Me",

@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "../../styles/OfferHelpModal.css";
+import { Modal } from "antd";
+import '../../styles/Modal.css';
 
 const OfferHelpModal = ({ selectedDate, onClose }) => {
     const [availabilities, setAvailabilities] = useState([]);
@@ -134,7 +136,23 @@ const OfferHelpModal = ({ selectedDate, onClose }) => {
         setFormValues({ startTime: "", endTime: "", categories: [] });
     };
 
-    const handleCancel = (index) => {
+    const showCancelConfirmation = (availability, index) => {
+        Modal.confirm({
+            className: "wide-centered-modal",
+            title: "Are you sure you would like to cancel this availability?",
+            content: (
+                <>
+                    <p><strong>Time:</strong> {formatTime(availability.startTime)} - {formatTime(availability.endTime)}</p>
+                    <p><strong>Categories:</strong> {availability.categories.join(", ")}</p>
+                </>
+            ),
+            okText: "Yes",
+            cancelText: "Cancel",
+            onOk: () => executeCancel(index),
+        });
+    };
+
+    const executeCancel = (index) => {
         const updatedAvailabilities = availabilities.filter((_, i) => i !== index);
 
         // Update local storage
@@ -152,6 +170,11 @@ const OfferHelpModal = ({ selectedDate, onClose }) => {
         );
 
         setAvailabilities(updatedAvailabilities);
+    }
+
+    const handleCancel = (index) => {
+        const availabilityToCancel = availabilities[index];
+        showCancelConfirmation(availabilityToCancel, index);
     };
 
     return (
