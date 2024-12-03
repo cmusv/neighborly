@@ -1,7 +1,19 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import { getMutualMatches, getProfiles, getPhoto } from "../utils/indexedDB";
-import { Box, Typography, Avatar, Button, Grid, Card, CardContent } from "@mui/material";
+import { getMutualMatches, getPhoto } from "../utils/indexedDB";
+import {
+    Box,
+    Typography,
+    Avatar,
+    List,
+    ListItem,
+    ListItemAvatar,
+    ListItemText,
+    ListItemSecondaryAction,
+    Divider,
+    IconButton,
+} from "@mui/material";
+import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import Header from "../components/Header/Header";
 
 const ChatSelectionPage = () => {
@@ -12,23 +24,19 @@ const ChatSelectionPage = () => {
 
     useEffect(() => {
         const fetchMatchedUsers = async () => {
-            // Get all mutual matches
             const mutualMatches = await getMutualMatches();
 
-            // Filter matches involving the currentUser
             const relevantMatches = mutualMatches.filter(
                 (match) => match.userA.userID === currentUser.userID || match.userB.userID === currentUser.userID
             );
 
-            // Fetch matched user profiles and photos
             const matchedProfiles = await Promise.all(
                 relevantMatches.map(async (match) => {
                     const matchedUser =
                         match.userA.userID === currentUser.userID ? match.userB : match.userA;
 
-                    // Fetch the matched user's photo
                     const userPhoto = await getPhoto(matchedUser.userID);
-                    return { ...matchedUser, userPhoto: userPhoto || "" };
+                    return { ...matchedUser, userPhoto: userPhoto || "", lastMessageTime: "1h ago" }; // Mocking lastMessageTime
                 })
             );
 
@@ -39,7 +47,7 @@ const ChatSelectionPage = () => {
     }, [currentUser]);
 
     const handleNavigateToChat = (matchedUser) => {
-        navigate("/chat", { state: { currentUser, matchedUser } }); // Navigate to chat page
+        navigate("/pet-tinder-chat", { state: { currentUser, matchedUser } });
     };
 
     return (
@@ -47,39 +55,37 @@ const ChatSelectionPage = () => {
             <Header />
             <Box sx={{ textAlign: "center", margin: "20px" }}>
                 <Typography variant="h4" gutterBottom>
-                    Your Matches
+                    Your Chats
                 </Typography>
                 {matchedUsers.length === 0 ? (
                     <Typography variant="body1">
                         You don't have any matches yet. Keep swiping!
                     </Typography>
                 ) : (
-                    <Grid container spacing={2} justifyContent="center">
-                        {matchedUsers.map((user) => (
-                            <Grid item key={user.userID} xs={12} sm={6} md={4}>
-                                <Card sx={{ display: "flex", flexDirection: "column", alignItems: "center", padding: "10px" }}>
-                                    <Avatar
-                                        src={user.userPhoto || "https://via.placeholder.com/100?text=No+Photo"}
-                                        alt={user.userName}
-                                        sx={{ width: 80, height: 80, margin: "10px" }}
+                    <List>
+                        {matchedUsers.map((user, index) => (
+                            <React.Fragment key={user.userID}>
+                                <ListItem button onClick={() => handleNavigateToChat(user)}>
+                                    <ListItemAvatar>
+                                        <Avatar
+                                            src={user.userPhoto || "https://via.placeholder.com/100?text=No+Photo"}
+                                            alt={user.userName}
+                                        />
+                                    </ListItemAvatar>
+                                    <ListItemText
+                                        primary={user.userName}
+                                        secondary={`Last Interaction: ${user.lastMessageTime}`} // Placeholder
                                     />
-                                    <CardContent>
-                                        <Typography variant="h6">{user.userName}</Typography>
-                                        <Typography variant="body2" color="text.secondary">
-                                            {user.accountName}
-                                        </Typography>
-                                    </CardContent>
-                                    <Button
-                                        variant="contained"
-                                        onClick={() => handleNavigateToChat(user)}
-                                        sx={{ backgroundColor: "#3f51b5", marginTop: "10px" }}
-                                    >
-                                        Start Chat
-                                    </Button>
-                                </Card>
-                            </Grid>
+                                    <ListItemSecondaryAction>
+                                        <IconButton edge="end" onClick={() => handleNavigateToChat(user)}>
+                                            <ChevronRightIcon />
+                                        </IconButton>
+                                    </ListItemSecondaryAction>
+                                </ListItem>
+                                {index < matchedUsers.length - 1 && <Divider />}
+                            </React.Fragment>
                         ))}
-                    </Grid>
+                    </List>
                 )}
             </Box>
         </Box>
