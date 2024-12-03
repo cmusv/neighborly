@@ -7,6 +7,8 @@ import OfferHelpModal from "../components/CommunityHelp/OfferHelpModal";
 import GetHelpModal from "../components/CommunityHelp/GetHelpModal";
 import { useNavigate } from 'react-router-dom';
 import "../styles/CommunityHelpPage.css";
+import { Modal } from "antd";
+import '../styles/Modal.css';
 
 const CommunityHelp = () => {
     // Default to today's date in PST
@@ -33,7 +35,25 @@ const CommunityHelp = () => {
         navigate('/');
     };
 
-    const handleCancel = (sortedIndex, sortedAgenda) => {
+    const showCancelConfirmation = (itemToCancel, sortedIndex, sortedAgenda) => {
+        Modal.confirm({
+            className: 'wide-centered-modal',
+            title: 'Are you sure you would like to cancel the following event?',
+            content: (
+                <>
+                    <p><strong>Owner:</strong> {itemToCancel.owner}</p>
+                    <p><strong>Helper:</strong> {itemToCancel.helper}</p>
+                    <p><strong>Time:</strong> {itemToCancel.startTime} - {itemToCancel.endTime}</p>
+                    <p><strong>Category:</strong> {itemToCancel.category.join(", ")}</p>
+                </>
+            ),
+            okText: 'Yes',
+            cancelText: 'Cancel',
+            onOk: () => executeCancel(sortedIndex, sortedAgenda),
+        });
+    };
+
+    const executeCancel = (sortedIndex, sortedAgenda) => {
         const itemToCancel = sortedAgenda[sortedIndex];
 
         // Update agendaData and localStorage for "community-help-agenda"
@@ -69,6 +89,11 @@ const CommunityHelp = () => {
         );
 
         setAgendaData(updatedAgenda);
+    }
+
+    const handleCancel = (sortedIndex, sortedAgenda) => {
+        const itemToCancel = sortedAgenda[sortedIndex];
+        showCancelConfirmation(itemToCancel, sortedIndex, sortedAgenda);
     };
 
     const refreshPageData = () => {
