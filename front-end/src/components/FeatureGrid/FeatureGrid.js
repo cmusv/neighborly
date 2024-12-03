@@ -2,7 +2,7 @@ import React from "react";
 import { Card, CardContent, CardActionArea, Typography, Grid, Box } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { Modal } from "antd";
-import { useUser } from '../../contexts/UserContext';
+import { useUser } from '../Chat/contexts/UserContext';
 import '../../styles/Modal.css';
 import { confirmModalConfig } from '../Chat/ModalConfig';
 

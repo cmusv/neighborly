@@ -1,6 +1,6 @@
 import React from 'react';
 import { Avatar } from '@mui/material';
-import { useChatroom } from '../../contexts/ChatContext';
+import { useChatroom } from '../Chat/contexts/ChatContext';
 import '../../styles/ChatBubble.css';
 
 const ChatBubble = ({ message }) => {
