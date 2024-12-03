@@ -8,10 +8,11 @@ import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import Home from './pages/Home';
 import CommunityHelp from './pages/CommunityHelp';
-import ChatSelectionPage from './pages/PetTinderChatSelection';
 import PetTinder from './pages/PetTinder';
 import PetTinderMatcher from './pages/PetTinderMatcher';
 import PetTinderChat from './pages/PetTinderChat';
+import PetTinderProfile from './pages/PetTinderProfile';
+import ChatSelectionPage from './pages/PetTinderChatSelection';
 import ExchangeBoard from './pages/ExchangeBoard/home';
 import PayRent from './pages/PayRent';
 import ChatResident from './pages/ChatResident';
@@ -76,8 +77,24 @@ const App = () => {
               element={<PetTinderChat />}
             />
             <Route
+              path='/pet-tinder-profile'
+              element={<PetTinderProfile />}
+            />
+            <Route
               path='/exchange-board'
               element={<ExchangeBoard />}
+            />
+            <Route
+              path='/exchange-board/orders'
+              element={<Orders />}
+            />
+            <Route
+              path='/exchange-board/offers'
+              element={<Offers />}
+            />
+            <Route
+              path='/exchange-board/details/:id'
+              element={<Details />}
             />
             <Route path='/pay-rent' element={<PayRent />} />
             <Route
@@ -95,18 +112,6 @@ const App = () => {
                   <ChatManager />
                 </ChatRouteWrapper>
               }
-            />
-            <Route
-              path='/exchange-board/orders'
-              element={<Orders />}
-            />
-            <Route
-              path='/exchange-board/offers'
-              element={<Offers />}
-            />
-            <Route
-              path='/exchange-board/details/:id'
-              element={<Details />}
             />
             <Route
               path='/maintenance-resident'

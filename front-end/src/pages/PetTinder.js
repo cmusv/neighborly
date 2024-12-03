@@ -114,8 +114,8 @@ const PetTinder = () => {
                             src={currentUser.userPhoto || placeholderImage}
                             alt={`${currentUser.userName}'s profile`}
                             sx={{
-                                width: 120,
-                                height: 120,
+                                width: 250,
+                                height: 250,
                                 margin: "16px auto",
                                 border: "2px solid #e0e0e0",
                             }}
@@ -153,27 +153,17 @@ const PetTinder = () => {
                         >
                             Edit Profile
                         </Button>
-                        {/*<Button*/}
-                        {/*    variant="contained"*/}
-                        {/*    sx={{*/}
-                        {/*        margin: "8px",*/}
-                        {/*        backgroundColor: "#007aff",*/}
-                        {/*        color: "white",*/}
-                        {/*        borderRadius: "20px",*/}
-                        {/*        padding: "8px 24px",*/}
-                        {/*    }}*/}
-                        {/*    onClick={handleSwitchUser}*/}
-                        {/*>*/}
-                        {/*    Switch User*/}
-                        {/*</Button>*/}
                     </Box>
-                    <Button
-                        variant="contained"
-                        sx={{ color: "white", margin: "8px", borderRadius: "20px", padding: "8px 24px", backgroundColor: "#ff6sff",}}
-                        onClick={() => navigate("/pet-tinder-matcher", { state: { currentUser } })}
-                    >
-                        Enter Pet Date Matcher
-                    </Button>
+                    <Box>
+                        <Button
+                            variant="contained"
+                            sx={{ color: "white", margin: "8px", borderRadius: "20px", padding: "8px 24px", backgroundColor: "#ff6sff",}}
+                            onClick={() => navigate("/pet-tinder-matcher", { state: { currentUser } })}
+                        >
+                            Enter Pet Date Matcher
+                        </Button>
+                    </Box>
+
                 </Box>
                 <Fab
                     color="primary"
