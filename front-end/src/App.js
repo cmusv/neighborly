@@ -14,8 +14,8 @@ import ChatResident from "./pages/ChatResident";
 import ChatManager from "./pages/ChatManager";
 import MaintenanceResident from "./pages/MaintenanceResident";
 import MaintenanceManager from "./pages/MaintenanceManager";
-import { ChatProvider } from './contexts/ChatContext';
-import { UserProvider } from './contexts/UserContext';
+import { ChatProvider } from '../src/components/Chat/contexts/ChatContext';
+import { UserProvider } from '../src/components/Chat/contexts/UserContext';
 
 const ChatRouteWrapper = ({ children }) => (
     <ChatProvider>{children}</ChatProvider>
