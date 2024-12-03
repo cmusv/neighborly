@@ -47,7 +47,7 @@ const PetTinderChat = () => {
     };
 
     const handleBack = () => navigate("/pet-tinder-chat-selection", { state: { currentUser } });
-
+    console.log(currentUser);
     return (
         <div className="chat-container">
             <Header
@@ -64,7 +64,7 @@ const PetTinderChat = () => {
                     </p>
                 </div>
                 {messages.map((msg) => (
-                    <ChatBubble key={msg.messageID} message={msg} currentUser={currentUser}/>
+                    <ChatBubble key={msg.messageID} message={msg} currentUser={currentUser} />
                 ))}
             </div>
             <ChatInput onSendMessage={handleSendMessage}/>

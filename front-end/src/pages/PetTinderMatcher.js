@@ -237,8 +237,8 @@ const PetTinderMatcher = () => {
                                 src={currentProfile.userPhoto || placeholderImage}
                                 alt={`${currentProfile.userName}'s profile`}
                                 sx={{
-                                    width: 100,
-                                    height: 100,
+                                    width: 250,
+                                    height: 250,
                                     margin: "10px auto",
                                     boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.1)",
                                 }}
