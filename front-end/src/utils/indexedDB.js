@@ -9,13 +9,17 @@ const MESSAGES_STORE = "Messages";
 
 // Profile structure
 export class Profile {
-    constructor(userID, accountName, userName, userPhotoID, likedList = [], pendingList = []) {
+    constructor(userID, accountName, userName, userPhotoID, likedList = [], pendingList = [], sex, neutered, apartmentNumber, haveOtherPets) {
         this.userID = userID; // Unique identifier for the user
         this.accountName = accountName; // Account name for the user
         this.userName = userName; // Display Pet Tinder Profile name, editable
         this.userPhotoID = userPhotoID; // ID referencing a photo in PHOTO_STORE
         this.likedList = likedList; // List of userIDs the user has liked
         this.pendingList = pendingList; // List of userIDs awaiting a decision
+        this.sex = sex; // Sex of the pet
+        this.neutered = neutered; // Boolean indicating if the pet is neutered
+        this.apartmentNumber = apartmentNumber; // Apartment number of the user
+        this.haveOtherPets = haveOtherPets; // Boolean indicating if the user has other pets
     }
 }
 
@@ -43,14 +47,13 @@ export async function initDB() {
 }
 
 // Create a new profile
-export function createProfile(userID, accountName, userName, userPhotoID = "", likedList = [], pendingList = []) {
-    return new Profile(userID, accountName, userName, userPhotoID, likedList, pendingList);
+export function createProfile(userID, accountName, userName, userPhotoID = "", likedList = [], pendingList = [], sex = "", neutered = false, apartmentNumber = "", haveOtherPets = false) {
+    return new Profile(userID, accountName, userName, userPhotoID, likedList, pendingList, sex, neutered, apartmentNumber, haveOtherPets);
 }
 
 // Save a profile
 export async function saveProfile(profile) {
     const db = await initDB();
-    console.log(profile);
     if (!(profile instanceof Profile)) {
         throw new Error("Profile data does not match the required structure.");
     }
@@ -70,7 +73,11 @@ export async function getProfiles() {
             data.userName,
             data.userPhotoID,
             data.likedList || [],
-            data.pendingList || []
+            data.pendingList || [],
+            data.sex,
+            data.neutered,
+            data.apartmentNumber,
+            data.haveOtherPets
         )
     );
 }
@@ -110,6 +117,22 @@ export async function updateProfileField(userID, field, value) {
 
     // Update the specific field with the new value
     profile[field] = value;
+
+    await db.put(PROFILE_STORE, profile); // Save the updated profile
+}
+
+export async function updateProfileFields(userID, fields) {
+    const db = await initDB();
+    const profile = await db.get(PROFILE_STORE, userID);
+
+    if (!profile) {
+        throw new Error(`Profile with userID ${userID} not found.`);
+    }
+
+    // Update the profile with new fields
+    Object.keys(fields).forEach((key) => {
+        profile[key] = fields[key];
+    });
 
     await db.put(PROFILE_STORE, profile); // Save the updated profile
 }

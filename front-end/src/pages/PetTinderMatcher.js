@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { Profile, getProfiles, getPhoto, saveProfile, saveMutualMatch, updateProfileField } from "../utils/indexedDB";
-import { Box, Typography, Avatar, Button, Modal } from "@mui/material";
+import { Box, Typography, Avatar, Button, Modal, Card } from "@mui/material";
 import Header from "../components/PetTinder/PetTinderHeader";
 import { ArrowBack, ArrowForward } from "@mui/icons-material"; // Import Material-UI Icons
 import { IconButton } from "@mui/material";
@@ -206,118 +206,173 @@ const PetTinderMatcher = () => {
                 profilePage={false}
                 currentUser={currentUser}
             />
-            <Box sx={{ textAlign: "center", margin: "20px" }}>
-                <Typography variant="h4">Matching Mode</Typography>
-                <Box
+            <Box sx={{ textAlign: "center", padding: "20px" }}>
+                {/* Profile Card */}
+                <Card
                     sx={{
-                        margin: "20px auto",
-                        display: "flex",
-                        flexDirection: "row",
-                        alignItems: "center",
-                        justifyContent: "space-between",
-                        width: "300px", // Adjust as needed for layout
+                        maxWidth: 400,
+                        margin: "0 auto",
+                        padding: "20px",
+                        borderRadius: "16px",
+                        boxShadow: "0px 10px 20px rgba(0, 0, 0, 0.1)",
                     }}
                 >
-                    {/* Left Arrow */}
-                    <IconButton
-                        onClick={handlePrevious}
-                        disabled={currentMatchIndex <= 0} // Disable if at the first profile
-                        sx={{
-                            backgroundColor: "#f0f0f0",
-                            borderRadius: "50%",
-                            margin: "10px",
-                            visibility: currentMatchIndex > 0 ? "visible" : "hidden", // Hide when disabled
-                        }}
-                    >
-                        <ArrowBack />
-                    </IconButton>
+                    <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                        {/* Left Arrow */}
+                        <IconButton
+                            onClick={handlePrevious}
+                            disabled={currentMatchIndex <= 0}
+                            sx={{
+                                backgroundColor: "#f0f0f0",
+                                borderRadius: "50%",
+                                visibility: currentMatchIndex > 0 ? "visible" : "hidden",
+                            }}
+                        >
+                            <ArrowBack />
+                        </IconButton>
 
-                    {/* Profile Details */}
-                    <Box sx={{ textAlign: "center", flex: 1 }}>
-                        <Avatar
-                            src={currentProfile.userPhoto || placeholderImage}
-                            alt={`${currentProfile.userName}'s profile`}
-                            sx={{ width: 100, height: 100, margin: "10px auto" }}
-                        />
-                        <Typography variant="h5">{currentProfile.userName}</Typography>
-                        <Typography variant="body1">Account Name: {currentProfile.accountName}</Typography>
+                        {/* Profile Details */}
+                        <Box sx={{ textAlign: "center", flex: 1 }}>
+                            <Avatar
+                                src={currentProfile.userPhoto || placeholderImage}
+                                alt={`${currentProfile.userName}'s profile`}
+                                sx={{
+                                    width: 100,
+                                    height: 100,
+                                    margin: "10px auto",
+                                    boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.1)",
+                                }}
+                            />
+                            <Typography variant="h5" sx={{ fontWeight: "bold", margin: "10px 0" }}>
+                                {currentProfile.userName}
+                            </Typography>
+                            <Typography variant="body1" sx={{ color: "#555", marginBottom: "10px" }}>
+                                Account Name: {currentProfile.accountName}
+                            </Typography>
+                            <Typography variant="body2" sx={{ color: "#777", marginBottom: "5px" }}>
+                                <strong>Sex:</strong> {currentProfile.sex || "Not specified"}
+                            </Typography>
+                            <Typography variant="body2" sx={{ color: "#777", marginBottom: "5px" }}>
+                                <strong>Neutered:</strong> {currentProfile.neutered ? "Yes" : "No"}
+                            </Typography>
+                            <Typography variant="body2" sx={{ color: "#777", marginBottom: "5px" }}>
+                                <strong>Apartment Number:</strong> {currentProfile.apartmentNumber || "Not specified"}
+                            </Typography>
+                            <Typography variant="body2" sx={{ color: "#777", marginBottom: "5px" }}>
+                                <strong>Other Pets:</strong> {currentProfile.haveOtherPets ? "Yes" : "No"}
+                            </Typography>
+                        </Box>
+
+                        {/* Right Arrow */}
+                        <IconButton
+                            onClick={handleNext}
+                            disabled={currentMatchIndex >= profiles.length - 1}
+                            sx={{
+                                backgroundColor: "#f0f0f0",
+                                borderRadius: "50%",
+                                visibility: currentMatchIndex < profiles.length - 1 ? "visible" : "hidden",
+                            }}
+                        >
+                            <ArrowForward />
+                        </IconButton>
                     </Box>
-
-                    {/* Right Arrow */}
-                    <IconButton
-                        onClick={handleNext}
-                        disabled={currentMatchIndex >= profiles.length - 1} // Disable if at the last profile
-                        sx={{
-                            backgroundColor: "#f0f0f0",
-                            borderRadius: "50%",
-                            margin: "10px",
-                            visibility: currentMatchIndex < profiles.length - 1 ? "visible" : "hidden", // Hide when disabled
-                        }}
-                    >
-                        <ArrowForward />
-                    </IconButton>
-                </Box>
+                </Card>
 
                 {/* Action Buttons */}
-                <Box sx={{ marginTop: "20px" }}>
+                <Box sx={{ marginTop: "30px" }}>
                     <Button
                         variant="contained"
                         onClick={handleYes}
-                        sx={{ margin: "10px", backgroundColor: "#4caf50" }}
+                        sx={{
+                            margin: "10px",
+                            backgroundColor: "#4caf50",
+                            color: "white",
+                            padding: "10px 20px",
+                            borderRadius: "24px",
+                            fontWeight: "bold",
+                            "&:hover": { backgroundColor: "#45a049" },
+                        }}
                     >
                         Let's Play
                     </Button>
                     <Button
                         variant="contained"
                         onClick={() => handleNo(currentProfile.userID)}
-                        sx={{ margin: "10px", backgroundColor: "#f44336" }}
+                        sx={{
+                            margin: "10px",
+                            backgroundColor: "#f44336",
+                            color: "white",
+                            padding: "10px 20px",
+                            borderRadius: "24px",
+                            fontWeight: "bold",
+                            "&:hover": { backgroundColor: "#e53935" },
+                        }}
                     >
                         Next Time
                     </Button>
                 </Box>
-            </Box>
-            {/* Match Modal */}
-            <Modal open={showMatchModal} onClose={() => setShowMatchModal(false)}>
-                <Box
-                    sx={{
-                        position: "absolute",
-                        top: "50%",
-                        left: "50%",
-                        transform: "translate(-50%, -50%)",
-                        width: 300,
-                        bgcolor: "background.paper",
-                        boxShadow: 24,
-                        p: 4,
-                        textAlign: "center",
-                        borderRadius: 2,
-                    }}
-                >
-                    <Typography variant="h5" sx={{ marginBottom: "10px" }}>
-                        It's a Match!
-                    </Typography>
-                    <Typography variant="body1">
-                        You matched with <strong>{matchedUser?.userName}</strong>!
-                    </Typography>
-                    <Box sx={{ display: "flex", justifyContent: "center", marginTop: "20px" }}>
-                        <Button
-                            variant="contained"
-                            onClick={() =>
-                                navigate("/pet-tinder-chat", { state: { currentUser, matchedUser } })
-                            }
-                            sx={{ marginRight: "10px", backgroundColor: "#4caf50" }}
-                        >
-                            Go to Chat
-                        </Button>
-                        <Button
-                            variant="outlined"
-                            onClick={() => setShowMatchModal(false)}
-                            sx={{ marginLeft: "10px", color: "#f44336", borderColor: "#f44336" }}
-                        >
-                            Close
-                        </Button>
+
+                {/* Match Modal */}
+                <Modal open={showMatchModal} onClose={() => setShowMatchModal(false)}>
+                    <Box
+                        sx={{
+                            position: "absolute",
+                            top: "50%",
+                            left: "50%",
+                            transform: "translate(-50%, -50%)",
+                            width: 350,
+                            bgcolor: "background.paper",
+                            boxShadow: "0px 10px 20px rgba(0, 0, 0, 0.2)",
+                            padding: "20px",
+                            textAlign: "center",
+                            borderRadius: "16px",
+                        }}
+                    >
+                        <Typography variant="h5" sx={{ marginBottom: "10px", fontWeight: "bold" }}>
+                            It's a Match!
+                        </Typography>
+                        <Typography variant="body1" sx={{ marginBottom: "20px", color: "#555" }}>
+                            You matched with <strong>{matchedUser?.userName}</strong>!
+                        </Typography>
+                        <Box sx={{ display: "flex", justifyContent: "center" }}>
+                            <Button
+                                variant="contained"
+                                onClick={() =>
+                                    navigate("/pet-tinder-chat", { state: { currentUser, matchedUser } })
+                                }
+                                sx={{
+                                    marginRight: "10px",
+                                    backgroundColor: "#4caf50",
+                                    color: "white",
+                                    padding: "8px 16px",
+                                    borderRadius: "20px",
+                                    fontWeight: "bold",
+                                    "&:hover": { backgroundColor: "#45a049" },
+                                }}
+                            >
+                                Go to Chat
+                            </Button>
+                            <Button
+                                variant="outlined"
+                                onClick={() => setShowMatchModal(false)}
+                                sx={{
+                                    marginLeft: "10px",
+                                    color: "#f44336",
+                                    borderColor: "#f44336",
+                                    padding: "8px 16px",
+                                    borderRadius: "20px",
+                                    fontWeight: "bold",
+                                    "&:hover": {
+                                        backgroundColor: "rgba(244, 67, 54, 0.1)",
+                                    },
+                                }}
+                            >
+                                Close
+                            </Button>
+                        </Box>
                     </Box>
-                </Box>
-            </Modal>
+                </Modal>
+            </Box>
         </Box>
     );
 };

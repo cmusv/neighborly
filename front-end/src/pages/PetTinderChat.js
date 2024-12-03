@@ -57,11 +57,17 @@ const PetTinderChat = () => {
                 currentUser={currentUser}
             />
             <div className="messages-container">
+                {/* Always display greyed-out message at the top */}
+                <div className="no-messages">
+                    <p className="greyed-message">
+                        Congrats! You have matched with {matchedUser.userName}. Start chatting now!
+                    </p>
+                </div>
                 {messages.map((msg) => (
-                    <ChatBubble key={msg.messageID} message={msg} currentUser={currentUser} />
+                    <ChatBubble key={msg.messageID} message={msg} currentUser={currentUser}/>
                 ))}
             </div>
-            <ChatInput onSendMessage={handleSendMessage} />
+            <ChatInput onSendMessage={handleSendMessage}/>
         </div>
     );
 };

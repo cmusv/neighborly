@@ -17,7 +17,11 @@ function initializePendingLists(profiles) {
             profile.likedList,
             profiles
                 .filter((p) => p.userID !== profile.userID)
-                .map((p) => p.userID)
+                .map((p) => p.userID),
+            profile.sex,
+            profile.neutered,
+            profile.apartmentNumber,
+            profile.haveOtherPets
         )
     );
 }
@@ -31,10 +35,10 @@ const PetTinder = () => {
     const placeholderImage = "https://via.placeholder.com/100?text=Upload+Photo";
 
     const rawProfiles = [
-        createProfile(0, "bucky123", "Bucky", "", [], []),
-        createProfile(1, "john456", "John", "", [], []),
-        createProfile(2, "test1", "Test", "", [], []),
-        createProfile(3, "test2", "Test2", "", [], []),
+        createProfile(0, "bucky123", "Bucky", "", [], [], "", false, "", false),
+        createProfile(1, "john456", "John", "", [], [], "", false, "", false),
+        createProfile(2, "test1", "Test", "", [], [], "Female", false, "305", false),
+        createProfile(3, "test2", "Test2", "", [], [], "Female", false, "201", true),
     ];
 
     const hardcodedProfiles = initializePendingLists(rawProfiles);
@@ -67,10 +71,9 @@ const PetTinder = () => {
     };
 
     const handleSwitchUser = () => {
-        const switchableProfiles = profiles.filter((profile) => profile.userID === 0 || profile.userID === 1);
-        const currentIndex = switchableProfiles.findIndex((profile) => profile.userID === currentUser.userID);
-        const nextIndex = (currentIndex + 1) % switchableProfiles.length;
-        const nextUser = switchableProfiles[nextIndex];
+        const currentIndex = profiles.findIndex((profile) => profile.userID === currentUser.userID);
+        const nextIndex = (currentIndex + 1) % profiles.length;
+        const nextUser = profiles[nextIndex];
         setCurrentUser(nextUser);
         localStorage.setItem("currentUserID", nextUser.userID);
     };
@@ -86,17 +89,16 @@ const PetTinder = () => {
         setProfiles(updatedProfiles);
     };
 
-    const navigateToMatching = () => navigate("/pet-tinder-matcher", { state: { currentUser } });
-
     const handleBack = () => navigate("/");
 
     return (
         <Box>
             <Header
-                title="Profile"
+                title="Pet Tinder Profile"
                 onBack={handleBack}
                 profilePage={true}
                 currentUser={currentUser}
+                onSwitchUser={handleSwitchUser}
             />
             <Box sx={{ backgroundColor: "#f5f5f7", minHeight: "100vh", padding: "16px" }}>
                 <Box sx={{ textAlign: "center", marginTop: "16px" }}>
@@ -126,6 +128,19 @@ const PetTinder = () => {
                         </Typography>
                         <Divider sx={{ margin: "16px 0" }} />
                         <Typography variant="body2" sx={{ marginBottom: "8px" }}>
+                            <strong>Sex:</strong> {currentUser.sex || "Not specified"}
+                        </Typography>
+                        <Typography variant="body2" sx={{ marginBottom: "8px" }}>
+                            <strong>Neutered:</strong> {currentUser.neutered ? "Yes" : "No"}
+                        </Typography>
+                        <Typography variant="body2" sx={{ marginBottom: "8px" }}>
+                            <strong>Apartment Number:</strong> {currentUser.apartmentNumber || "Not specified"}
+                        </Typography>
+                        <Typography variant="body2" sx={{ marginBottom: "8px" }}>
+                            <strong>Other Pets:</strong> {currentUser.haveOtherPets ? "Yes" : "No"}
+                        </Typography>
+                        <Divider sx={{ margin: "16px 0" }} />
+                        <Typography variant="body2" sx={{ marginBottom: "8px" }}>
                             <strong>Liked Users:</strong> {currentUser.likedList?.join(", ") || "No likes yet."}
                         </Typography>
                         <Typography variant="body2" sx={{ marginBottom: "16px" }}>
@@ -133,25 +148,32 @@ const PetTinder = () => {
                         </Typography>
                         <Button
                             variant="contained"
-                            sx={{ margin: "8px", borderRadius: "20px", padding: "8px 24px" }}
+                            sx={{ color: "white", margin: "8px", borderRadius: "20px", padding: "8px 24px", backgroundColor: "#28a745",}}
                             onClick={openEditModal}
                         >
                             Edit Profile
                         </Button>
-                        <Button
-                            variant="contained"
-                            sx={{
-                                margin: "8px",
-                                backgroundColor: "#007aff",
-                                color: "white",
-                                borderRadius: "20px",
-                                padding: "8px 24px",
-                            }}
-                            onClick={handleSwitchUser}
-                        >
-                            Switch User
-                        </Button>
+                        {/*<Button*/}
+                        {/*    variant="contained"*/}
+                        {/*    sx={{*/}
+                        {/*        margin: "8px",*/}
+                        {/*        backgroundColor: "#007aff",*/}
+                        {/*        color: "white",*/}
+                        {/*        borderRadius: "20px",*/}
+                        {/*        padding: "8px 24px",*/}
+                        {/*    }}*/}
+                        {/*    onClick={handleSwitchUser}*/}
+                        {/*>*/}
+                        {/*    Switch User*/}
+                        {/*</Button>*/}
                     </Box>
+                    <Button
+                        variant="contained"
+                        sx={{ color: "white", margin: "8px", borderRadius: "20px", padding: "8px 24px", backgroundColor: "#ff6sff",}}
+                        onClick={() => navigate("/pet-tinder-matcher", { state: { currentUser } })}
+                    >
+                        Enter Pet Date Matcher
+                    </Button>
                 </Box>
                 <Fab
                     color="primary"
