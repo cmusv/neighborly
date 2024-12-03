@@ -3,30 +3,16 @@ import { Typography, Avatar } from "@mui/material";
 import { Button } from "antd";
 import { ArrowLeftOutlined } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
-import { getPhoto } from "../../utils/indexedDB"; // Import getPhoto function
 import "../../styles/ChatHeader.css";
 
-const Header = ({ title, onBack, profilePage, currentUser }) => {
+const Header = ({ title, onBack, profilePage, currentUser, onSwitchUser }) => {
     const navigate = useNavigate();
-    const [currentUserAvatar, setCurrentUserAvatar] = useState(currentUser.userPhoto);
-    // useEffect(() => {
-    //     const fetchCurrentUserAvatar = async () => {
-    //         if (currentUser?.userID) {
-    //             try {
-    //                 const avatar = await getPhoto(currentUser.userID); // Fetch photo from IndexedDB
-    //                 console.log(`Avatar fetched for userID ${currentUser.userID}:`, avatar);
-    //                 setCurrentUserAvatar(avatar || "https://via.placeholder.com/50");
-    //             } catch (error) {
-    //                 console.error("Error fetching user avatar:", error);
-    //                 setCurrentUserAvatar("https://via.placeholder.com/50"); // Fallback in case of error
-    //             }
-    //         } else {
-    //             console.warn("currentUser is undefined or missing userID");
-    //             setCurrentUserAvatar("https://via.placeholder.com/100?text=Upload+Photo"); // Default placeholder
-    //         }
-    //     };
-    //     fetchCurrentUserAvatar();
-    // }, [currentUser]);
+    const [currentUserAvatar, setCurrentUserAvatar] = useState(currentUser?.userPhoto || null);
+
+    useEffect(() => {
+        // Update avatar if currentUser changes
+        setCurrentUserAvatar(currentUser?.userPhoto || null);
+    }, [currentUser]);
 
     return (
         <header className="chat-header">
@@ -43,25 +29,41 @@ const Header = ({ title, onBack, profilePage, currentUser }) => {
 
             {/* Right-Side Action Buttons */}
             <div className="chat-header-right">
-                {!profilePage && currentUser && (
+                {profilePage ? (
                     <Button
-                        type="text"
-                        onClick={() => navigate("/pet-tinder")}
-                        className="profile-button"
+                        type="primary"
+                        onClick={onSwitchUser}
+                        className="switch-user-button"
                         style={{
-                            display: "flex",
-                            alignItems: "center",
-                            gap: "8px",
-                            padding: "0",
+                            borderRadius: "15px",
+                            padding: "4px 16px",
+                            fontSize: "14px",
+                            fontWeight: "bold",
                         }}
                     >
-                        <Avatar
-                            src={currentUserAvatar}
-                            alt={currentUser.userName}
-                            sx={{ width: 30, height: 30 }}
-                        />
-                        {currentUser.userName || "My Profile"}
+                        Switch User
                     </Button>
+                ) : (
+                    currentUserAvatar && (
+                        <Button
+                            type="text"
+                            onClick={() => navigate("/pet-tinder")}
+                            className="profile-button"
+                            style={{
+                                display: "flex",
+                                alignItems: "center",
+                                gap: "8px",
+                                padding: "0",
+                            }}
+                        >
+                            <Avatar
+                                src={currentUserAvatar}
+                                alt={currentUser?.userName || "User"}
+                                sx={{ width: 30, height: 30 }}
+                            />
+                            {currentUser?.userName || "My Profile"}
+                        </Button>
+                    )
                 )}
             </div>
         </header>
