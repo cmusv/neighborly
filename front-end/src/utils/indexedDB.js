@@ -5,6 +5,7 @@ const DB_NAME = "PetTinderDB";
 const PROFILE_STORE = "Profiles";
 const PHOTO_STORE = "Photos";
 const MUTUAL_MATCHES_STORE = "MutualMatches";
+const MESSAGES_STORE = "Messages";
 
 // Profile structure
 export class Profile {
@@ -30,6 +31,11 @@ export async function initDB() {
             }
             if (!db.objectStoreNames.contains(MUTUAL_MATCHES_STORE)) {
                 db.createObjectStore(MUTUAL_MATCHES_STORE, { keyPath: "matchID" });
+            }
+            if (!db.objectStoreNames.contains(MESSAGES_STORE)) {
+                const messageStore = db.createObjectStore(MESSAGES_STORE, { keyPath: "messageID" });
+                messageStore.createIndex("conversationID", "conversationID", { unique: false });
+                messageStore.createIndex("timestamp", "timestamp", { unique: false });
             }
         },
     });
@@ -106,6 +112,24 @@ export async function updateProfileField(userID, field, value) {
     profile[field] = value;
 
     await db.put(PROFILE_STORE, profile); // Save the updated profile
+}
+
+// Save a message
+export async function saveMessage(message) {
+    const db = await initDB();
+    await db.put(MESSAGES_STORE, message);
+}
+
+// Get all messages for a conversation
+export async function getMessages(conversationID) {
+    const db = await initDB();
+    return await db.getAllFromIndex(MESSAGES_STORE, "conversationID", conversationID);
+}
+
+// Delete all messages (optional utility)
+export async function clearMessages() {
+    const db = await initDB();
+    await db.clear(MESSAGES_STORE);
 }
 
 // Clear database
