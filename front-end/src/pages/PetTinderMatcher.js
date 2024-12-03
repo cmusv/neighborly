@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { Profile, getProfiles, getPhoto, saveProfile, saveMutualMatch, updateProfileField } from "../utils/indexedDB";
 import { Box, Typography, Avatar, Button, Modal } from "@mui/material";
-import Header from "../components/Header/Header";
+import Header from "../components/PetTinder/PetTinderHeader";
 import { ArrowBack, ArrowForward } from "@mui/icons-material"; // Import Material-UI Icons
 import { IconButton } from "@mui/material";
 
@@ -118,18 +118,21 @@ const PetTinderMatcher = () => {
         }
     };
 
-    const handleNavigateToChat = () => {
-        navigate("/pet-tinder-chat", { state: { matchedUser, currentUser } });
-    };
-
     const handleReturnToProfile = () => {
         navigate("/pet-tinder");
     };
 
+    const handleBack = () => navigate("/pet-tinder");
+
     if (noMoreUsers) {
         return (
             <Box>
-                <Header />
+                <Header
+                    title={"Pet Tinder"}
+                    onBack={handleBack}
+                    profilePage={false}
+                    currentUser={currentUser}
+                />
                 <Box sx={{ textAlign: "center", margin: "20px" }}>
                     <Typography variant="h6">No more users to match with!</Typography>
                     <Button variant="contained" onClick={handleReturnToProfile} sx={{ marginTop: "20px" }}>
@@ -143,7 +146,12 @@ const PetTinderMatcher = () => {
     if (currentMatchIndex < 0 || !profiles[currentMatchIndex]) {
         return (
             <Box>
-                <Header />
+                <Header
+                    title={"Pet Tinder"}
+                    onBack={handleBack}
+                    profilePage={false}
+                    currentUser={currentUser}
+                />
                 <Box sx={{ textAlign: "center", margin: "20px" }}>
                     <Typography variant="h6">No profiles available for matching.</Typography>
                     <Button variant="contained" onClick={handleReturnToProfile} sx={{ marginTop: "20px" }}>
@@ -192,7 +200,12 @@ const PetTinderMatcher = () => {
 
     return (
         <Box>
-            <Header />
+            <Header
+                title={"Pet Tinder"}
+                onBack={handleBack}
+                profilePage={false}
+                currentUser={currentUser}
+            />
             <Box sx={{ textAlign: "center", margin: "20px" }}>
                 <Typography variant="h4">Matching Mode</Typography>
                 <Box

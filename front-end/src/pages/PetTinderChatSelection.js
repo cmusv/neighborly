@@ -14,7 +14,7 @@ import {
     IconButton,
 } from "@mui/material";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
-import Header from "../components/Header/Header";
+import Header from "../components/PetTinder/PetTinderHeader";
 
 const ChatSelectionPage = () => {
     const [matchedUsers, setMatchedUsers] = useState([]);
@@ -49,10 +49,16 @@ const ChatSelectionPage = () => {
     const handleNavigateToChat = (matchedUser) => {
         navigate("/pet-tinder-chat", { state: { currentUser, matchedUser } });
     };
+    const handleBack = () => navigate("/pet-tinder");
 
     return (
         <Box>
-            <Header />
+            <Header
+                title={"Pet Tinder"}
+                onBack={handleBack}
+                profilePage={false}
+                currentUser={currentUser}
+            />
             <Box sx={{ textAlign: "center", margin: "20px" }}>
                 <Typography variant="h4" gutterBottom>
                     Your Chats
