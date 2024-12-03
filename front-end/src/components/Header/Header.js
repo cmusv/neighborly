@@ -3,17 +3,32 @@ import { AppBar, Toolbar, Typography, Box } from "@mui/material";
 
 const Header = () => {
     return (
-        <AppBar position="static" color="primary" className="w-full">
-            <Toolbar className="flex justify-between items-center px-4 md:px-8">
+        <AppBar
+            position="static"
+            style={{
+                backgroundColor: "#F9DB99", // Updated Header Color
+                boxShadow: "none",
+            }}
+        >
+            <Toolbar
+                style={{
+                    display: "flex",
+                    justifyContent: "center", // Center align
+                    alignItems: "center",
+                }}
+            >
                 <Box className="flex items-center">
                     <img
                         src="/assets/logo.png"
                         alt="Neighborly Logo"
-                        style={{ height: "40px", width: "auto" }}
+                        style={{ height: "40px", width: "auto", marginRight: "8px" }}
                     />
                     <Typography
                         variant="h6"
-                        className="text-white font-bold ml-2 text-base md:text-lg lg:text-xl"
+                        style={{
+                            color: "#714D00", // Dark brown text color
+                            fontWeight: "bold",
+                        }}
                     >
                         Neighborly
                     </Typography>
