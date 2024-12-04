@@ -13,6 +13,7 @@ import {
 import { PlusOutlined } from '@ant-design/icons';
 import '../../styles/ExchangeBoard.css';
 import Header from '../../components/ExchangeBoard/Header/Header';
+import { savePhoto } from '../../utils/indexedDB';
 
 const Offers = () => {
   const navigate = useNavigate();
@@ -60,16 +61,25 @@ const Offers = () => {
     </button>
   );
 
-  const onFinish = (values) => {
+  const onFinish = async (values) => {
     const currentData = localStorage.getItem('boardData');
     const newBoardData = currentData ? JSON.parse(currentData) : [];
     const userData = JSON.parse(localStorage.getItem('current_user'));
+
+    const photoId = crypto.randomUUID();
+    const reader = new FileReader();
+    reader.onload = async () => {
+      const photoBase64 = reader.result;
+      await savePhoto(photoId, photoBase64); // Save photo to IndexedDB
+    };
+    reader.readAsDataURL(fileList[0].originFileObj);
+
     const newOffer = {
       name: values.name,
       description: values.description,
       pickup: values.pickup,
       notes: values.notes,
-      image: 'https://picsum.photos/300/300',
+      image: photoId,
       id: crypto.randomUUID(),
       owner: userData?.id,
       Buyer: null,
@@ -79,8 +89,9 @@ const Offers = () => {
     newBoardData.push(newOffer);
     localStorage.setItem('boardData', JSON.stringify(newBoardData));
   };
+
   const onFinishFailed = (errorInfo) => {
-    console.log('Failed:', errorInfo);
+    message.error('Failed:', errorInfo);
   };
 
   return (
@@ -151,7 +162,7 @@ const Offers = () => {
               onChange={handleChange}
               width={300}
             >
-              {fileList.length >= 8 ? null : uploadButton}
+              {fileList.length >= 1 ? null : uploadButton}
             </Upload>
             {previewImage && (
               <Image

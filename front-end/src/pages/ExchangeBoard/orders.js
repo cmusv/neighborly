@@ -1,6 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Input, Button, Card, Tag, Popconfirm } from 'antd';
+import {
+  Input,
+  Button,
+  Card,
+  Tag,
+  Popconfirm,
+  Modal,
+  Space,
+  Form,
+  message,
+} from 'antd';
 import '../../styles/ExchangeBoard.css';
 import Header from '../../components/ExchangeBoard/Header/Header';
 
@@ -9,6 +19,8 @@ const Orders = () => {
   const { Search } = Input;
   const [boardData, setBoardData] = useState([]);
   const [filteredData, setFilteredData] = useState([]);
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [editItem, setEditItem] = useState(null);
 
   useEffect(() => {
     const tempData = localStorage.getItem('boardData');
@@ -30,6 +42,65 @@ const Orders = () => {
 
   const onOffers = () => {
     navigate('/exchange-board/offers');
+  };
+
+  const onDelete = (id) => {
+    const newData = boardData.filter((data) => data.id !== id);
+    const newFilteredData = filteredData.filter(
+      (data) => data.id !== id
+    );
+    localStorage.setItem('boardData', JSON.stringify(newData));
+    setBoardData(newData);
+    setFilteredData(newFilteredData);
+  };
+
+  const onEdit = (item) => {
+    console.log(item);
+    setEditItem(item);
+    setIsModalVisible(true);
+  };
+
+  const handleOk = () => {
+    setIsModalVisible(false);
+  };
+
+  const handleCancel = () => {
+    setIsModalVisible(false);
+  };
+
+  const onEditComfirm = (values) => {
+    const newFilteredData = filteredData.map((data) => {
+      if (data.id === editItem.id) {
+        return {
+          ...data,
+          name: values.name,
+          description: values.description,
+          pickup: values.pickup,
+          notes: values.notes,
+        };
+      }
+      return data;
+    });
+
+    const newData = boardData.map((data) => {
+      if (data.id === editItem.id) {
+        return {
+          ...data,
+          name: values.name,
+          description: values.description,
+          pickup: values.pickup,
+          notes: values.notes,
+        };
+      }
+      return data;
+    });
+    localStorage.setItem('boardData', JSON.stringify(newData));
+    setBoardData(newData);
+    setFilteredData(newFilteredData);
+  };
+
+  const onFinishFailed = (errorInfo) => {
+    message.error('Failed:', errorInfo);
   };
 
   const curUserId = JSON.parse(
@@ -126,9 +197,7 @@ const Orders = () => {
                           >
                             <Popconfirm
                               title='Are you sure to edit this item?'
-                              onConfirm={() => {
-                                console.log(1);
-                              }}
+                              onConfirm={() => onEdit(data)}
                               okText='Yes'
                               cancelText='No'
                             >
@@ -141,9 +210,7 @@ const Orders = () => {
                             </Popconfirm>
                             <Popconfirm
                               title='Are you sure to delete this item?'
-                              onConfirm={() => {
-                                console.log(1);
-                              }}
+                              onConfirm={() => onDelete(data.id)}
                               okText='Yes'
                               cancelText='No'
                             >
@@ -165,6 +232,99 @@ const Orders = () => {
               );
             })
           : ''}
+        <Modal
+          title='Edit Item'
+          visible={isModalVisible}
+          onOk={handleOk}
+          onCancel={handleCancel}
+          footer={null}
+        >
+          {editItem ? (
+            <div>
+              <Form
+                name='editItem'
+                onFinish={onEditComfirm}
+                onFinishFailed={onFinishFailed}
+                initialValues={{
+                  name: editItem.name,
+                  description: editItem.description,
+                  pickup: editItem.pickup,
+                  notes: editItem.notes,
+                }}
+              >
+                <Form.Item
+                  name='name'
+                  label='Name'
+                  rules={[
+                    { required: true, message: 'Please input name!' },
+                  ]}
+                >
+                  <Input />
+                </Form.Item>
+                <Form.Item
+                  name='description'
+                  label='Description'
+                  rules={[
+                    {
+                      required: true,
+                      message: 'Please input description!',
+                    },
+                  ]}
+                >
+                  <Input />
+                </Form.Item>
+                <Form.Item
+                  name='pickup'
+                  label='Pickup'
+                  rules={[
+                    {
+                      required: true,
+                      message: 'Please input pickup!',
+                    },
+                  ]}
+                >
+                  <Input />
+                </Form.Item>
+                <Form.Item
+                  name='notes'
+                  label='Notes'
+                  rules={[
+                    {
+                      required: true,
+                      message: 'Please input notes!',
+                    },
+                  ]}
+                >
+                  <Input.TextArea />
+                </Form.Item>
+                <Form.Item
+                  style={{
+                    display: 'flex',
+                    justifyContent: 'center',
+                  }}
+                >
+                  <Space>
+                    <Popconfirm
+                      title='Are you sure to edit this item?'
+                      onConfirm={() => {
+                        message.success('Item editted successfully');
+                        navigate('/exchange-board');
+                      }}
+                      okText='Yes'
+                      cancelText='No'
+                    >
+                      <Button type='primary' htmlType='submit'>
+                        Edit
+                      </Button>
+                    </Popconfirm>
+                  </Space>
+                </Form.Item>
+              </Form>
+            </div>
+          ) : (
+            ''
+          )}
+        </Modal>
       </div>
     </div>
   );

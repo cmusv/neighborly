@@ -3,16 +3,27 @@ import { Button, Popconfirm, message } from 'antd';
 import { Card, Row, Col } from 'antd';
 import '../../styles/ExchangeBoard.css';
 import Header from '../../components/ExchangeBoard/Header/Header';
+import { getPhoto } from '../../utils/indexedDB';
 
 const Details = () => {
   let item = null;
-
   const curData = JSON.parse(localStorage.getItem('boardData'));
   const curUser = JSON.parse(localStorage.getItem('current_user'));
   if (curData !== null) {
     const id = window.location.pathname.split('/').pop();
     item = curData.find((element) => element.id === id);
   }
+
+  const [photo, setPhoto] = React.useState('');
+  React.useEffect(() => {
+    const func = async () => {
+      if (item !== null) {
+        const photo = await getPhoto(item.image);
+        setPhoto(photo);
+      }
+    };
+    func();
+  }, []);
 
   const onOrder = () => {
     if (item.owner === curUser?.id) {
@@ -53,11 +64,13 @@ const Details = () => {
               style={{ width: '100%' }}
             >
               <p>{item.description}</p>
-              <p>{item.pickup}</p>
-              <div>{item.notes}</div>
+              <p style={{ color: 'gray' }}>
+                Please pick up at {item.pickup}
+              </p>
+              <div style={{ fontWeight: 'bold' }}>{item.notes}</div>
               <div style={{ textAlign: 'center' }}>
                 <img
-                  src={item.image}
+                  src={photo}
                   alt='Exchange Item'
                   style={{
                     width: '100%',
