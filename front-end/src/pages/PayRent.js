@@ -4,24 +4,21 @@ import PaymentHeader from "../components/Header/PaymentHeader";
 import "../styles/PayRent.css";
 
 const PayRent = () => {
-  const [amount, setAmount] = useState(""); // 支付金额
+  const [amount, setAmount] = useState("");
   const [current_balance, setCurrentBalance] = useState(() => {
-    // 尝试从 localStorage 获取当前余额
     const storedBalance = localStorage.getItem("current_balance");
-    return storedBalance ? parseFloat(storedBalance) : 1000; // 默认值为 1000
+    return storedBalance ? parseFloat(storedBalance) : 0;
   });
-  const [isPayEnabled, setIsPayEnabled] = useState(false); // 是否启用支付按钮
-  const [statusMessage, setStatusMessage] = useState("Your upcoming November bill is due in 4 days."); // 状态消息
+  const [isPayEnabled, setIsPayEnabled] = useState(false);
+  const [statusMessage, setStatusMessage] = useState("Your upcoming November bill is due in 4 days.");
   const navigate = useNavigate();
   const location = useLocation();
 
-  // 从 Thank You Page 返回时更新余额和状态消息
   useEffect(() => {
     if (location.state?.updatedBalance !== undefined) {
-      const { updatedBalance } = location.state; // 从 Thank You Page 获取更新后的余额
+      const { updatedBalance } = location.state;
       setCurrentBalance(updatedBalance);
 
-      // 根据余额更新状态消息
       if (updatedBalance >= 3000) {
         setStatusMessage("Thank you for your payment! Your bill is all set.");
       } else {
@@ -30,18 +27,18 @@ const PayRent = () => {
     }
   }, [location.state]);
 
-  // 处理支付金额变化
+
   const handleAmountChange = (e) => {
     const value = parseFloat(e.target.value) || 0;
     setAmount(value);
-    setIsPayEnabled(value > 0); // 当金额大于0时启用支付按钮
+    setIsPayEnabled(value > 0);
   };
 
-  // 跳转到选择账户页面
+
   const handlePay = () => {
     if (amount > 0) {
       navigate("/select-account", {
-        state: { amount, current_balance }, // 传递当前余额和支付金额
+        state: { amount, current_balance }, 
       });
     } else {
       alert("Please enter a valid amount to pay!");
@@ -68,13 +65,13 @@ const PayRent = () => {
           <div className="row">
             <div className="cell label">Enter Amount:</div>
             <div className="cell value">
-              <input
+              $ <input
                 type="number"
                 value={amount}
                 onChange={handleAmountChange}
                 placeholder="Enter Amount"
                 className="amount-input"
-                style={{ width: "100px" }}
+                style={{ width: "130px" }}
               />
             </div>
           </div>
@@ -87,6 +84,7 @@ const PayRent = () => {
         >
           Pay
         </button>
+        
       </div>
     </>
   );
