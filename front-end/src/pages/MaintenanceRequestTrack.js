@@ -141,25 +141,25 @@ const MaintenanceRequestTrack = () => {
                 ) : (
                     <div className="details-section">
                         <p>
-                            <strong>Time:</strong> {new Date(request.time).toLocaleString()}
+                            <strong>Time:</strong> <span>{new Date(request.time).toLocaleString()}</span>
                         </p>
                         <p>
-                            <strong>Building:</strong> {request.building}
+                            <strong>Building:</strong> <span>{request.building}</span>
                         </p>
                         <p>
-                            <strong>Room:</strong> {request.room}
+                            <strong>Room:</strong> <span>{request.room}</span>
                         </p>
                         <p>
-                            <strong>Location:</strong> {request.location}
+                            <strong>Location:</strong> <span>{request.location}</span>
                         </p>
                         <p>
-                            <strong>Description:</strong> {request.description}
+                            <strong>Description:</strong> <span>{request.description}</span>
                         </p>
                         <p>
-                            <strong>Contact:</strong> {request.contact}
+                            <strong>Contact:</strong> <span>{request.contact}</span>
                         </p>
                         <p>
-                            <strong>Status:</strong> {request.status}
+                            <strong>Status:</strong> <span>{request.status}</span>
                         </p>
                     </div>
                 )}
@@ -168,7 +168,7 @@ const MaintenanceRequestTrack = () => {
                 {isNew ?
                     <button className={`action-button submit ${isFormValid ? "enabled" : "disabled"}`} onClick={handleSubmit} disabled={!isFormValid}>
                     Submit
-                    </button> : <p className="success-message">Request Submitted</p>
+                    </button> : <p className="success-message">{request.status}</p>
                 }
                 <button className="action-button back enabled" onClick={handleBack}>Back</button>
             </div>
