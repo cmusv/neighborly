@@ -13,17 +13,6 @@ const ExchangeBoard = () => {
 
   useEffect(() => {
     const tempData = localStorage.getItem('boardData');
-
-    setBoardData([
-      {
-        name: 'default item',
-        desc: 'default description',
-        loc: '115',
-        note: null,
-        id: '114514',
-      },
-    ]);
-
     if (tempData) {
       setBoardData(JSON.parse(tempData));
       setFilteredData(JSON.parse(tempData));

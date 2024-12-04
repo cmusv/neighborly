@@ -80,7 +80,7 @@ const Offers = () => {
     localStorage.setItem('boardData', JSON.stringify(newBoardData));
   };
   const onFinishFailed = (errorInfo) => {
-    console.log('Failed:', errorInfo);
+    message.error('Failed:', errorInfo);
   };
 
   return (
