@@ -64,7 +64,9 @@ const ExchangeBoard = () => {
                   }
                 >
                   <p>{data.description}</p>
-                  <p>{data.pickup}</p>
+                  <p style={{ color: 'gray' }}>
+                    Please pick up at {data.pickup}
+                  </p>{' '}
                 </Card>
               );
             })
