@@ -75,8 +75,8 @@ const PetTinderProfile = () => {
                         src={user.userPhoto || placeholderImage}
                         alt={`${user.userName}'s photo`}
                         sx={{
-                            width: 150,
-                            height: 150,
+                            width: 250,
+                            height: 250,
                             margin: "0 auto 20px",
                             border: "3px solid #e0e0e0",
                         }}
