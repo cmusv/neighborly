@@ -1,21 +1,10 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
 import { Button, Popconfirm, message } from 'antd';
 import { Card, Row, Col } from 'antd';
 import '../../styles/ExchangeBoard.css';
 import Header from '../../components/ExchangeBoard/Header/Header';
 
 const Details = () => {
-  const navigate = useNavigate();
-
-  const onBack = () => {
-    navigate('/exchange-board');
-  };
-
-  const onHome = () => {
-    navigate('/');
-  };
-
   let item = null;
 
   const curData = JSON.parse(localStorage.getItem('boardData'));
@@ -47,19 +36,22 @@ const Details = () => {
   return (
     <div className='outer-container'>
       <div>
-        <Header onBack={onBack} onHome={onHome} />
+        <Header />
       </div>
       <div
         className='container'
         style={{
-          width: '300px',
           margin: '0 auto',
           paddingTop: '50px',
         }}
       >
         <Row justify='center' style={{ marginTop: '20px' }}>
           <Col xs={24} sm={16} md={12} lg={8}>
-            <Card title={item.name} bordered={false}>
+            <Card
+              title={item.name}
+              bordered={false}
+              style={{ width: '100%' }}
+            >
               <p>{item.description}</p>
               <p>{item.pickup}</p>
               <div>{item.notes}</div>

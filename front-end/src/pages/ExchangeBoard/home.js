@@ -30,14 +30,6 @@ const ExchangeBoard = () => {
     }
   }, []);
 
-  const onBack = () => {
-    navigate('/exchange-board');
-  };
-
-  const onHome = () => {
-    navigate('/');
-  };
-
   const onSearch = (value) => {
     const filtered = boardData.filter((data) => {
       return data.name.toLowerCase().includes(value.toLowerCase());
@@ -57,7 +49,7 @@ const ExchangeBoard = () => {
   return (
     <div className='outer-container'>
       <div>
-        <Header onBack={onBack} onHome={onHome} />
+        <Header />
       </div>
       <div className='search-bar'>
         <Search onSearch={onSearch} style={{ width: 200 }} />
