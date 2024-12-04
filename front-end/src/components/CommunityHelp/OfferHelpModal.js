@@ -263,7 +263,7 @@ const OfferHelpModal = ({ selectedDate, onClose }) => {
                             ))}
                         </div>
 
-                        <button className="confirm-button" onClick={handleConfirm}>
+                        <button className="confirm-button-help" onClick={handleConfirm}>
                             Confirm
                         </button>
                     </div>
@@ -272,7 +272,7 @@ const OfferHelpModal = ({ selectedDate, onClose }) => {
                 {/* Add New Availability Button */}
                 {!isAdding && (
                     <button
-                        className="add-button"
+                        className="add-button-help"
                         onClick={() => {
                             setIsAdding(true);
                             setEditingIndex(null); // Reset editingIndex

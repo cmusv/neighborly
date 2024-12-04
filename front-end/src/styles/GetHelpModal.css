@@ -82,7 +82,7 @@
     font-size: 14px;
     font-weight: bold;
     cursor: pointer;
-    transition: background-color 0.2s ease;
+    transition: background-color 0.2s ease, color 0.2s ease;
     align-self: center;
 }
 
@@ -146,7 +146,7 @@
     gap: 8px;
 }
 
-.confirm-button {
+.confirm-button-help {
     background-color: #f2a600;
     color: #ffffff;
     border: none;
@@ -160,11 +160,11 @@
     flex: 1;
 }
 
-.confirm-button:hover {
+.confirm-button-help:hover {
     background-color: #d18800;
 }
 
-.back-button {
+.back-button-help {
     background-color: #ffffff;
     color: #f2a600;
     border: 1px solid #f2a600;
@@ -178,6 +178,6 @@
     flex: 1;
 }
 
-.back-button:hover {
+.back-button-help:hover {
     background-color: #d18800;
 }
