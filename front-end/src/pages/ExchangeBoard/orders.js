@@ -67,7 +67,7 @@ const Orders = () => {
                   title={data.name}
                   extra={
                     <a href={`/exchange-board/details/${data.id}`}>
-                      More
+                      Detail
                     </a>
                   }
                 >

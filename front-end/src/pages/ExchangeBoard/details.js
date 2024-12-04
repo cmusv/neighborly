@@ -1,16 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import {
-  Input,
-  Button,
-  Form,
-  Space,
-  Upload,
-  Image,
-  Popconfirm,
-} from 'antd';
+import { Button, Popconfirm, message } from 'antd';
 import { Card, Row, Col } from 'antd';
-import { PlusOutlined } from '@ant-design/icons';
 import '../../styles/ExchangeBoard.css';
 import Header from '../../components/ExchangeBoard/Header/Header';
 
@@ -35,16 +26,22 @@ const Details = () => {
   }
 
   const onOrder = () => {
-    // if (item.owner === curUser?.id) {
-    //   console.log('You cannot order your own item');
-    //   return;
-    // }
+    if (item.owner === curUser?.id) {
+      message.error('You cannot order your own item');
+      return;
+    }
+
+    if (item.status === 'ordered') {
+      message.success('This item has already been ordered');
+      return;
+    }
 
     item.status = 'ordered';
     item.buyer = curUser?.id;
     curData[curData.findIndex((element) => element.id === item.id)] =
       item;
     localStorage.setItem('boardData', JSON.stringify(curData));
+    message.success('Item ordered successfully');
   };
 
   return (
@@ -80,20 +77,22 @@ const Details = () => {
                 />
               </div>
               {item.status !== 'ordered' ? (
-                <div
-                  style={{ marginTop: '20px', textAlign: 'center' }}
-                >
-                  <Popconfirm
-                    title='Are you sure to order this item?'
-                    onConfirm={onOrder}
-                    okText='Yes'
-                    cancelText='No'
+                item.owner !== curUser?.id ? (
+                  <div
+                    style={{ marginTop: '20px', textAlign: 'center' }}
                   >
-                    <Button type='primary' htmlType='submit'>
-                      Order
-                    </Button>
-                  </Popconfirm>
-                </div>
+                    <Popconfirm
+                      title='Are you sure to order this item?'
+                      onConfirm={onOrder}
+                      okText='Yes'
+                      cancelText='No'
+                    >
+                      <Button type='primary' htmlType='submit'>
+                        Order
+                      </Button>
+                    </Popconfirm>
+                  </div>
+                ) : null
               ) : null}
             </Card>
           </Col>
