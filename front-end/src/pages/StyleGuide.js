@@ -91,10 +91,11 @@ const StyleGuidePage = () => {
                         elevation={2}
                         sx={{
                             padding: "10px",
-                            backgroundColor: "#F2A600",
+                            backgroundColor: "#FFF8EC",
                             color: "#fff",
                             borderRadius: "8px",
                             marginTop: "10px",
+                            pointerEvents: "none",
                         }}
                     >
                         <Header
@@ -152,7 +153,7 @@ const StyleGuidePage = () => {
                     <Box sx={{ display: "flex", gap: "10px", marginTop: "10px" }}>
                         <ColorSwatch color="#F2A600" label="Primary Color" />
                         <ColorSwatch color="#E58F00" label="Hover Orange" />
-                        <ColorSwatch color="#F7F7F7" label="Background" labelColor="#000" />
+                        <ColorSwatch color="#FFF8EC" label="Background" labelColor="#000" />
                         <ColorSwatch color="#555555" label="Text" />
                     </Box>
                 </Section>
