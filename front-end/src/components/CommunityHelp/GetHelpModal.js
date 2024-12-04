@@ -94,7 +94,7 @@ const GetHelpModal = ({ selectedDate, onClose, refreshPageData }) => {
         // Update user's agenda
         const newTask = {
             date: selectedDate,
-            task: "Getting Help",
+            task: "Being Helped",
             owner: "Me",
             helper: selectedHelper.helper,
             startTime,
@@ -174,10 +174,10 @@ const GetHelpModal = ({ selectedDate, onClose, refreshPageData }) => {
                             }
                         />
                         <div className="booking-actions">
-                            <button className="back-button" onClick={() => setIsBooking(false)}>
+                            <button className="back-button-help" onClick={() => setIsBooking(false)}>
                                 Back
                             </button>
-                            <button className="confirm-button" onClick={handleConfirmBooking}>
+                            <button className="confirm-button-help" onClick={handleConfirmBooking}>
                                 Confirm
                             </button>
                         </div>
