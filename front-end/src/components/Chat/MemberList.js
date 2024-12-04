@@ -9,7 +9,7 @@ import {
 } from '@mui/material';
 import { Button, Modal } from 'antd';
 import { ArrowLeftOutlined, CheckCircleOutlined } from '@ant-design/icons';
-import { useChatroom } from '../../contexts/ChatContext';
+import { useChatroom } from '../Chat/contexts/ChatContext';
 import '../../styles/MemberList.css';
 import '../../styles/Modal.css';
 import { successModalConfig } from './ModalConfig';
