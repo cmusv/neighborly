@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Input, Button, Card, Tag } from 'antd';
+import { Input, Button, Card, Tag, Popconfirm } from 'antd';
 import '../../styles/ExchangeBoard.css';
 import Header from '../../components/ExchangeBoard/Header/Header';
 
@@ -15,13 +15,6 @@ const Orders = () => {
     setBoardData(JSON.parse(tempData));
     setFilteredData(JSON.parse(tempData));
   }, []);
-  const onBack = () => {
-    navigate('/exchange-board');
-  };
-
-  const onHome = () => {
-    navigate('/');
-  };
 
   const onSearch = (value) => {
     const filtered = boardData.filter((data) => {
@@ -41,12 +34,12 @@ const Orders = () => {
 
   const curUserId = JSON.parse(
     localStorage.getItem('current_user')
-  ).id;
+  )?.id;
 
   return (
     <div className='outer-container'>
       <div>
-        <Header onBack={onBack} onHome={onHome} />
+        <Header />
       </div>
       <div className='search-bar'>
         <Search onSearch={onSearch} style={{ width: 200 }} />
@@ -71,23 +64,103 @@ const Orders = () => {
                     </a>
                   }
                 >
-                  <p>{data.description}</p>
-                  <p>{data.pickup}</p>
-                  {data.owner === curUserId ? (
-                    <Tag color='blue'>Offered by me</Tag>
-                  ) : (
-                    ''
-                  )}
-                  {data.buyer === curUserId ? (
-                    <Tag color='blue'>Ordered by me</Tag>
-                  ) : (
-                    ''
-                  )}
-                  {data.status === 'ordered' ? (
-                    <Tag color='blue'>Ordered</Tag>
-                  ) : (
-                    <Tag color='blue'>Open</Tag>
-                  )}
+                  <div
+                    style={{
+                      display: 'flex',
+                      justifyContent: 'space-between',
+                    }}
+                  >
+                    <div>
+                      <p>{data.description}</p>
+                      <p>{data.pickup}</p>
+                    </div>
+                    <div
+                      style={{
+                        display: 'flex',
+                        flexDirection: 'column',
+                        gap: '20px',
+                        alignItems: 'flex-end',
+                      }}
+                    >
+                      {' '}
+                      <div>
+                        {data.owner === curUserId ? (
+                          <Tag
+                            color='#FA8C16'
+                            style={{ color: 'black' }}
+                          >
+                            Offered by me
+                          </Tag>
+                        ) : (
+                          ''
+                        )}
+                        {data.buyer === curUserId ? (
+                          <Tag
+                            color='#FFD591'
+                            style={{ color: 'black' }}
+                          >
+                            Ordered by me
+                          </Tag>
+                        ) : (
+                          ''
+                        )}
+                      </div>
+                      <div>
+                        {' '}
+                        {data.status === 'ordered' ? (
+                          <Tag color='#F9DB99'>Ordered</Tag>
+                        ) : (
+                          <Tag color='#F9DB99'>Unordered</Tag>
+                        )}
+                      </div>
+                      <div>
+                        {data.owner === curUserId &&
+                        data.status !== 'ordered' ? (
+                          <div
+                            style={{
+                              display: 'flex',
+                              flexDirection: 'row',
+                              gap: '20px',
+                              alignItems: 'flex-end',
+                            }}
+                          >
+                            <Popconfirm
+                              title='Are you sure to edit this item?'
+                              onConfirm={() => {
+                                console.log(1);
+                              }}
+                              okText='Yes'
+                              cancelText='No'
+                            >
+                              <Button
+                                type='primary'
+                                htmlType='submit'
+                              >
+                                Edit
+                              </Button>
+                            </Popconfirm>
+                            <Popconfirm
+                              title='Are you sure to delete this item?'
+                              onConfirm={() => {
+                                console.log(1);
+                              }}
+                              okText='Yes'
+                              cancelText='No'
+                            >
+                              <Button
+                                type='primary'
+                                htmlType='submit'
+                              >
+                                Delete
+                              </Button>
+                            </Popconfirm>
+                          </div>
+                        ) : (
+                          ''
+                        )}
+                      </div>
+                    </div>
+                  </div>
                 </Card>
               );
             })

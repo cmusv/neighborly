@@ -1,8 +1,16 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { ArrowLeftOutlined } from '@ant-design/icons';
 import './styles.css';
 
-const Header = ({ onBack, onHome }) => {
+const Header = () => {
+  const navigate = useNavigate();
+  const onBack = () => {
+    navigate(-1);
+  };
+  const onHome = () => {
+    navigate('/');
+  };
   return (
     <header className='header'>
       <div className='header-left' onClick={onBack}>
