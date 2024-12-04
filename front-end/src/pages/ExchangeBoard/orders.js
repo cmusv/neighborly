@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Input, Button, Card, Tag } from 'antd';
 import '../../styles/ExchangeBoard.css';
@@ -7,7 +7,14 @@ import Header from '../../components/ExchangeBoard/Header/Header';
 const Orders = () => {
   const navigate = useNavigate();
   const { Search } = Input;
+  const [boardData, setBoardData] = useState([]);
+  const [filteredData, setFilteredData] = useState([]);
 
+  useEffect(() => {
+    const tempData = localStorage.getItem('boardData');
+    setBoardData(JSON.parse(tempData));
+    setFilteredData(JSON.parse(tempData));
+  }, []);
   const onBack = () => {
     navigate('/exchange-board');
   };
@@ -17,20 +24,24 @@ const Orders = () => {
   };
 
   const onSearch = (value) => {
-    console.log(value);
+    const filtered = boardData.filter((data) => {
+      return data.name.toLowerCase().includes(value.toLowerCase());
+    });
+
+    setFilteredData(filtered);
   };
 
   const onOrders = () => {
-    navigate('./orders');
+    navigate('/exchange-board/orders');
   };
 
   const onOffers = () => {
-    navigate('./offers');
+    navigate('/exchange-board/offers');
   };
 
-  const onDetail = (id) => {
-    navigate(`./details/${id}`);
-  };
+  const curUserId = JSON.parse(
+    localStorage.getItem('current_user')
+  ).id;
 
   return (
     <div className='outer-container'>
@@ -47,24 +58,40 @@ const Orders = () => {
         </div>
       </div>
       <div className='container'>
-        <Card
-          title='Default size card'
-          extra={<a href='#'>More</a>}
-          style={{ width: 300 }}
-          onClick={onDetail}
-        >
-          <p>Card content</p>
-          <p>Card content</p>
-          <p>Card content</p>
-          <div>
-            <Tag color='purple'>123</Tag>
-            <Tag color='blue'>456</Tag>
-          </div>
-          <div>
-            <Button type='primary'>123</Button>
-            <Button type='primary'>456</Button>
-          </div>
-        </Card>
+        {filteredData
+          ? filteredData.map((data) => {
+              return (
+                <Card
+                  key={data.id}
+                  className='exchange-card'
+                  title={data.name}
+                  extra={
+                    <a href={`/exchange-board/details/${data.id}`}>
+                      More
+                    </a>
+                  }
+                >
+                  <p>{data.description}</p>
+                  <p>{data.pickup}</p>
+                  {data.owner === curUserId ? (
+                    <Tag color='blue'>Offered by me</Tag>
+                  ) : (
+                    ''
+                  )}
+                  {data.buyer === curUserId ? (
+                    <Tag color='blue'>Ordered by me</Tag>
+                  ) : (
+                    ''
+                  )}
+                  {data.status === 'ordered' ? (
+                    <Tag color='blue'>Ordered</Tag>
+                  ) : (
+                    <Tag color='blue'>Open</Tag>
+                  )}
+                </Card>
+              );
+            })
+          : ''}
       </div>
     </div>
   );

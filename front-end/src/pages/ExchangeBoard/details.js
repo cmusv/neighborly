@@ -1,15 +1,21 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Input, Button, Form, Space, Upload, Image } from 'antd';
-import type { GetProp, UploadFile, UploadProps } from 'antd';
+import {
+  Input,
+  Button,
+  Form,
+  Space,
+  Upload,
+  Image,
+  Popconfirm,
+} from 'antd';
+import { Card, Row, Col } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
 import '../../styles/ExchangeBoard.css';
 import Header from '../../components/ExchangeBoard/Header/Header';
 
 const Details = () => {
   const navigate = useNavigate();
-  const { Search } = Input;
-  const { UploadFile } = Upload;
 
   const onBack = () => {
     navigate('/exchange-board');
@@ -19,58 +25,27 @@ const Details = () => {
     navigate('/');
   };
 
-  const onSearch = (value) => {
-    console.log(value);
-  };
+  let item = null;
 
-  const onOrders = () => {
-    navigate('./orders');
-  };
+  const curData = JSON.parse(localStorage.getItem('boardData'));
+  const curUser = JSON.parse(localStorage.getItem('current_user'));
+  if (curData !== null) {
+    const id = window.location.pathname.split('/').pop();
+    item = curData.find((element) => element.id === id);
+  }
 
-  const onOffers = () => {
-    navigate('./offers');
-  };
+  const onOrder = () => {
+    // if (item.owner === curUser?.id) {
+    //   console.log('You cannot order your own item');
+    //   return;
+    // }
 
-  const onDetail = (id) => {
-    navigate(`./details/${id}`);
+    item.status = 'ordered';
+    item.buyer = curUser?.id;
+    curData[curData.findIndex((element) => element.id === item.id)] =
+      item;
+    localStorage.setItem('boardData', JSON.stringify(curData));
   };
-  const getBase64 = (file) =>
-    new Promise((resolve, reject) => {
-      const reader = new FileReader();
-      reader.readAsDataURL(file);
-      reader.onload = () => resolve(reader.result);
-      reader.onerror = (error) => reject(error);
-    });
-  const [previewOpen, setPreviewOpen] = useState(false);
-  const [previewImage, setPreviewImage] = useState('');
-  const [fileList, setFileList] = useState([]);
-  const handleChange = ({ fileList: newFileList }) =>
-    setFileList(newFileList);
-  const handlePreview = async (file) => {
-    if (!file.url && !file.preview) {
-      file.preview = await getBase64(file.originFileObj);
-    }
-    setPreviewImage(file.url || file.preview);
-    setPreviewOpen(true);
-  };
-  const uploadButton = (
-    <button
-      style={{
-        border: 0,
-        background: 'none',
-      }}
-      type='button'
-    >
-      <PlusOutlined />
-      <div
-        style={{
-          marginTop: 8,
-        }}
-      >
-        Upload
-      </div>
-    </button>
-  );
 
   return (
     <div className='outer-container'>
@@ -82,62 +57,47 @@ const Details = () => {
         style={{
           width: '300px',
           margin: '0 auto',
-          'padding-top': '50px',
+          paddingTop: '50px',
         }}
       >
-        <Form.Item
-          name='note'
-          label='Note'
-          rules={[{ required: true }]}
-        >
-          <Input />
-        </Form.Item>
-        <Form.Item
-          name='note'
-          label='Note'
-          rules={[{ required: true }]}
-        >
-          <div>
-            <Upload
-              action='https://660d2bd96ddfa2943b33731c.mockapi.io/api/upload'
-              listType='picture-card'
-              fileList={fileList}
-              onPreview={handlePreview}
-              onChange={handleChange}
-            >
-              {fileList.length >= 8 ? null : uploadButton}
-            </Upload>
-            {previewImage && (
-              <Image
-                wrapperStyle={{
-                  display: 'none',
-                }}
-                preview={{
-                  visible: previewOpen,
-                  onVisibleChange: (visible) =>
-                    setPreviewOpen(visible),
-                  afterOpenChange: (visible) =>
-                    !visible && setPreviewImage(''),
-                }}
-                src={previewImage}
-              />
-            )}
-          </div>
-        </Form.Item>
-        <Form.Item
-          name='note'
-          label='Note'
-          rules={[{ required: true }]}
-        >
-          <Input.TextArea />
-        </Form.Item>
-        <Form.Item>
-          <Space>
-            <Button type='primary' htmlType='submit'>
-              Submit
-            </Button>
-          </Space>
-        </Form.Item>
+        <Row justify='center' style={{ marginTop: '20px' }}>
+          <Col xs={24} sm={16} md={12} lg={8}>
+            <Card title={item.name} bordered={false}>
+              <p>{item.description}</p>
+              <p>{item.pickup}</p>
+              <div>{item.notes}</div>
+              <div style={{ textAlign: 'center' }}>
+                <img
+                  src={item.image}
+                  alt='Exchange Item'
+                  style={{
+                    width: '100%',
+                    height: 'auto',
+                    maxWidth: '300px',
+                    borderRadius: '8px',
+                    paddingTop: '20px',
+                  }}
+                />
+              </div>
+              {item.status !== 'ordered' ? (
+                <div
+                  style={{ marginTop: '20px', textAlign: 'center' }}
+                >
+                  <Popconfirm
+                    title='Are you sure to order this item?'
+                    onConfirm={onOrder}
+                    okText='Yes'
+                    cancelText='No'
+                  >
+                    <Button type='primary' htmlType='submit'>
+                      Order
+                    </Button>
+                  </Popconfirm>
+                </div>
+              ) : null}
+            </Card>
+          </Col>
+        </Row>
       </div>
     </div>
   );

@@ -9,9 +9,11 @@ const ExchangeBoard = () => {
   const { Search } = Input;
 
   const [boardData, setBoardData] = useState([]);
+  const [filteredData, setFilteredData] = useState([]);
 
   useEffect(() => {
     const tempData = localStorage.getItem('boardData');
+
     setBoardData([
       {
         name: 'default item',
@@ -22,7 +24,10 @@ const ExchangeBoard = () => {
       },
     ]);
 
-    if (tempData) setBoardData(tempData);
+    if (tempData) {
+      setBoardData(JSON.parse(tempData));
+      setFilteredData(JSON.parse(tempData));
+    }
   }, []);
 
   const onBack = () => {
@@ -34,15 +39,19 @@ const ExchangeBoard = () => {
   };
 
   const onSearch = (value) => {
-    console.log(value);
+    const filtered = boardData.filter((data) => {
+      return data.name.toLowerCase().includes(value.toLowerCase());
+    });
+
+    setFilteredData(filtered);
   };
 
   const onOrders = () => {
-    navigate('./orders');
+    navigate('/exchange-board/orders');
   };
 
   const onOffers = () => {
-    navigate('./offers');
+    navigate('/exchange-board/offers');
   };
 
   return (
@@ -60,10 +69,11 @@ const ExchangeBoard = () => {
         </div>
       </div>
       <div className='container'>
-        {boardData
-          ? boardData.map((data) => {
+        {filteredData
+          ? filteredData.map((data) => {
               return (
                 <Card
+                  key={data.id}
                   className='exchange-card'
                   title={data.name}
                   extra={
@@ -72,8 +82,8 @@ const ExchangeBoard = () => {
                     </a>
                   }
                 >
-                  <p>{data.desc}</p>
-                  <p>{data.loc}</p>
+                  <p>{data.description}</p>
+                  <p>{data.pickup}</p>
                 </Card>
               );
             })

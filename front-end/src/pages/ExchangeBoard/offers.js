@@ -1,15 +1,21 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Input, Button, Form, Space, Upload, Image } from 'antd';
-import type { GetProp, UploadFile, UploadProps } from 'antd';
+import {
+  Input,
+  Button,
+  Form,
+  Space,
+  Upload,
+  Image,
+  message,
+  Popconfirm,
+} from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
 import '../../styles/ExchangeBoard.css';
 import Header from '../../components/ExchangeBoard/Header/Header';
 
 const Offers = () => {
   const navigate = useNavigate();
-  const { Search } = Input;
-  const { UploadFile } = Upload;
 
   const onBack = () => {
     navigate('/exchange-board');
@@ -19,21 +25,11 @@ const Offers = () => {
     navigate('/');
   };
 
-  const onSearch = (value) => {
-    console.log(value);
+  const confirm = (e) => {
+    message.success('Item submitted successfully');
+    navigate('/exchange-board');
   };
 
-  const onOrders = () => {
-    navigate('./orders');
-  };
-
-  const onOffers = () => {
-    navigate('./offers');
-  };
-
-  const onDetail = (id) => {
-    navigate(`./details/${id}`);
-  };
   const getBase64 = (file) =>
     new Promise((resolve, reject) => {
       const reader = new FileReader();
@@ -72,31 +68,88 @@ const Offers = () => {
     </button>
   );
 
+  const onFinish = (values) => {
+    const currentData = localStorage.getItem('boardData');
+    const newBoardData = currentData ? JSON.parse(currentData) : [];
+    const userData = JSON.parse(localStorage.getItem('current_user'));
+    const newOffer = {
+      name: values.name,
+      description: values.description,
+      pickup: values.pickup,
+      notes: values.notes,
+      image: 'https://picsum.photos/300/300',
+      id: crypto.randomUUID(),
+      owner: userData.id,
+      Buyer: null,
+      status: 'open',
+    };
+
+    newBoardData.push(newOffer);
+    localStorage.setItem('boardData', JSON.stringify(newBoardData));
+  };
+  const onFinishFailed = (errorInfo) => {
+    console.log('Failed:', errorInfo);
+  };
+
   return (
     <div className='outer-container'>
       <div>
         <Header onBack={onBack} onHome={onHome} />
       </div>
-      <div
-        className='container'
+      <Form
+        name='basic'
+        labelCol={{
+          span: 8,
+        }}
+        wrapperCol={{
+          span: 16,
+        }}
         style={{
+          maxWidth: 600,
           width: '300px',
           margin: '0 auto',
-          'padding-top': '50px',
+          paddingTop: '50px',
         }}
+        initialValues={{
+          remember: true,
+        }}
+        onFinish={onFinish}
+        onFinishFailed={onFinishFailed}
+        className='container'
       >
         <Form.Item
-          name='note'
-          label='Note'
-          rules={[{ required: true }]}
+          name='name'
+          label='Name'
+          rules={[{ required: true, message: 'Please input name!' }]}
         >
           <Input />
         </Form.Item>
         <Form.Item
-          name='note'
-          label='Note'
-          rules={[{ required: true }]}
+          name='description'
+          label='Desc'
+          rules={[
+            { required: true, message: 'Please input description!' },
+          ]}
         >
+          <Input />
+        </Form.Item>
+        <Form.Item
+          name='pickup'
+          label='Pick up'
+          rules={[
+            { required: true, message: 'Please input pick up!' },
+          ]}
+        >
+          <Input />
+        </Form.Item>
+        <Form.Item
+          name='notes'
+          label='Notes'
+          rules={[{ required: true, message: 'Please input notes!' }]}
+        >
+          <Input.TextArea />
+        </Form.Item>
+        <Form.Item rules={[{ required: true }]}>
           <div>
             <Upload
               action='https://660d2bd96ddfa2943b33731c.mockapi.io/api/upload'
@@ -104,6 +157,7 @@ const Offers = () => {
               fileList={fileList}
               onPreview={handlePreview}
               onChange={handleChange}
+              width={300}
             >
               {fileList.length >= 8 ? null : uploadButton}
             </Upload>
@@ -125,20 +179,22 @@ const Offers = () => {
           </div>
         </Form.Item>
         <Form.Item
-          name='note'
-          label='Note'
-          rules={[{ required: true }]}
+          style={{ display: 'flex', justifyContent: 'center' }}
         >
-          <Input.TextArea />
-        </Form.Item>
-        <Form.Item>
           <Space>
-            <Button type='primary' htmlType='submit'>
-              Submit
-            </Button>
+            <Popconfirm
+              title='Are you sure to submit this item?'
+              onConfirm={confirm}
+              okText='Yes'
+              cancelText='No'
+            >
+              <Button type='primary' htmlType='submit'>
+                Submit
+              </Button>
+            </Popconfirm>
           </Space>
         </Form.Item>
-      </div>
+      </Form>
     </div>
   );
 };
