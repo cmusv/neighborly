@@ -3,7 +3,7 @@
     height: 100vh;
     margin: auto;
     padding: 20px;
-    border-radius: 8px;
+    border-radius: 12px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     margin-top: 20%;;
   }
@@ -12,6 +12,7 @@
     display: flex;
     justify-content: space-between;
     margin-bottom: 15px;
+    margin-top: 5vh
   }
 
   .narrow-row {
@@ -51,7 +52,7 @@
     color: white;
     background-color: #fbb034;
     border: none;
-    border-radius: 5px;
+    border-radius: 12px;
     cursor: pointer;
     width: 50%;
     margin-top:5vh
@@ -68,7 +69,7 @@
     color: white;
     background-color: #ccc;
     border: none;
-    border-radius: 5px;
+    border-radius: 12px;
     cursor: pointer;
     width: 35%;
     margin-top:5vh;
@@ -81,10 +82,10 @@
     color: white;
     background-color: #fbb034;
     border: none;
-    border-radius: 5px;
+    border-radius: 12px;
     cursor: pointer;
-    min-width: 80px; /* 设置最小宽度 */
-    width: auto; /* 根据内容调整宽度 */
+    min-width: 80px; 
+    width: auto;
     margin-bottom: 5%;
   }
 
