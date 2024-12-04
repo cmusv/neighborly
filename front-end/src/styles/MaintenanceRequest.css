@@ -1,0 +1,112 @@
+.request-details {
+    font-family: Arial, sans-serif;
+    padding: 20px;
+    background-color: #fff;
+    border: 1px solid #e0e0e0;
+    border-radius: 12px;
+    max-width: 95%;
+    margin: 20px auto;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+
+  .details-section label {
+    display: block;
+    margin-bottom: 10px;
+    color: #555;
+  }
+
+  .details-section input.input-field,
+  .details-section textarea.textarea-field {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+    box-sizing: border-box;
+  }
+
+  .details-section textarea.textarea-field {
+    resize: none;
+    height: 60px;
+  }
+  
+  .details-section p {
+    margin: 0;
+    line-height: 1.6;
+    color: #333;
+  }
+  
+  .details-section strong {
+    color: #555;
+  }
+
+  .details-section span {
+    display: inline-block;
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 5px;
+  }
+  
+  .actions {
+    margin: 20px auto;
+    max-width: 360px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 32px;
+  }
+  
+  .action-button {
+    padding: 10px;
+    border: none;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    text-align: center;
+    transition: background-color 0.3s ease;
+  }
+  
+  .action-button.submit {
+    background-color: #e0e0e0;
+    color: #999;
+    cursor: not-allowed;
+  }
+  
+  .action-button.submit.enabled {
+    background-color: #fbbc05;
+    color: #fff;
+    cursor: pointer;
+  }
+  
+  .action-button.back {
+    background-color: #fff;
+    border: #fbbc05 2px solid;
+    padding: 9px;
+    color: #fbbc05;
+  }
+  
+  .action-button.back:hover {
+    background-color: #f9a825;
+  }
+
+  .action-button.start,
+  .action-button.finish {
+    background-color: #e0e0e0;
+    color: #999;
+    cursor: not-allowed;
+  }
+
+  .action-button.start.enabled,
+  .action-button.finish.enabled {
+    background-color: #fbbc05;
+    color: #fff;
+    cursor: pointer;
+  }
+
+  .success-message {
+    color: #f9a825;
+    font-weight: bold;
+    text-align: center;
+  }

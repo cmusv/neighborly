@@ -17,8 +17,10 @@ import ExchangeBoard from './pages/ExchangeBoard/home';
 import PayRent from './pages/PayRent';
 import ChatResident from './pages/ChatResident';
 import ChatManager from './pages/ChatManager';
-import MaintenanceResident from './pages/MaintenanceResident';
-import MaintenanceManager from './pages/MaintenanceManager';
+import MaintenanceResident from "./pages/MaintenanceResident";
+import MaintenanceManager from "./pages/MaintenanceManager";
+import MaintenanceRequest from "./pages/MaintenanceRequest";
+import MaintenanceRequestTrack from "./pages/MaintenanceRequestTrack";
 import { ChatProvider } from '../src/components/Chat/contexts/ChatContext';
 import { UserProvider } from '../src/components/Chat/contexts/UserContext';
 import Orders from './pages/ExchangeBoard/orders';
@@ -120,12 +122,20 @@ const App = () => {
               }
             />
             <Route
-              path='/maintenance-resident'
+              path="/maintenance-resident"
               element={<MaintenanceResident />}
             />
             <Route
-              path='/maintenance-manager'
+              path="/maintenance-manager"
               element={<MaintenanceManager />}
+            />
+            <Route
+              path="/maintenance-request/:id"
+              element={<MaintenanceRequest />}
+            />
+            <Route
+              path="/maintenance-request-track/:id"
+              element={<MaintenanceRequestTrack />}
             />
             <Route path="/pay-rent" element={<PayRent />} />
             <Route path='/select-account' element={<SelectAccount />} />
