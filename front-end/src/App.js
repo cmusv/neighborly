@@ -15,6 +15,8 @@ import ChatResident from "./pages/ChatResident";
 import ChatManager from "./pages/ChatManager";
 import MaintenanceResident from "./pages/MaintenanceResident";
 import MaintenanceManager from "./pages/MaintenanceManager";
+import MaintenanceRequest from "./pages/MaintenanceRequest";
+import MaintenanceRequestTrack from "./pages/MaintenanceRequestTrack";
 import { ChatProvider } from '../src/components/Chat/contexts/ChatContext';
 import { UserProvider } from '../src/components/Chat/contexts/UserContext';
 
@@ -78,6 +80,8 @@ const App = () => {
                         />
                         <Route path="/maintenance-resident" element={<MaintenanceResident />} />
                         <Route path="/maintenance-manager" element={<MaintenanceManager />} />
+                        <Route path="/maintenance-request/:id" element={<MaintenanceRequest />} />
+                        <Route path="/maintenance-request-track/:id" element={<MaintenanceRequestTrack />} />
                     </Routes>
                 </Router>
             </UserProvider>
