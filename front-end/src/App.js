@@ -17,6 +17,7 @@ import { UserProvider } from './contexts/UserContext';
 import SelectAccount from "./pages/SelectAccount";
 import PayAddAccount from "./pages/PayAddAccount";
 import PayThankYou from "./pages/PayThankYou";
+import AccountDetail from "./pages/AccountDetail";
 
 const ChatRouteWrapper = ({ children }) => (
     <ChatProvider>{children}</ChatProvider>
@@ -60,6 +61,7 @@ const App = () => {
                         <Route path='/select-account' element={<SelectAccount />} />
                         <Route path='/add-account' element={<PayAddAccount />} />
                         <Route path='/pay-thank-you' element={<PayThankYou />} />
+                        <Route path='/account-detail' element={<AccountDetail />} />
                         <Route
                             path="/chat-resident"
                             element={
