@@ -4,6 +4,7 @@ import PaymentHeader from "../components/Header/PaymentHeader";
 import AccountRow from "../components/PayRent/AccountRow";
 import { Modal } from "antd";
 import { successModalConfig } from "../components/PayRent/ModalConfig";
+import "../styles/PayRent.css";
 
 const PaymentPage = () => {
   const navigate = useNavigate();
@@ -61,8 +62,9 @@ const PaymentPage = () => {
   return (
     <>
       <PaymentHeader onBack={() => navigate("/")} />
+      <body style={{backgroundColor:"#FFF8EC"}}>
       <div className="pay-rent-container">
-        <h2 className="text-xl font-bold mb-6">Account</h2>
+        <h2 className="text-xl font-bold mb-6" style={{ marginTop:"8vh", marginBottom:"5vh"}}>Account</h2>
 
         {/* 动态渲染账户列表 - 可滚动区域 */}
         <div className="info-container scrollable-list">
@@ -85,6 +87,7 @@ const PaymentPage = () => {
           </button>
         </div>
       </div>
+      </body>
     </>
   );
 };
