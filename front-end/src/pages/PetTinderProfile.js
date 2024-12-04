@@ -32,7 +32,7 @@ const PetTinderProfile = () => {
                 <Button
                     variant="contained"
                     onClick={() => navigate("/")}
-                    sx={{ marginTop: "20px", textTransform: "none" }}
+                    sx={{ marginTop: "12px", textTransform: "none" }}
                 >
                     Back to Home
                 </Button>
@@ -55,7 +55,7 @@ const PetTinderProfile = () => {
             />
             <Box
                 sx={{
-                    backgroundColor: "#f7f7f7",
+                    backgroundColor: "#FFF8EC",
                     minHeight: "100vh",
                     padding: "20px",
                     display: "flex",

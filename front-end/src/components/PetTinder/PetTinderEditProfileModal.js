@@ -71,7 +71,7 @@ const EditProfileModal = ({ open, onClose, currentUser, onUpdate }) => {
                     padding: "16px",
                     maxWidth: "400px",
                     width: "100%",
-                    backgroundColor: "#f7f7f7",
+                    backgroundColor: "#FFF8EC",
                 },
             }}
         >
@@ -200,6 +200,7 @@ const EditProfileModal = ({ open, onClose, currentUser, onUpdate }) => {
                         textTransform: "none",
                         color: "#555",
                         fontWeight: "bold",
+                        borderRadius: "12px"
                     }}
                 >
                     Cancel
@@ -212,6 +213,7 @@ const EditProfileModal = ({ open, onClose, currentUser, onUpdate }) => {
                         color: "white",
                         textTransform: "none",
                         fontWeight: "bold",
+                        borderRadius: "12px",
                         "&:hover": { backgroundColor: "#f2A600" },
                     }}
                 >

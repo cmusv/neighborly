@@ -285,7 +285,7 @@ const PetTinderMatcher = () => {
                             maxWidth: 400,
                             margin: "0 auto",
                             padding: "20px",
-                            borderRadius: "16px",
+                            borderRadius: "12px",
                             boxShadow: "0px 10px 20px rgba(0, 0, 0, 0.1)",
                         }}
                     >
@@ -296,7 +296,7 @@ const PetTinderMatcher = () => {
                             margin: "10px",
                             textTransform: "none",
                             padding: "10px 20px",
-                            borderRadius: "24px",
+                            borderRadius: "12px",
                             fontWeight: "bold",
                             borderColor: "#E58F00",
                             color: "#F2A600",
@@ -317,7 +317,7 @@ const PetTinderMatcher = () => {
                             color: "#ffffff",
                             textTransform: "none",
                             padding: "10px 20px",
-                            borderRadius: "24px",
+                            borderRadius: "12px",
                             fontWeight: "bold",
                             "&:hover": { backgroundColor: "#E58F00" },
                         }}
