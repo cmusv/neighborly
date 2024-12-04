@@ -20,7 +20,7 @@ const ChatSelectionPage = () => {
     const [matchedUsers, setMatchedUsers] = useState([]);
     const navigate = useNavigate();
     const location = useLocation();
-    const { currentUser } = location.state || {};
+    const { currentUser, loggedInUser } = location.state || {};
 
     useEffect(() => {
         const fetchMatchedUsers = async () => {
@@ -57,7 +57,7 @@ const ChatSelectionPage = () => {
                 title={"Pet Tinder"}
                 onBack={handleBack}
                 profilePage={false}
-                currentUser={currentUser}
+                currentUser={loggedInUser}
             />
             <Box sx={{ textAlign: "center", margin: "20px" }}>
                 <Typography variant="h4" gutterBottom>

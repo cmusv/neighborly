@@ -118,7 +118,7 @@ const EditProfileModal = ({ open, onClose, currentUser, onUpdate }) => {
                     <input type="file" accept="image/*" hidden onChange={handlePhotoUpload} />
                 </Button>
                 <TextField
-                    label="Display Name"
+                    label="Pet Name"
                     value={editedName}
                     onChange={(e) => setEditedName(e.target.value)}
                     fullWidth
