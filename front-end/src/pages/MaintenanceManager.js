@@ -10,6 +10,21 @@ const MaintenanceManager = () => {
     const [requests, setRequests] = useState(JSON.parse(localStorage.getItem("requests")) || []);
     const [activeTab, setActiveTab] = useState("unfinished");
 
+    // update request when storage changes
+    useEffect(() => {
+        const handleStorage = () => {
+          setRequests(JSON.parse(localStorage.getItem("requests")) || []);
+        }
+      
+        window.addEventListener('storage', handleStorage)
+        return () => window.removeEventListener('storage', handleStorage)
+      }, [])
+
+    // update request when switch tab
+    useEffect(() => {
+        setRequests(JSON.parse(localStorage.getItem("requests")) || []);
+    }, [activeTab]);
+
     // save to local storage
     useEffect(() => {
         localStorage.setItem("requests", JSON.stringify(requests));
