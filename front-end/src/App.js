@@ -7,6 +7,7 @@ import CommunityHelp from "./pages/CommunityHelp";
 import PetTinder from "./pages/PetTinder";
 import PetTinderMatcher from "./pages/PetTinderMatcher";
 import PetTinderChat from "./pages/PetTinderChat";
+import PetTinderProfile from "./pages/PetTinderProfile";
 import ChatSelectionPage from "./pages/PetTinderChatSelection";
 import ExchangeBoard from "./pages/ExchangeBoard";
 import PayRent from "./pages/PayRent";
@@ -56,6 +57,7 @@ const App = () => {
                         <Route path="/pet-tinder-matcher" element={<PetTinderMatcher />} />
                         <Route path="/pet-tinder-chat-selection" element={<ChatSelectionPage />} />
                         <Route path="/pet-tinder-chat" element={<PetTinderChat />} />
+                        <Route path="/pet-tinder-profile" element={<PetTinderProfile />} />
                         <Route path="/exchange-board" element={<ExchangeBoard />} />
                         <Route path="/pay-rent" element={<PayRent />} />
                         <Route

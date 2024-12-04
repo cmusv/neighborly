@@ -1,12 +1,17 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from "react-router-dom";
 import { Avatar } from '@mui/material';
 import { getPhoto } from '../../utils/indexedDB'; // Fetch the photo from IndexedDB
 import '../../styles/ChatBubble.css';
 
-const ChatBubble = ({ message, isCurrentUser }) => {
-    const { content, senderName, senderID, timestamp } = message;
-    const [senderAvatar, setSenderAvatar] = useState('');
+const ChatBubble = ({ message, currentUser }) => {
+    const navigate = useNavigate();
 
+    // Destructure message fields
+    const { content, senderName, senderID, timestamp } = message;
+    const isCurrentUser = currentUser.userID === senderID; // Compare senderID with currentUser's userID
+    const [senderAvatar, setSenderAvatar] = useState('');
+    console.log('Current User in Bubble', currentUser);
     useEffect(() => {
         const fetchSenderAvatar = async () => {
             if (!isCurrentUser) {
@@ -31,6 +36,13 @@ const ChatBubble = ({ message, isCurrentUser }) => {
                         src={senderAvatar}
                         alt={senderName}
                         className="sender-avatar"
+                        onClick={() =>
+                            navigate("/pet-tinder-profile", { state: { senderID, currentUser } })
+                        }
+                        sx={{
+                            cursor: "pointer",
+                            "&:hover": { boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.2)" },
+                        }}
                     />
                 )}
                 <div className="message-content-wrapper">
