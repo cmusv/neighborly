@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
+import { TextField } from "@mui/material";
 import PaymentHeader from "../components/Header/PaymentHeader";
 import "../styles/PayRent.css";
-import TextField from "@mui/material/TextField";
 
 const PayRent = () => {
   const [amount, setAmount] = useState("");
@@ -47,9 +47,9 @@ const PayRent = () => {
   return (
     <>
       <PaymentHeader onBack={() => navigate("/")} />
-
-      <div className="pay-rent-container" style={{ textAlign: "center" }}>
-        <h2 className="balance-text">Welcome Back, Ruth!</h2>
+      <body>
+      <div className="pay-rent-container" style={{ textAlign: "center", backgroundColor:"#FFF8EC"}}>
+        <h2 className="balance-text" style={{ marginTop:"8vh", marginBottom:"5vh"}}>Welcome Back, Ruth!</h2>
         <p>{statusMessage}</p> {/* 动态显示描述文本 */}
 
         <div className="info-container">
@@ -62,28 +62,34 @@ const PayRent = () => {
             <div className="cell value">$3000</div>
           </div>
           <div className="row">
-            <div className="cell label" style={{marginTop:"2vh"}}>Enter Amount:</div>
+            <div className="cell label">Enter Amount:</div>
             <div className="cell value">
-              <TextField
+            <TextField
                 label="Enter Amount in $"
-                type="number"
                 value={amount}
                 onChange={handleAmountChange}
-                fullWidth
                 variant="outlined"
+                type="number"
+                fullWidth
                 sx={{
-                  "& .MuiOutlinedInput-root": { borderRadius: "12px" },
-                  "& .MuiInputLabel-root, & .MuiInputLabel-root.Mui-focused": {
-                    color: "#F2A600",
-                  },
-                  "& .MuiOutlinedInput-notchedOutline": {
-                    borderColor: "#F2A600",
-                  },
-                  "&:hover .MuiOutlinedInput-notchedOutline": {
-                    borderColor: "#F2A600",
-                  },
+                    "& .MuiOutlinedInput-root": {
+                        borderRadius: "12px",
+                        height: "4vh",
+                    },
+                    "& .MuiInputLabel-root": {
+                        transform: "translate(14px, 8px) scale(1)",
+                        fontSize: "14px",
+                        color: "#F2A600",
+                    },
+                    "& .MuiInputLabel-root.Mui-focused, & .MuiInputLabel-shrink": {
+                        transform: "translate(14px, -10px) scale(0.9)",
+                        color: "#F2A600",
+                    },
+                    "& .MuiOutlinedInput-notchedOutline": {
+                        borderColor: "#F2A600",
+                    },
                 }}
-              />
+            />
             </div>
           </div>
         </div>
@@ -96,6 +102,7 @@ const PayRent = () => {
           Pay
         </button>
       </div>
+      </body>
     </>
   );
 };
