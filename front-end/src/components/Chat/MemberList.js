@@ -31,7 +31,7 @@ const MemberList = ({ onBack }) => {
     
     Modal.confirm({
       ...successModalConfig,
-      content: 'Selected members are removed.',
+      content: 'Selected members will be removed, please confirm.',
       onOk: () => {
         removeMembers(selectedMembers);
         onBack();
