@@ -6,6 +6,7 @@
     border-radius: 8px;
     box-shadow: var(--shadow-sm);
     max-height: 50vh;
+    margin-bottom: 10vh;
     display: flex;
     flex-direction: column;
 }

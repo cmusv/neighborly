@@ -1,7 +1,7 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { Modal } from 'antd';
-import '../styles/Modal.css';
-import { successModalConfig } from '../components/Chat/ModalConfig';
+import '../../../styles/Modal.css';
+import { successModalConfig } from '../../Chat/ModalConfig';
 
 const ChatContext = createContext();
 

@@ -39,3 +39,12 @@
   -ms-overflow-style: none;  /* IE and Edge */
   scrollbar-width: none;  /* Firefox */
 }
+
+.no-messages {
+  text-align: center;
+  margin-top: 20px;
+  color: #888; /* Grey text color */
+}
+.greyed-message {
+  font-style: italic;
+}
