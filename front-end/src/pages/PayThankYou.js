@@ -42,7 +42,7 @@ const PayThankYou = () => {
                 
                 <button
                     onClick={handleBackHome}
-                    className="pay-button"
+                    className="back-button"
                     style={{ marginTop: "8vh" }}
                 >
                     Back

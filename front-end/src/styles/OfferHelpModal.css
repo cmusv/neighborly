@@ -69,12 +69,13 @@
 .modify-button {
     background-color: white;
     color: #f2a600;
-    border: none;
+    border: 1px solid #f2a600;
     border-radius: 12px;
     padding: 8px 12px;
     font-size: 14px;
+    font-weight: bold;
     cursor: pointer;
-    transition: background-color 0.2s ease;
+    transition: background-color 0.2s ease, color 0.2s ease;
     flex: 1;
     text-align: center;
 }
@@ -86,8 +87,9 @@
     border-radius: 12px;
     padding: 8px 12px;
     font-size: 14px;
+    font-weight: bold;
     cursor: pointer;
-    transition: background-color 0.2s ease;
+    transition: background-color 0.2s ease, color 0.2s ease;
     flex: 1;
     text-align: center;
 }
@@ -98,8 +100,8 @@
 }
 
 /* Add Button */
-.confirm-button,
-.add-button {
+.confirm-button-help,
+.add-button-help {
     background-color: #f2a600;
     color: #ffffff;
     border: none;
@@ -114,8 +116,8 @@
     width: fit-content;
 }
 
-.confirm-button:hover,
-.add-button:hover {
+.confirm-button-help:hover,
+.add-button-help:hover {
     background-color: #d18800;
 }
 
