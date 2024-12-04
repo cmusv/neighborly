@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import PaymentHeader from "../components/Header/PaymentHeader";
 import "../styles/PayRent.css";
+import TextField from "@mui/material/TextField";
 
 const PayRent = () => {
   const [amount, setAmount] = useState("");
@@ -27,18 +28,16 @@ const PayRent = () => {
     }
   }, [location.state]);
 
-
   const handleAmountChange = (e) => {
     const value = parseFloat(e.target.value) || 0;
     setAmount(value);
     setIsPayEnabled(value > 0);
   };
 
-
   const handlePay = () => {
     if (amount > 0) {
       navigate("/select-account", {
-        state: { amount, current_balance }, 
+        state: { amount, current_balance },
       });
     } else {
       alert("Please enter a valid amount to pay!");
@@ -63,15 +62,27 @@ const PayRent = () => {
             <div className="cell value">$3000</div>
           </div>
           <div className="row">
-            <div className="cell label">Enter Amount:</div>
+            <div className="cell label" style={{marginTop:"2vh"}}>Enter Amount:</div>
             <div className="cell value">
-              $ <input
+              <TextField
+                label="Enter Amount in $"
                 type="number"
                 value={amount}
                 onChange={handleAmountChange}
-                placeholder="Enter Amount"
-                className="amount-input"
-                style={{ width: "130px" }}
+                fullWidth
+                variant="outlined"
+                sx={{
+                  "& .MuiOutlinedInput-root": { borderRadius: "12px" },
+                  "& .MuiInputLabel-root, & .MuiInputLabel-root.Mui-focused": {
+                    color: "#F2A600",
+                  },
+                  "& .MuiOutlinedInput-notchedOutline": {
+                    borderColor: "#F2A600",
+                  },
+                  "&:hover .MuiOutlinedInput-notchedOutline": {
+                    borderColor: "#F2A600",
+                  },
+                }}
               />
             </div>
           </div>
@@ -84,7 +95,6 @@ const PayRent = () => {
         >
           Pay
         </button>
-        
       </div>
     </>
   );
