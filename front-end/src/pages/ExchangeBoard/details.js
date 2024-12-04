@@ -81,6 +81,10 @@ const Details = () => {
                   }}
                 />
               </div>
+              <div>Owner: {item.owner} </div>
+              {item.status === 'ordered' ? (
+                <div>Buyer: {item.buyer}</div>
+              ) : null}
               {item.status !== 'ordered' ? (
                 item.owner !== curUser?.id ? (
                   <div
