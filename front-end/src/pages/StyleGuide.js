@@ -1,8 +1,43 @@
-import React from "react";
+import React, { useState } from "react";
 import { Box, Typography, Button, Avatar, Paper } from "@mui/material";
+import { Modal } from "antd";
 import Header from "../components/PetTinder/PetTinderHeader";
+import EditProfileModal from "../components/PetTinder/PetTinderEditProfileModal";
+
+const successModalConfig = {
+    centered: true,
+    width: '75vw',
+    maskStyle: {
+        backgroundColor: 'rgba(0, 0, 0, 0.45)'
+    },
+    wrapClassName: 'wide-centered-modal',
+    bodyStyle: {
+        padding: '20px',
+    },
+    style: {
+        maxWidth: '1200px'
+    }
+};
 
 const StyleGuidePage = () => {
+    const [isEditModalOpen, setEditModalOpen] = useState(false);
+
+    const openConfirmationModal = () => {
+        const account = { name: "Savings Account" }; // Example account
+        const amount = 500; // Example amount
+        const current_balance = 1500; // Example current balance
+
+        Modal.confirm({
+            ...successModalConfig,
+            title: "Do you want to pay with this account?",
+            content: `You have selected ${account.name} to pay $${amount} for your rent.`,
+            onOk: () => {
+                console.log("Navigating to payment confirmation");
+                // Example navigation
+            },
+        });
+    };
+
     const handleBack = () => {
         console.log("Back button clicked!");
     };
@@ -17,8 +52,15 @@ const StyleGuidePage = () => {
         console.log("Switch user button clicked!");
     };
 
+    const openEditModal = () => setEditModalOpen(true);
+    const closeEditModal = () => setEditModalOpen(false);
+
+    const updateCurrentUser = (updatedUser) => {
+        console.log("Updated user:", updatedUser);
+    };
+
     return (
-        <Box sx={{ backgroundColor: "#f7f7f7", minHeight: "100vh" }}>
+        <Box sx={{ backgroundColor: "#FFF8EC", minHeight: "100vh" }}>
             <Box
                 sx={{
                     maxWidth: "900px",
@@ -120,10 +162,10 @@ const StyleGuidePage = () => {
                     <Typography>
                         We use a consistent hierarchy for headings and text to maintain clarity:
                     </Typography>
-                    <Typography variant="h1" sx={{ marginTop: "16px" }}>
-                        Page Title (h1)
+                    <Typography variant="h3" sx={{ marginTop: "16px" }}>
+                        Page Title (h3)
                     </Typography>
-                    <Typography variant="h2">Section Title (h2)</Typography>
+                    <Typography variant="h4">Section Title (h4)</Typography>
                     <Typography variant="body1">This is an example of body text (p).</Typography>
                 </Section>
 
@@ -157,6 +199,52 @@ const StyleGuidePage = () => {
                         </Button>
                     </Box>
                 </Section>
+                {/* Modal Section */}
+                <Section title="Modals">
+                    <Typography>
+                        Our application uses modals for tasks like editing profiles or confirming actions. Below is an
+                        example of an editable profile modal:
+                    </Typography>
+                    <Button
+                        variant="contained"
+                        sx={{
+                            backgroundColor: "#F2A600",
+                            color: "#ffffff",
+                            textTransform: "none",
+                            borderRadius: "12px",
+                            "&:hover": { backgroundColor: "#E58F00" },
+                            marginTop: "16px",
+                        }}
+                        onClick={openEditModal}
+                    >
+                        Open Edit Profile Modal
+                    </Button>
+                    <Typography sx={{ marginTop: "24px" }}>
+                        Confirmation modals are used for critical user actions, such as confirming a payment.
+                    </Typography>
+                    <Button
+                        variant="contained"
+                        sx={{
+                            backgroundColor: "#F2A600",
+                            color: "#ffffff",
+                            textTransform: "none",
+                            borderRadius: "12px",
+                            "&:hover": { backgroundColor: "#E58F00" },
+                            marginTop: "16px",
+                        }}
+                        onClick={openConfirmationModal}
+                    >
+                        Open Confirmation Modal
+                    </Button>
+                </Section>
+                {/* Confirmation Modal Section */}
+                {/* Edit Profile Modal */}
+                <EditProfileModal
+                    open={isEditModalOpen}
+                    onClose={closeEditModal}
+                    currentUser={currentUser}
+                    onUpdate={updateCurrentUser}
+                />
             </Box>
         </Box>
     );

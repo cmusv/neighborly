@@ -196,11 +196,18 @@ const EditProfileModal = ({ open, onClose, currentUser, onUpdate }) => {
             >
                 <Button
                     onClick={onClose}
+                    variant="outlined"
                     sx={{
                         textTransform: "none",
-                        color: "#555",
+                        color: "#F2A600",
+                        borderColor: "#E58F00",
                         fontWeight: "bold",
-                        borderRadius: "12px"
+                        borderRadius: "12px",
+                        padding: "8px 16px",
+                        "&:hover": {
+                            backgroundColor: "rgba(242, 166, 0, 0.1)",
+                            borderColor: "#E58F00",
+                        },
                     }}
                 >
                     Cancel
