@@ -12,8 +12,6 @@ const PetTinderProfile = () => {
 
     const { senderID, currentUser } = location.state || {};
 
-    console.log(currentUser);
-
     useEffect(() => {
         const fetchUserProfile = async () => {
             const profiles = await getProfiles();
@@ -34,7 +32,7 @@ const PetTinderProfile = () => {
                 <Button
                     variant="contained"
                     onClick={() => navigate("/")}
-                    sx={{ marginTop: "20px", textTransform: "none" }}
+                    sx={{ marginTop: "12px", textTransform: "none" }}
                 >
                     Back to Home
                 </Button>
@@ -42,6 +40,11 @@ const PetTinderProfile = () => {
         );
     }
     const handleBack = () => navigate("/pet-tinder-chat-selection", { state: { currentUser } });
+
+    const handleNavigateToChat = (matchedUser) => {
+        navigate("/pet-tinder-chat", { state: { currentUser, matchedUser } });
+    };
+
     return (
         <Box>
             <Header
@@ -52,7 +55,7 @@ const PetTinderProfile = () => {
             />
             <Box
                 sx={{
-                    backgroundColor: "#f7f7f7",
+                    backgroundColor: "#FFF8EC",
                     minHeight: "100vh",
                     padding: "20px",
                     display: "flex",
@@ -75,8 +78,8 @@ const PetTinderProfile = () => {
                         src={user.userPhoto || placeholderImage}
                         alt={`${user.userName}'s photo`}
                         sx={{
-                            width: 150,
-                            height: 150,
+                            width: 250,
+                            height: 250,
                             margin: "0 auto 20px",
                             border: "3px solid #e0e0e0",
                         }}

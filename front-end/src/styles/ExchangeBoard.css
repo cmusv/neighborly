@@ -1,0 +1,31 @@
+.search-bar {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+}
+
+.outer-container {
+    background-color: white;
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    top: 0px;
+    bottom: 0px;
+}
+
+.exchange-card {
+    width: 100%;
+}
+
+.ant-btn {
+    background-color: #f1a44d;
+    background: #f1a44d;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    &::after {
+        all: unset;
+    }
+}

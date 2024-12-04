@@ -14,7 +14,7 @@
 
 .modal-content {
     background: white;
-    border-radius: 8px;
+    border-radius: 12px;
     padding: 16px;
     width: 400px;
     max-height: 90%;
@@ -52,7 +52,7 @@
 .helper-card {
     background-color: #fbe4b2;
     padding: 12px;
-    border-radius: 8px;
+    border-radius: 12px;
     margin-bottom: 12px;
     color: black;
     display: flex;
@@ -77,12 +77,12 @@
     background-color: #f2a600;
     color: #ffffff;
     border: none;
-    border-radius: 8px;
+    border-radius: 12px;
     padding: 12px 24px;
     font-size: 14px;
     font-weight: bold;
     cursor: pointer;
-    transition: background-color 0.2s ease;
+    transition: background-color 0.2s ease, color 0.2s ease;
     align-self: center;
 }
 
@@ -116,7 +116,7 @@
     width: 100%;
     padding: 10px;
     border: 1px solid #ccc;
-    border-radius: 8px;
+    border-radius: 12px;
     font-size: 14px;
     background-color: #f9f9f9;
     transition: border-color 0.2s ease, box-shadow 0.2s ease;
@@ -146,11 +146,11 @@
     gap: 8px;
 }
 
-.confirm-button {
+.confirm-button-help {
     background-color: #f2a600;
     color: #ffffff;
     border: none;
-    border-radius: 20px;
+    border-radius: 12px;
     padding: 8px 16px;
     font-size: 14px;
     font-weight: bold;
@@ -160,15 +160,15 @@
     flex: 1;
 }
 
-.confirm-button:hover {
+.confirm-button-help:hover {
     background-color: #d18800;
 }
 
-.back-button {
+.back-button-help {
     background-color: #ffffff;
     color: #f2a600;
     border: 1px solid #f2a600;
-    border-radius: 20px;
+    border-radius: 12px;
     padding: 8px 16px;
     font-size: 14px;
     font-weight: bold;
@@ -178,6 +178,6 @@
     flex: 1;
 }
 
-.back-button:hover {
+.back-button-help:hover {
     background-color: #d18800;
 }

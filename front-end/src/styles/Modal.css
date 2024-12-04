@@ -6,16 +6,37 @@
 .wide-centered-modal .ant-btn-primary {
   background-color: #F2A600 !important;
   border-color: #F2A600 !important;
+  color: #ffffff !important;
+  border-radius: 8px; 
 }
 
 .wide-centered-modal .ant-btn-primary:hover {
-  background-color: #d99500 !important; /* Slightly darker shade for hover */
+  background-color: #d99500 !important; 
   border-color: #d99500 !important;
 }
 
 .wide-centered-modal .ant-btn-primary:active {
-  background-color: #c08500 !important; /* Even darker shade for active state */
+  background-color: #c08500 !important; 
   border-color: #c08500 !important;
+}
+
+.wide-centered-modal .ant-btn-default {
+  background-color: #ffffff !important;
+  color: #F2A600 !important;
+  border: 1px solid #F2A600 !important; 
+  border-radius: 8px !important;
+}
+
+.wide-centered-modal .ant-btn-default:hover {
+  background-color: rgba(242, 166, 0, 0.1) !important;
+  border-color: #F2A600 !important; 
+  color: #d99500 !important;
+}
+
+.wide-centered-modal .ant-btn-default:active {
+  background-color: rgba(242, 166, 0, 0.2) !important;
+  border-color: #c08500 !important; 
+  color: #c08500 !important; 
 }
 
 @media (max-width: 768px) {

@@ -1,3 +1,8 @@
+.community-help-page {
+    background-color: #FFF8EC;
+    height: 100vh;
+}
+
 /* Buttons Container */
 .help-buttons-container {
     display: flex;
@@ -9,6 +14,7 @@
     width: 100%;
     padding: 8px 16px;
     z-index: 100;
+    background-color: #FFF8EC;
 }
 
 /* Offer Help Button */
@@ -16,7 +22,7 @@
     background-color: #ffffff;
     color: #f2a600;
     border: 1px solid #f2a600;
-    border-radius: 8px;
+    border-radius: 12px;
     padding: 12px 24px;
     font-size: 16px;
     font-weight: bold;
@@ -36,7 +42,7 @@
     background-color: #f2a600;
     color: #ffffff;
     border: none;
-    border-radius: 8px;
+    border-radius: 12px;
     padding: 12px 24px;
     font-size: 16px;
     font-weight: bold;
