@@ -16,3 +16,16 @@
 .exchange-card {
     width: 100%;
 }
+
+.ant-btn {
+    background-color: #f9db99;
+    background: #f9db99;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    &::after {
+        all: unset;
+    }
+}
