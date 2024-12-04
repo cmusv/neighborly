@@ -13,17 +13,6 @@ const ExchangeBoard = () => {
 
   useEffect(() => {
     const tempData = localStorage.getItem('boardData');
-
-    setBoardData([
-      {
-        name: 'default item',
-        desc: 'default description',
-        loc: '115',
-        note: null,
-        id: '114514',
-      },
-    ]);
-
     if (tempData) {
       setBoardData(JSON.parse(tempData));
       setFilteredData(JSON.parse(tempData));
@@ -75,7 +64,9 @@ const ExchangeBoard = () => {
                   }
                 >
                   <p>{data.description}</p>
-                  <p>{data.pickup}</p>
+                  <p style={{ color: 'gray' }}>
+                    Please pick up at {data.pickup}
+                  </p>{' '}
                 </Card>
               );
             })
