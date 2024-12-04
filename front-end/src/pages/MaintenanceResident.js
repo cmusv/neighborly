@@ -4,14 +4,11 @@ import Header from "../components/MaintenanceRequests/Header";
 import ActiveSelector from "../components/MaintenanceRequests/ActiveSelector";
 import RequestEntry from "../components/MaintenanceRequests/RequestEntry";
 
-const sample_requests = {
-    1: { id: 1, title: "Leaky Faucet", priority: 0, isNew: true, isFinished: false, time: 123123123, building: "Building A", room: "101", location: "Kitchen", description: "The faucet in the kitchen is leaking.", contact: "John Doe", status: "Request Submitted" },
-};
 
 const MaintenanceResident = () => {
     const navigate = useNavigate();
     // initialize from local storage
-    const [requests, setRequests] = useState(JSON.parse(localStorage.getItem("requests")) || sample_requests);
+    const [requests, setRequests] = useState(JSON.parse(localStorage.getItem("requests")) || []);
     const [activeTab, setActiveTab] = useState("unfinished");
 
     // save to local storage
