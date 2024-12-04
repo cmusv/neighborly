@@ -19,6 +19,10 @@ const Offers = () => {
   const navigate = useNavigate();
 
   const confirm = (e) => {
+    if (fileList.length === 0) {
+      message.error('Please upload an image');
+      return;
+    }
     message.success('Item submitted successfully');
     navigate('/exchange-board');
   };
@@ -62,6 +66,9 @@ const Offers = () => {
   );
 
   const onFinish = async (values) => {
+    if (fileList.length === 0) {
+      return;
+    }
     const currentData = localStorage.getItem('boardData');
     const newBoardData = currentData ? JSON.parse(currentData) : [];
     const userData = JSON.parse(localStorage.getItem('current_user'));
@@ -72,7 +79,7 @@ const Offers = () => {
       const photoBase64 = reader.result;
       await savePhoto(photoId, photoBase64); // Save photo to IndexedDB
     };
-    reader.readAsDataURL(fileList[0].originFileObj);
+    reader.readAsDataURL(fileList[0]?.originFileObj);
 
     const newOffer = {
       name: values.name,
@@ -91,7 +98,7 @@ const Offers = () => {
   };
 
   const onFinishFailed = (errorInfo) => {
-    message.error('Failed:', errorInfo);
+    message.error('Please fill all fields');
   };
 
   return (
