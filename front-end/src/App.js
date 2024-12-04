@@ -24,6 +24,10 @@ import { UserProvider } from '../src/components/Chat/contexts/UserContext';
 import Orders from './pages/ExchangeBoard/orders';
 import Offers from './pages/ExchangeBoard/offers';
 import Details from './pages/ExchangeBoard/details';
+import SelectAccount from "./pages/SelectAccount";
+import PayAddAccount from "./pages/PayAddAccount";
+import PayThankYou from "./pages/PayThankYou";
+import AccountDetail from "./pages/AccountDetail";
 
 const ChatRouteWrapper = ({ children }) => (
   <ChatProvider>{children}</ChatProvider>
@@ -121,6 +125,11 @@ const App = () => {
               path='/maintenance-manager'
               element={<MaintenanceManager />}
             />
+            <Route path="/pay-rent" element={<PayRent />} />
+            <Route path='/select-account' element={<SelectAccount />} />
+            <Route path='/add-account' element={<PayAddAccount />} />
+            <Route path='/pay-thank-you' element={<PayThankYou />} />
+            <Route path='/account-detail' element={<AccountDetail />} />
           </Routes>
         </Router>
       </UserProvider>

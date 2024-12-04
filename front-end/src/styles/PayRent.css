@@ -1,0 +1,127 @@
+.pay-rent-container {
+    text-align: center;
+    height: 100vh;
+    margin: auto;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin-top: 20%;;
+  }
+  
+  .row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+  }
+
+  .narrow-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 3vh;
+    /* border-bottom: 2px solid #ccc; */
+  }
+
+  .account-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 3vh;
+    border-bottom: 1px solid #ccc;
+  }
+  
+  
+  .narrow-row-font{
+    font-size: 15px;
+    margin-top: 0.7vh;
+    margin-left: 2vw;
+  }
+
+  .cell {
+    padding: 10px;
+  }
+  
+  .amount-input {
+    width: 80px;
+    padding: 5px;
+    font-size: 16px;
+  }
+  
+  .pay-button {
+    padding: 10px 20px;
+    font-size: 16px;
+    color: white;
+    background-color: #fbb034;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 50%;
+    margin-top:5vh
+  }
+  
+  .pay-button.disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+  }
+
+  .back-button {
+    padding: 10px 20px;
+    font-size: 16px;
+    color: white;
+    background-color: #ccc;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 35%;
+    margin-top:5vh;
+    margin-right: 5vw
+  }
+
+  .short-pay-button {
+    padding: 10px 20px;
+    font-size: 12px;
+    color: white;
+    background-color: #fbb034;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    min-width: 80px; /* 设置最小宽度 */
+    width: auto; /* 根据内容调整宽度 */
+    margin-bottom: 5%;
+  }
+
+  .payment-info-small {
+    font-size: 13px;
+    margin: 0;
+  }
+  
+  .payment-info {
+    font-size: 13px;
+    margin: 0;
+  }
+
+  .scrollable-list {
+    max-height: 50vh;
+    overflow-y: auto;
+    padding-right: 3vw;
+    padding-left: 3vw;
+    border-radius: 8px;
+  }
+  
+  .scrollable-list::-webkit-scrollbar {
+    width: 8px;
+  }
+  
+  .scrollable-list::-webkit-scrollbar-thumb {
+    background-color: #ccc;
+    border-radius: 4px;
+  }
+  
+  .scrollable-list::-webkit-scrollbar-thumb:hover {
+    background-color: #aaa;
+  }
+  
+  .error-msg{
+    color: rgb(197, 10, 10);
+    font-size: 13px;
+    margin-top: 0.7vh;
+    margin-left: 2vw;
+  }
