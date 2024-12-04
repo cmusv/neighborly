@@ -27,13 +27,15 @@ const MaintenanceRequestTrack = () => {
         contact: "",
     });
 
+    // check contact format
+    const matchContact = /^((\+?\d{1,2}\s?)?(\(\d{3}\)?|\d{3})[\s.-]?\d{3}[\s.-]?\d{4})|([\w-.]+@([\w-]+\.)+[\w-]{2,4})$/;
     const isFormValid =
         formData.title &&
         formData.building &&
         formData.room &&
         formData.location &&
         formData.description &&
-        formData.contact;
+        matchContact.test(formData.contact);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -129,7 +131,7 @@ const MaintenanceRequestTrack = () => {
                     <label>
                     <strong>Contact:</strong>
                     <input
-                        type="text"
+                        type="tel"
                         name="contact"
                         placeholder="(000) 000-0000"
                         className="input-field"
