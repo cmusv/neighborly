@@ -52,7 +52,7 @@ const MaintenanceResident = () => {
                             key={index}
                             title={request.title}
                             priority={request.priority}
-                            isNew={request.isNew}
+                            isNew={false}
                             onClick={() => navigate(`/maintenance-request-track/${request.id}`)}
                         />
                     ))}
