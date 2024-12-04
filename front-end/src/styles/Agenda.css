@@ -32,6 +32,7 @@
 .agenda-scrollable {
     overflow-y: auto;
     padding-right: 8px; /* For smoother scrolling experience */
+    padding-bottom: 50px;
 }
 
 .agenda-list {
