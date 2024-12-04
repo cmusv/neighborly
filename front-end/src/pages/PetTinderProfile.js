@@ -12,8 +12,6 @@ const PetTinderProfile = () => {
 
     const { senderID, currentUser } = location.state || {};
 
-    console.log(currentUser);
-
     useEffect(() => {
         const fetchUserProfile = async () => {
             const profiles = await getProfiles();
@@ -42,6 +40,11 @@ const PetTinderProfile = () => {
         );
     }
     const handleBack = () => navigate("/pet-tinder-chat-selection", { state: { currentUser } });
+
+    const handleNavigateToChat = (matchedUser) => {
+        navigate("/pet-tinder-chat", { state: { currentUser, matchedUser } });
+    };
+
     return (
         <Box>
             <Header
