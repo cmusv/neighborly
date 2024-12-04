@@ -75,7 +75,7 @@ const PayAddAccount = () => {
       <PaymentHeader onBack={handleBack} />
       <div className="pay-rent-container">
         <div className="w-full max-w-md bg-white p-6 rounded-lg shadow">
-          <h2 className="text-lg font-bold mb-6 text-center">Add Account</h2>
+          <h2 className="text-lg font-bold mb-6 text-center" style={{marginBottom:"5vh"}}>Add Account</h2>
           {errorMessage && <p className="error-msg">{errorMessage}</p>}
           <form className="space-y-4">
             <div className="info-container">
