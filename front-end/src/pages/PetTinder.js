@@ -100,7 +100,7 @@ const PetTinder = () => {
                 currentUser={currentUser}
                 onSwitchUser={handleSwitchUser}
             />
-            <Box sx={{ backgroundColor: "#f5f5f7", minHeight: "100vh", padding: "16px" }}>
+            <Box sx={{ backgroundColor: "#FFF8EC", minHeight: "100vh", padding: "16px" }}>
                 <Box sx={{ textAlign: "center", marginTop: "16px" }}>
                     <Box
                         sx={{
@@ -147,8 +147,20 @@ const PetTinder = () => {
                             <strong>Pending Matches:</strong> {currentUser.pendingList?.join(", ") || "No pending users."}
                         </Typography>
                         <Button
-                            variant="contained"
-                            sx={{ color: "white", margin: "8px", borderRadius: "20px", padding: "8px 24px", backgroundColor: "#28a745",}}
+                            variant="outlined"
+                            sx={{
+                                textTransform: "none",
+                                color: "#F2A600",
+                                borderColor: "#E58F00",
+                                margin: "8px",
+                                borderRadius: "12px", // Consistent roundness with other buttons
+                                padding: "8px 24px",
+                                fontWeight: "bold",
+                                "&:hover": {
+                                    backgroundColor: "rgba(242, 166, 0, 0.1)",
+                                    borderColor: "#E58F00",
+                                },
+                            }}
                             onClick={openEditModal}
                         >
                             Edit Profile
@@ -157,7 +169,7 @@ const PetTinder = () => {
                     <Box>
                         <Button
                             variant="contained"
-                            sx={{ color: "white", margin: "8px", borderRadius: "20px", padding: "8px 24px", backgroundColor: "#ff6sff",}}
+                            sx={{ color: "white", margin: "8px", borderRadius: "12px", padding: "8px 24px", backgroundColor: "#ff6sff",}}
                             onClick={() => navigate("/pet-tinder-matcher", { state: { currentUser } })}
                         >
                             Enter Pet Date Matcher
@@ -172,9 +184,9 @@ const PetTinder = () => {
                         position: "fixed",
                         bottom: 20,
                         right: 20,
-                        backgroundColor: "#007aff",
+                        backgroundColor: "#E58F00",
                         color: "white",
-                        "&:hover": { backgroundColor: "#005bb5" },
+                        "&:hover": { backgroundColor: "#E58F00" },
                     }}
                     onClick={() => navigate("/pet-tinder-chat-selection", { state: { currentUser } })}
                 >

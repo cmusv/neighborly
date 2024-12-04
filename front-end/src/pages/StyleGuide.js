@@ -134,7 +134,13 @@ const StyleGuidePage = () => {
                         Primary Button should always be on the right to meet human intuition.
                     </Typography>
                     <Box sx={{ display: "flex", gap: "10px", marginTop: "10px" }}>
-                        <Button variant="outlined" sx={{ textTransform: "none" }}>
+                        <Button
+                            variant="outlined"
+                            sx={{
+                                textTransform: "none",
+                                borderRadius: "12px" // Adjusted for a rounder appearance
+                            }}
+                        >
                             Secondary Button
                         </Button>
                         <Button
@@ -143,6 +149,7 @@ const StyleGuidePage = () => {
                                 backgroundColor: "#F2A600",
                                 color: "#ffffff",
                                 textTransform: "none",
+                                borderRadius: "12px", // Adjusted for a rounder appearance
                                 "&:hover": { backgroundColor: "#E58F00" },
                             }}
                         >
