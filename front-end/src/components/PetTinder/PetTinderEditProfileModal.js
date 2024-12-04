@@ -89,51 +89,52 @@ const EditProfileModal = ({ open, onClose, currentUser, onUpdate }) => {
                 sx={{
                     display: "flex",
                     flexDirection: "column",
-                    alignItems: "center",
+                    alignItems: "stretch", // Align children to stretch full width
                     padding: "16px",
+                    gap: "16px", // Consistent spacing between items
                 }}
             >
-                <Avatar
-                    src={previewPhoto || "https://via.placeholder.com/100?text=Profile"}
-                    alt={currentUser?.userName || "Profile Photo"}
+                <Box
                     sx={{
-                        width: 120,
-                        height: 120,
-                        marginBottom: "16px",
-                        border: "2px solid #e0e0e0",
-                    }}
-                />
-                <Button
-                    variant="contained"
-                    component="label"
-                    sx={{
-                        marginBottom: "16px",
-                        backgroundColor: "#f2A600",
-                        color: "white",
-                        textTransform: "none",
-                        "&:hover": { backgroundColor: "#f2A600" },
+                        display: "flex",
+                        flexDirection: "column",
+                        alignItems: "center",
+                        gap: "16px",
                     }}
                 >
-                    Change Photo
-                    <input type="file" accept="image/*" hidden onChange={handlePhotoUpload} />
-                </Button>
+                    <Avatar
+                        src={previewPhoto || "https://via.placeholder.com/100?text=Profile"}
+                        alt={currentUser?.userName || "Profile Photo"}
+                        sx={{
+                            width: 120,
+                            height: 120,
+                            border: "2px solid #e0e0e0",
+                        }}
+                    />
+                    <Button
+                        variant="contained"
+                        component="label"
+                        sx={{
+                            backgroundColor: "#f2A600",
+                            color: "white",
+                            textTransform: "none",
+                            "&:hover": { backgroundColor: "#f2A600" },
+                        }}
+                    >
+                        Change Photo
+                        <input type="file" accept="image/*" hidden onChange={handlePhotoUpload} />
+                    </Button>
+                </Box>
                 <TextField
                     label="Pet Name"
                     value={editedName}
                     onChange={(e) => setEditedName(e.target.value)}
                     fullWidth
-                    margin="dense"
                     variant="outlined"
                     sx={{
-                        marginBottom: "16px",
-                        "& .MuiOutlinedInput-root": {
-                            borderRadius: "12px",
-                        },
-                        "& .MuiInputLabel-root": {
-                            color: "#F2A600", // Change label color here
-                        },
-                        "& .MuiInputLabel-root.Mui-focused": {
-                            color: "#F2A600", // Change label color when focused
+                        "& .MuiOutlinedInput-root": { borderRadius: "12px" },
+                        "& .MuiInputLabel-root, & .MuiInputLabel-root.Mui-focused": {
+                            color: "#F2A600",
                         },
                     }}
                 />
@@ -143,18 +144,11 @@ const EditProfileModal = ({ open, onClose, currentUser, onUpdate }) => {
                     value={editedSex}
                     onChange={(e) => setEditedSex(e.target.value)}
                     fullWidth
-                    margin="dense"
                     variant="outlined"
                     sx={{
-                        marginBottom: "16px",
-                        "& .MuiOutlinedInput-root": {
-                            borderRadius: "12px",
-                        },
-                        "& .MuiInputLabel-root": {
-                            color: "#F2A600", // Change label color here
-                        },
-                        "& .MuiInputLabel-root.Mui-focused": {
-                            color: "#F2A600", // Change label color when focused
+                        "& .MuiOutlinedInput-root": { borderRadius: "12px" },
+                        "& .MuiInputLabel-root, & .MuiInputLabel-root.Mui-focused": {
+                            color: "#F2A600",
                         },
                     }}
                 >
@@ -170,25 +164,17 @@ const EditProfileModal = ({ open, onClose, currentUser, onUpdate }) => {
                         />
                     }
                     label="Neutered"
-                    sx={{ marginBottom: "16px" }}
                 />
                 <TextField
                     label="Apartment Number"
                     value={editedApartmentNumber}
                     onChange={(e) => setEditedApartmentNumber(e.target.value)}
                     fullWidth
-                    margin="dense"
                     variant="outlined"
                     sx={{
-                        marginBottom: "16px",
-                        "& .MuiOutlinedInput-root": {
-                            borderRadius: "12px",
-                        },
-                        "& .MuiInputLabel-root": {
-                            color: "#F2A600", // Change label color here
-                        },
-                        "& .MuiInputLabel-root.Mui-focused": {
-                            color: "#F2A600", // Change label color when focused
+                        "& .MuiOutlinedInput-root": { borderRadius: "12px" },
+                        "& .MuiInputLabel-root, & .MuiInputLabel-root.Mui-focused": {
+                            color: "#F2A600",
                         },
                     }}
                 />
@@ -200,7 +186,6 @@ const EditProfileModal = ({ open, onClose, currentUser, onUpdate }) => {
                         />
                     }
                     label="Have Other Pets"
-                    sx={{ marginBottom: "16px" }}
                 />
             </DialogContent>
             <DialogActions
