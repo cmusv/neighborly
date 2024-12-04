@@ -280,36 +280,51 @@ const PetTinderMatcher = () => {
 
                 {/* Action Buttons */}
                 <Box sx={{ marginTop: "30px" }}>
+                    <Card
+                        sx={{
+                            maxWidth: 400,
+                            margin: "0 auto",
+                            padding: "20px",
+                            borderRadius: "16px",
+                            boxShadow: "0px 10px 20px rgba(0, 0, 0, 0.1)",
+                        }}
+                    >
+                    <Button
+                        variant="outlined"
+                        onClick={() => handleNo(currentProfile.userID)}
+                        sx={{
+                            margin: "10px",
+                            textTransform: "none",
+                            padding: "10px 20px",
+                            borderRadius: "24px",
+                            fontWeight: "bold",
+                            borderColor: "#E58F00",
+                            color: "#F2A600",
+                            "&:hover": {
+                                backgroundColor: "rgba(242, 166, 0, 0.1)",
+                                borderColor: "#E58F00",
+                            },
+                        }}
+                    >
+                        Next Time
+                    </Button>
                     <Button
                         variant="contained"
                         onClick={handleYes}
                         sx={{
                             margin: "10px",
-                            backgroundColor: "#4caf50",
-                            color: "white",
+                            backgroundColor: "#F2A600",
+                            color: "#ffffff",
+                            textTransform: "none",
                             padding: "10px 20px",
                             borderRadius: "24px",
                             fontWeight: "bold",
-                            "&:hover": { backgroundColor: "#45a049" },
+                            "&:hover": { backgroundColor: "#E58F00" },
                         }}
                     >
                         Let's Play
                     </Button>
-                    <Button
-                        variant="contained"
-                        onClick={() => handleNo(currentProfile.userID)}
-                        sx={{
-                            margin: "10px",
-                            backgroundColor: "#f44336",
-                            color: "white",
-                            padding: "10px 20px",
-                            borderRadius: "24px",
-                            fontWeight: "bold",
-                            "&:hover": { backgroundColor: "#e53935" },
-                        }}
-                    >
-                        Next Time
-                    </Button>
+                    </Card>
                 </Box>
 
                 {/* Match Modal */}
@@ -336,38 +351,40 @@ const PetTinderMatcher = () => {
                         </Typography>
                         <Box sx={{ display: "flex", justifyContent: "center" }}>
                             <Button
+                                variant="outlined"
+                                onClick={() => setShowMatchModal(false)}
+                                sx={{
+                                    textTransform: "none",
+                                    color: "#F2A600",
+                                    borderColor: "#E58F00",
+                                    padding: "8px 16px",
+                                    borderRadius: "20px",
+                                    fontWeight: "bold",
+                                    "&:hover": {
+                                        backgroundColor: "rgba(242, 166, 0, 0.1)",
+                                        borderColor: "#E58F00",
+                                    },
+                                }}
+                            >
+                                Close
+                            </Button>
+                            <Button
                                 variant="contained"
                                 onClick={() =>
                                     navigate("/pet-tinder-chat", { state: { currentUser, matchedUser } })
                                 }
                                 sx={{
-                                    marginRight: "10px",
-                                    backgroundColor: "#4caf50",
-                                    color: "white",
+                                    marginRight: "16px", // Increased spacing between buttons
+                                    backgroundColor: "#F2A600",
+                                    color: "#ffffff",
+                                    textTransform: "none",
                                     padding: "8px 16px",
                                     borderRadius: "20px",
                                     fontWeight: "bold",
-                                    "&:hover": { backgroundColor: "#45a049" },
+                                    "&:hover": { backgroundColor: "#E58F00" },
                                 }}
                             >
                                 Go to Chat
-                            </Button>
-                            <Button
-                                variant="outlined"
-                                onClick={() => setShowMatchModal(false)}
-                                sx={{
-                                    marginLeft: "10px",
-                                    color: "#f44336",
-                                    borderColor: "#f44336",
-                                    padding: "8px 16px",
-                                    borderRadius: "20px",
-                                    fontWeight: "bold",
-                                    "&:hover": {
-                                        backgroundColor: "rgba(244, 67, 54, 0.1)",
-                                    },
-                                }}
-                            >
-                                Close
                             </Button>
                         </Box>
                     </Box>

@@ -15,6 +15,9 @@ import ChatResident from "./pages/ChatResident";
 import ChatManager from "./pages/ChatManager";
 import MaintenanceResident from "./pages/MaintenanceResident";
 import MaintenanceManager from "./pages/MaintenanceManager";
+
+import StyleGuidePage from "./pages/StyleGuide";
+
 import { ChatProvider } from '../src/components/Chat/contexts/ChatContext';
 import { UserProvider } from '../src/components/Chat/contexts/UserContext';
 
@@ -60,6 +63,7 @@ const App = () => {
                         <Route path="/pet-tinder-profile" element={<PetTinderProfile />} />
                         <Route path="/exchange-board" element={<ExchangeBoard />} />
                         <Route path="/pay-rent" element={<PayRent />} />
+                        <Route path="/style-guide" element={<StyleGuidePage />} />
                         <Route
                             path="/chat-resident"
                             element={
