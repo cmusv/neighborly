@@ -17,14 +17,6 @@ import Header from '../../components/ExchangeBoard/Header/Header';
 const Offers = () => {
   const navigate = useNavigate();
 
-  const onBack = () => {
-    navigate('/exchange-board');
-  };
-
-  const onHome = () => {
-    navigate('/');
-  };
-
   const confirm = (e) => {
     message.success('Item submitted successfully');
     navigate('/exchange-board');
@@ -79,7 +71,7 @@ const Offers = () => {
       notes: values.notes,
       image: 'https://picsum.photos/300/300',
       id: crypto.randomUUID(),
-      owner: userData.id,
+      owner: userData?.id,
       Buyer: null,
       status: 'open',
     };
@@ -94,7 +86,7 @@ const Offers = () => {
   return (
     <div className='outer-container'>
       <div>
-        <Header onBack={onBack} onHome={onHome} />
+        <Header />
       </div>
       <Form
         name='basic'
@@ -183,13 +175,13 @@ const Offers = () => {
         >
           <Space>
             <Popconfirm
-              title='Are you sure to submit this item?'
+              title='Are you sure to offer this item?'
               onConfirm={confirm}
               okText='Yes'
               cancelText='No'
             >
               <Button type='primary' htmlType='submit'>
-                Submit
+                Offer
               </Button>
             </Popconfirm>
           </Space>
