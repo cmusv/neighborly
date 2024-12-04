@@ -1,9 +1,12 @@
-import React from "react";
-import Header from "../components/MaintenanceRequests/Header";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import Header from "../components/MaintenanceRequests/Header";
+import ActiveSelector from "../components/MaintenanceRequests/ActiveSelector";
 
 const MaintenanceResident = () => {
     const navigate = useNavigate();
+    const [activeTab, setActiveTab] = useState("unfinished");
+
     return (
         <>
             <Header
@@ -14,6 +17,7 @@ const MaintenanceResident = () => {
                     {label: "Add", onClick: () => navigate("/maintenance/new")}
                 ] }
             />
+            <ActiveSelector active={activeTab} setActive={setActiveTab} />
         </>
     );
 };
