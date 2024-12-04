@@ -1,12 +1,19 @@
 import React from "react";
+import Header from "../components/MaintenanceRequests/Header";
+import { useNavigate } from "react-router-dom";
 
 const MaintenanceManager = () => {
+    const navigate = useNavigate();
     return (
-        <div className="bg-accent min-h-screen flex items-center justify-center">
-            <h1 className="text-secondary font-bold text-2xl">
-                Maintenance List as Manager Page
-            </h1>
-        </div>
+        <>
+            <Header
+                title="Maintenance Requests"
+                back={ {onClick: () => navigate("/"), label: "Home"} }
+                options={ [
+                    {label: "Edit", onClick: () => alert("Edit Clicked")}
+                ] }
+            />
+        </>
     );
 };
 
