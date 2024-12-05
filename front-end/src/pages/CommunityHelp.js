@@ -48,7 +48,7 @@ const CommunityHelp = () => {
                 </>
             ),
             okText: 'Yes',
-            cancelText: 'Cancel',
+            cancelText: 'No',
             onOk: () => executeCancel(sortedIndex, sortedAgenda),
         });
     };

@@ -50,7 +50,9 @@
 
 /* Availability Card */
 .availability-card {
-    background-color: #fbe4b2;
+    background-color: #ffffff;
+    border: 1px solid #f2a600;
+    font-size: 14px;
     padding: 8px;
     border-radius: 12px;
     margin-bottom: 8px;

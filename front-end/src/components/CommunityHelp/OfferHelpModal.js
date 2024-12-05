@@ -147,7 +147,7 @@ const OfferHelpModal = ({ selectedDate, onClose }) => {
                 </>
             ),
             okText: "Yes",
-            cancelText: "Cancel",
+            cancelText: "No",
             onOk: () => executeCancel(index),
         });
     };
