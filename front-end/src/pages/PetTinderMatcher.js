@@ -4,7 +4,7 @@ import { Profile, getProfiles, getPhoto, saveProfile, saveMutualMatch, updatePro
 import { Box, Typography, Avatar, Button, Modal, Card } from "@mui/material";
 import Header from "../components/PetTinder/PetTinderHeader";
 import { ArrowBack, ArrowForward } from "@mui/icons-material"; // Import Material-UI Icons
-import { IconButton } from "@mui/material";
+import { IconButton, Snackbar, Alert, Paper } from "@mui/material";
 
 const PetTinderMatcher = () => {
     const [profiles, setProfiles] = useState([]);
@@ -56,6 +56,12 @@ const PetTinderMatcher = () => {
         fetchPendingProfiles();
     }, [currentUser, noUserIDs]);
 
+    const [openSnackbar, setOpenSnackbar] = useState(false);
+
+    const handleSnackbarClose = () => {
+        setOpenSnackbar(false);
+    };
+
     const handleYes = async () => {
         if (currentMatchIndex < 0 || currentMatchIndex >= profiles.length) {
             setNoMoreUsers(true);
@@ -91,6 +97,8 @@ const PetTinderMatcher = () => {
             setShowMatchModal(true); // Show the match modal
         } else {
             // Move to the next profile if no mutual match
+            setOpenSnackbar(true);
+
             moveToNextProfile(matchedUser.userID);
         }
     };
@@ -390,6 +398,37 @@ const PetTinderMatcher = () => {
                     </Box>
                 </Modal>
             </Box>
+            <Snackbar
+                open={openSnackbar}
+                anchorOrigin={{ vertical: "center", horizontal: "center" }}
+                onClose={handleSnackbarClose}
+                sx={{
+                    position: "absolute",
+                    top: "50%",
+                    left: "50%",
+                    transform: "translate(-50%, -50%)",
+                }}
+            >
+                <Paper
+                    sx={{
+                        width: 350,
+                        bgcolor: "background.paper",
+                        boxShadow: "0px 10px 20px rgba(0, 0, 0, 0.2)",
+                        padding: "20px",
+                        textAlign: "center",
+                        borderRadius: "16px",
+                    }}
+                >
+                    <Typography variant="body1" sx={{ fontWeight: "bold", marginBottom: "8px" }}>
+                        Your action has been recorded.
+                    </Typography>
+                    <Typography variant="body2">
+                        Once the other player also likes you, you can start chatting with them via the chat page.
+                        <br />
+                        For demo purposes, go to the profile page, switch users, and like your current user!
+                    </Typography>
+                </Paper>
+            </Snackbar>
         </Box>
     );
 };

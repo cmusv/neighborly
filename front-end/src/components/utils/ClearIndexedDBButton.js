@@ -9,9 +9,9 @@ const ClearIndexedDBButton = () => {
             window.location.reload(); // Reload to reset the app state
         }
     };
-
+    //  display: "none"
     return (
-        <button onClick={handleClearDB} style={{ marginTop: "20px", padding: "10px", backgroundColor: "#f44336", color: "white", border: "none", borderRadius: "5px", cursor: "pointer", display: "none" }}>
+        <button onClick={handleClearDB} style={{ marginTop: "20px", padding: "10px", backgroundColor: "#f44336", color: "white", border: "none", borderRadius: "5px", cursor: "pointer", display: "none"}}>
             Clear All Data
         </button>
     );
