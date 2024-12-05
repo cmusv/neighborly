@@ -48,7 +48,7 @@ const PetTinderProfile = () => {
     return (
         <Box>
             <Header
-                title="Pet Tinder Profile"
+                title="Profile"
                 onBack={handleBack}
                 profilePage={false}
                 currentUser={currentUser}
