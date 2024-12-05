@@ -5,7 +5,7 @@ import { ArrowLeftOutlined } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
 import "../../styles/ChatHeader.css";
 
-const Header = ({ title, onBack, profilePage, currentUser, onSwitchUser }) => {
+const Header = ({ title, onBackText, onBack, profilePage, currentUser, onSwitchUser }) => {
     const navigate = useNavigate();
     const [currentUserAvatar, setCurrentUserAvatar] = useState(currentUser?.userPhoto || null);
 
@@ -18,8 +18,8 @@ const Header = ({ title, onBack, profilePage, currentUser, onSwitchUser }) => {
         <header className="chat-header">
             {/* Back Button */}
             <div className="chat-header-left" onClick={onBack}>
-                <ArrowLeftOutlined className="chat-back-icon" />
-                <span className="chat-home-text">Back</span>
+                <ArrowLeftOutlined className="chat-back-icon"/>
+                <span className="chat-home-text">{title === "Pet Tinder Profile" ? "Home" : "Back"}</span>
             </div>
 
             {/* Centered Title */}
@@ -59,7 +59,7 @@ const Header = ({ title, onBack, profilePage, currentUser, onSwitchUser }) => {
                             <Avatar
                                 src={currentUserAvatar}
                                 alt={currentUser?.userName || "User"}
-                                sx={{ width: 30, height: 30 }}
+                                sx={{width: 30, height: 30}}
                             />
                             {currentUser?.userName || "My Profile"}
                         </Button>
