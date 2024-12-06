@@ -113,7 +113,7 @@ const Orders = () => {
         <Header />
       </div>
       <div className='search-bar'>
-        <Search onSearch={onSearch} style={{ width: 200 }} />
+        <Search onSearch={onSearch} style={{ width: 150 }} />
         <div>
           <Button style={{ right: '20px' }} onClick={onOrders}>
             Orders

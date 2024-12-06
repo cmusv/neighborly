@@ -18,8 +18,13 @@ const Details = () => {
   React.useEffect(() => {
     const func = async () => {
       if (item !== null) {
-        const photo = await getPhoto(item.image);
-        setPhoto(photo);
+        const isURL = /^https?:\/\//.test(item.image);
+        if (isURL) {
+          setPhoto(item.image); // 如果是 URL，直接设置
+        } else {
+          const photo = await getPhoto(item.image);
+          setPhoto(photo);
+        }
       }
     };
     func();

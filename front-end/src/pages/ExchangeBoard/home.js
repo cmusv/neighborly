@@ -13,9 +13,33 @@ const ExchangeBoard = () => {
 
   useEffect(() => {
     const tempData = localStorage.getItem('boardData');
+
+    const defaultData = {
+      id: crypto.randomUUID(),
+      name: 'Chair',
+      description: 'A computer chair, old but in good condition',
+      pickup: '205',
+      owner: 'Hugo',
+      image:
+        'https://img.kwcdn.com/product/fancy/d46e4937-d9fe-4fcf-bf0d-de7093fde51b.jpg?imageView2/2/w/264/q/70/format/webpazaqzazQ',
+    };
     if (tempData) {
-      setBoardData(JSON.parse(tempData));
-      setFilteredData(JSON.parse(tempData));
+      let newData = [...JSON.parse(tempData)];
+      if (
+        newData.filter((data) => data.name === 'Chair').length === 0
+      ) {
+        newData = [...newData, defaultData];
+      }
+      localStorage.setItem('boardData', JSON.stringify(newData));
+      setBoardData(newData);
+      setFilteredData(newData);
+    } else {
+      localStorage.setItem(
+        'boardData',
+        JSON.stringify([defaultData])
+      );
+      setBoardData([defaultData]);
+      setFilteredData([defaultData]);
     }
   }, []);
 
@@ -41,7 +65,7 @@ const ExchangeBoard = () => {
         <Header />
       </div>
       <div className='search-bar'>
-        <Search onSearch={onSearch} style={{ width: 200 }} />
+        <Search onSearch={onSearch} style={{ width: 150 }} />
         <div>
           <Button style={{ right: '20px' }} onClick={onOrders}>
             Orders
