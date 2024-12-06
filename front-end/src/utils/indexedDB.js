@@ -136,7 +136,6 @@ export async function getPhoto(userID) {
   const db = await initDB();
   const photoRecord = await db.get(PHOTO_STORE, userID);
   return photoRecord?.photo || '';
-  console.log(db);
 }
 
 // Save a mutual match

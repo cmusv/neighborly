@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Button, Popconfirm, message } from 'antd';
 import { Card, Row, Col } from 'antd';
 import '../../styles/ExchangeBoard.css';
@@ -6,6 +7,7 @@ import Header from '../../components/ExchangeBoard/Header/Header';
 import { getPhoto } from '../../utils/indexedDB';
 
 const Details = () => {
+  const navigate = useNavigate();
   let item = null;
   const curData = JSON.parse(localStorage.getItem('boardData'));
   const curUser = JSON.parse(localStorage.getItem('current_user'));
@@ -28,7 +30,7 @@ const Details = () => {
       }
     };
     func();
-  }, []);
+  }, [item]);
 
   const onOrder = () => {
     if (item.owner === curUser?.id) {
@@ -37,7 +39,7 @@ const Details = () => {
     }
 
     if (item.status === 'ordered') {
-      message.success('This item has already been ordered');
+      message.warning('This item has already been ordered');
       return;
     }
 
@@ -47,6 +49,7 @@ const Details = () => {
       item;
     localStorage.setItem('boardData', JSON.stringify(curData));
     message.success('Item ordered successfully');
+    navigate('/exchange-board');
   };
 
   return (
