@@ -69,7 +69,7 @@ const MaintenanceRequestTrack = () => {
         <>
             <Header
                 title={isNew ? "New Request" : request.title}
-                back={{ onClick: handleBack, label: "My Requests" }}
+                back={{ onClick: handleBack, label: "Back" }}
             />
             <div className="request-details">
                 {isNew ? (
@@ -134,7 +134,7 @@ const MaintenanceRequestTrack = () => {
                         type="tel"
                         name="contact"
                         placeholder="(000) 000-0000"
-                        className="input-field"
+                        className={`input-field ${formData.contact === "" || matchContact.test(formData.contact) ? "" : "invalid"}`}
                         value={formData.contact}
                         onChange={handleChange}
                     />
