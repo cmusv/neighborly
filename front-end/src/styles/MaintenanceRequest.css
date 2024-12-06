@@ -31,6 +31,13 @@
     resize: none;
     height: 60px;
   }
+
+  .details-section input.input-field.invalid,
+  .details-section textarea.textarea-field.invalid {
+    border-color: #f44336;
+    border-width: 2px;
+    padding: 7px;
+  }
   
   .details-section p {
     margin: 0;
