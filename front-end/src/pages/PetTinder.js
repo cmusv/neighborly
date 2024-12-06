@@ -35,8 +35,8 @@ const PetTinder = () => {
     const placeholderImage = "https://via.placeholder.com/100?text=Upload+Photo";
 
     const rawProfiles = [
-        createProfile(0, "bucky123", "Bucky", "", [], [], "", false, "", false),
-        createProfile(1, "john456", "John", "", [], [], "", false, "", false),
+        createProfile(0, "Mary", "Max", "", [], [], "", false, "", false),
+        createProfile(1, "Hugo", "Harry", "", [], [], "", false, "", false),
         createProfile(2, "test1", "Test", "", [], [], "Female", false, "305", false),
         createProfile(3, "test2", "Test2", "", [], [], "Female", false, "201", true),
     ];
