@@ -37,7 +37,7 @@ const MaintenanceRequest = () => {
         <>
             <Header
                 title={request.title || "Request Not Found"}
-                back={{ onClick: handleBack, label: "Requests" }}
+                back={{ onClick: handleBack, label: "Back" }}
             />
             <div className="request-details">
                 <div className="details-section">

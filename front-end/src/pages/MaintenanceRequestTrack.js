@@ -69,7 +69,7 @@ const MaintenanceRequestTrack = () => {
         <>
             <Header
                 title={isNew ? "New Request" : request.title}
-                back={{ onClick: handleBack, label: "My Requests" }}
+                back={{ onClick: handleBack, label: "Back" }}
             />
             <div className="request-details">
                 {isNew ? (
