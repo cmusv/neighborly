@@ -47,7 +47,7 @@ const PayRent = () => {
   return (
     <>
       <PaymentHeader onBack={() => navigate("/")} />
-      <body>
+      <body style={{overflow:"hidden"}}>
       <div className="pay-rent-container" style={{ textAlign: "center", backgroundColor:"#FFF8EC"}}>
         <h2 className="balance-text" style={{ marginTop:"8vh", marginBottom:"5vh"}}>Welcome Back, Ruth!</h2>
         <p>{statusMessage}</p> {/* 动态显示描述文本 */}

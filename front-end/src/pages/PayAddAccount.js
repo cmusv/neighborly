@@ -20,7 +20,7 @@ const PayAddAccount = () => {
 
   const handleBackHome = () => {
     navigate("/pay-rent", {
-      state: { updatedBalance: current_balance + amount },
+      state: { updatedBalance: current_balance },
     });
   };
 
