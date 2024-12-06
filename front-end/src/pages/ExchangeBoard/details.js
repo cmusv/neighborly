@@ -52,7 +52,7 @@ const Details = () => {
   return (
     <div className='outer-container'>
       <div>
-        <Header />
+        <Header buttonType='back' />
       </div>
       <div
         className='container'

@@ -62,7 +62,7 @@ const ExchangeBoard = () => {
   return (
     <div className='outer-container'>
       <div>
-        <Header />
+        <Header buttonType='home' />
       </div>
       <div className='search-bar'>
         <Search onSearch={onSearch} style={{ width: 150 }} />

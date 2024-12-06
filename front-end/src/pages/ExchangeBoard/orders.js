@@ -110,7 +110,7 @@ const Orders = () => {
   return (
     <div className='outer-container'>
       <div>
-        <Header />
+        <Header buttonType='back' />
       </div>
       <div className='search-bar'>
         <Search onSearch={onSearch} style={{ width: 150 }} />
