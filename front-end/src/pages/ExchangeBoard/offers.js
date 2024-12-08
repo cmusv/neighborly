@@ -104,7 +104,7 @@ const Offers = () => {
   return (
     <div className='outer-container'>
       <div>
-        <Header />
+        <Header buttonType='back' />
       </div>
       <Form
         name='basic'
@@ -136,7 +136,7 @@ const Offers = () => {
         </Form.Item>
         <Form.Item
           name='description'
-          label='Desc'
+          label='Description'
           rules={[
             { required: true, message: 'Please input description!' },
           ]}
@@ -145,7 +145,7 @@ const Offers = () => {
         </Form.Item>
         <Form.Item
           name='pickup'
-          label='Pick up'
+          label='Pick up location and time'
           rules={[
             { required: true, message: 'Please input pick up!' },
           ]}
@@ -162,7 +162,14 @@ const Offers = () => {
         <Form.Item rules={[{ required: true }]}>
           <div>
             <Upload
-              action='https://660d2bd96ddfa2943b33731c.mockapi.io/api/upload'
+              customRequest={
+                // mock successful upload
+                ({ file, onSuccess }) => {
+                  setTimeout(() => {
+                    onSuccess('ok');
+                  }, 0);
+                }
+              }
               listType='picture-card'
               fileList={fileList}
               onPreview={handlePreview}
